@@ -1,7 +1,17 @@
-<template>
+<template lang="pug">
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    .hp
+      .hp__logo
+        img(src='./assets/dhruid.svg')
+
+      .hp__socials
+        a(href='https://instagram.com/dhruidmusic', target='_blank', rel='noreferrer noopener')
+          img(src='./assets/instagram.svg')
+        a(href='https://soundcloud.com/dhruid', target='_blank', rel='noreferrer noopener')
+          img(src='./assets/soundcloud.svg')
+
+      .hp__bookings
+    .hp__bg
   </div>
 </template>
 
@@ -17,12 +27,47 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.hp {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &__bg {
+    background-image: url('./assets/hp.jpg');
+    background-size: cover;
+    background-position: center center;
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: -1;
+  }
+
+  &__logo {
+    margin-top: 10em;
+    max-height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  &__socials {
+    display: flex;
+    justify-content: center;
+    a {
+      margin: 0 1em;
+      width: 50px;
+      height: 50px;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
 }
 </style>
