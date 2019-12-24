@@ -1,7 +1,7 @@
 <template lang="pug">
   main
     .login
-      form.login__form(:action="serverURL+'/api-v1/login'", method="POST")
+      form.login__form(:action="serverURL+'/api-v1/login'", method="POST" v-if="!isLoggedIn")
         .field
           label.login__form__username--label='Username'
           input.login__form__username(name='username', v-model='uname')
@@ -9,11 +9,13 @@
           label.login__form__password--label='Password'
           input.login__form__password(name='password', type="password", v-model='pwd')
         button(type='submit', @click='login')='Submit'
+      .logout(v-else='')
+        span="You're already logged in."
+        button(@click="logout")="Log out."
+
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   props: {
     serverURL: String
@@ -21,21 +23,20 @@ export default {
   mounted () {
     this.serverURL = window.serverURL
   },
+  computed: {
+    isLoggedIn () {
+      return !!this.$store.state.isLoggedIn
+    }
+  },
   methods: {
     login (e) {
+      let payload = { uname: this.uname, pwd: this.pwd }
       e.preventDefault()
-      let url = `${window.serverURL}/api-v1/login`
-      console.log('fetching..', url)
-      var fetchOptions = {
-        method: 'POST',
-        body: { username: this.uname, password: this.pwd }
-      }
-      axios.post(url, fetchOptions.body)
-        .then(res => {
-          if (res.ok) {
-
-          }
-        })
+      this.$store.dispatch('logIn', payload)
+    },
+    logout (e) {
+      e.preventDefault()
+      this.$store.dispatch('logOut')
     }
   }
 }

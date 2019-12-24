@@ -12,8 +12,6 @@
 
       .hp__bookings
     .hp__bg
-
-    button(@click="login")='Login'
 </template>
 
 <script>
