@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     login (e) {
-      let payload = { uname: this.uname, pwd: this.pwd }
+      let payload = { username: this.uname, password: this.pwd }
       e.preventDefault()
       this.$store.dispatch('logIn', payload)
     },

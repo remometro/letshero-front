@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// import axios from 'axios'
 
 Vue.config.productionTip = false
 
@@ -16,6 +17,8 @@ function setServerURL () {
 }
 
 setServerURL()
+
+// axios.defaults.withCredentials = true
 
 new Vue({
   router,
