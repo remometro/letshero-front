@@ -3,23 +3,25 @@
     .bookings
       ul.bookings__list
          li.bookings__item(v-for="booking in userData.bookedDates")="({{booking.country}}) - {{booking.city}} - {{parseDate(booking.date)}} - {{booking.project}} - {{booking.link}}"
-      form.login__form(v-if="isLoggedIn")
+          button.bookings__form__link--remove.bookings__form__item--remove(@click="removeBooking(booking._id)")="x"
+      form.bookings__form(v-if="isLoggedIn")
         .field
-          label.login__form__country--label='Country'
-          input.login__form__country(name='country', v-model='country')
+          label.bookings__form__country--label='Country'
+          input.bookings__form__country(name='country', v-model='country')
         .field
-          label.login__form__city--label='City'
-          input.login__form__city(name='city', v-model='city')
+          label.bookings__form__city--label='City'
+          input.bookings__form__city(name='city', v-model='city')
         .field
-          label.login__form__date--label='Date'
-          input.login__form__date(type='datetime-local' name='Date', v-model='date')
+          label.bookings__form__date--label='Date'
+          input.bookings__form__date(type='datetime-local' name='Date', v-model='date')
         .field
-          label.login__form__project--label='Project'
-          input.login__form__project(name='project', v-model='project')
+          label.bookings__form__project--label='Project'
+          input.bookings__form__project(name='project', v-model='project')
         .field
-          label.login__form__link--label='Link'
-          input.login__form__link(name='link', v-model='link')
-        button(type='submit', @click='addBooking')='Submit'
+          label.bookings__form__link--label='Link'
+          input.bookings__form__link(name='link', v-model='link')
+        button(type='submit', @click='addBooking')='Add booking'
+        input(type="reset")
       .logout(v-else='')
         span="You need to login first."
         <router-link to="/login">Login</router-link>
@@ -55,14 +57,17 @@ export default {
       let parsed = new Date(date)
       parsed = parsed.toLocaleString()
       return parsed
-      // return `${parsed.getUTCDate()}/${parsed.getUTCMonth()}/${parsed.getFullYear()}`
+    },
+    removeBooking (id) {
+      console.log(id)
+      this.$store.dispatch('deleteBooking', id)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  .login {
+  .bookings {
     &__form {
       display: flex;
       flex-direction: column;
