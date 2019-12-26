@@ -103,6 +103,7 @@ export default {
       this.project = booking.project
       this.link = booking.link
       this.id = booking._id
+      this.format = booking.format
     },
     toggleAddBooking () {
       this.mode = 'Add'
@@ -112,6 +113,7 @@ export default {
       this.project = ''
       this.link = ''
       this.id = ''
+      this.format = ''
     },
     editBooking (e) {
       e.preventDefault()
