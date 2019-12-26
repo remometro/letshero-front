@@ -12,6 +12,8 @@ let serverURL = ''
 function setServerURL () {
   if (process.env.NODE_ENV === 'development') {
     serverURL = 'http://localhost:3000'
+  } else {
+    serverURL = 'https://dhruid.com'
   }
 
   window.serverURL = serverURL
