@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     userId: '',
-    userData: {}
+    userData: {},
+    bookingsData: [],
+    allBookingsData: []
   },
   mutations: {
     performLogin (state, payload) {
@@ -29,6 +31,12 @@ export default new Vuex.Store({
       state.userId = payload._id
       state.isLoggedIn = true
       state.userData = payload
+    },
+    consolidateBookingsData (state, payload) {
+      state.bookingsData = payload
+    },
+    consolidateAllBookingsData (state, payload) {
+      state.allBookingsData = payload
     }
   },
   actions: {
@@ -77,6 +85,24 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('booking added')
             this.dispatch('fetchUserData')
+            this.dispatch('fetchAllBookingsData')
+          }
+        })
+    },
+    editBooking (context, payload) {
+      let url = `${window.serverURL}/api-v1/bookings`
+      console.log('editing booking...', payload)
+      let { id, ...newload } = payload
+      let data = { payload: newload, id: payload.id }
+      axios.put(url, data, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('booking updated')
+            this.dispatch('fetchUserData')
+            this.dispatch('fetchAllBookingsData')
           }
         })
     },
@@ -94,13 +120,14 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('booking deleted')
             this.dispatch('fetchUserData')
+            this.dispatch('fetchAllBookingsData')
           }
         })
     },
     fetchUserData () {
-      console.log('axios ', axios.defaults.headers.common['Authorization'])
       let url = `${window.serverURL}/api-v1/userdata`
       let data = { id: this.state.userId }
+      console.log('fetching user data...')
       axios.post(url, data, { headers: {
         'Content-Type': 'application/json'
       },
@@ -109,6 +136,28 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('user data fetched', res)
             this.commit('consolidateUserData', res.data)
+          }
+        })
+    },
+    fetchBookingsData () {
+      let url = `${window.serverURL}/api-v1/bookings`
+      console.log('fetching bookings data...')
+      axios.get(url, { withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('fetched bookings data.')
+            this.commit('consolidateBookingsData', res.data)
+          }
+        })
+    },
+    fetchAllBookingsData () {
+      let url = `${window.serverURL}/api-v1/allbookings`
+      console.log('fetching ALL bookings data...')
+      axios.get(url, { withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('fetched  ALL bookings data.')
+            this.commit('consolidateAllBookingsData', res.data)
           }
         })
     }
