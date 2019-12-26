@@ -29,8 +29,6 @@
         h1.hp__contact__title.hp__box__title="Bookings"
         img.hp__contact__details(src="../assets/contact.svg" alt="Contact details")
     .hp__bg
-    .hp__footer
-      small.hp__footer__copy="© Copyright {{new Date().getUTCFullYear()}} - Irmãos Reale Desenvolvimento de Softwares Ltda."
 </template>
 
 <script>
@@ -190,22 +188,6 @@ export default {
       max-width: 350px;
       width: 100%;
     }
-  }
-
-  &__footer {
-    height: 5px;
-    background-color: #f9f9f9;
-    color: #333333;
-    font-family: $font-main;
-    height: 30px;
-    background-color: #f9f9f9;
-    color: #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    left: 0;
   }
 }
 </style>

@@ -1,4 +1,4 @@
-<template>
+<template lang="pug">
   <div id="app">
     <div id="nav-logged" class="nav" v-if="isLogged">
       <router-link to="/">Home</router-link> |
@@ -11,6 +11,8 @@
       <router-link to="/login">Login</router-link>
     </div>
     <router-view/>
+    .hp__footer
+      small.hp__footer__copy="© Copyright {{new Date().getUTCFullYear()}} - Irmãos Reale Desenvolvimento de Softwares Ltda."
   </div>
 </template>
 
@@ -79,5 +81,28 @@ export default {
   width: 100%;
   top: 0;
   left: 0;
+}
+.hp {
+  &__footer {
+    height: fit-content;
+    padding: 1em;
+    background-color: #f9f9f9;
+    color: #333333;
+    font-family: $font-main;
+    background-color: #f9f9f9;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    left: 0;
+
+    &__copy {
+      max-width: 50%;
+    }
+  }
 }
 </style>
