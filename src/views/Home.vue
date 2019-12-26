@@ -23,6 +23,7 @@
               span.hp__bookings__item__details__country="({{booking.country}} -"
               span.hp__bookings__item__details__city="  {{booking.city}})"
               span.hp__bookings__item__details__project=" - {{booking.project}}"
+              span.hp__bookings__item__details__project=" - {{booking.format}}"
 
       section.hp__contact.hp__box
         h1.hp__contact__title.hp__box__title="Bookings"
