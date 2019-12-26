@@ -120,7 +120,7 @@ export default {
       let year = this.date.substr(0, 4)
       let month = this.date.substr(5, 2) - 1
       let day = this.date.substr(8, 2)
-      let parsedDate = new Date(Date.UTC(year, month, day))
+      let parsedDate = new Date(Date.UTC(year, month, day, 23, 59))
 
       let payload = { payload: { country: this.country, city: this.city, date: parsedDate, project: this.project, link: this.link, format: this.format }, id: this.id }
       this.$store.dispatch('editBooking', payload)
