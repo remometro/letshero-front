@@ -10,7 +10,8 @@ export default new Vuex.Store({
     userId: '',
     userData: {},
     bookingsData: [],
-    allBookingsData: []
+    allBookingsData: [],
+    liveStreaming: {}
   },
   mutations: {
     performLogin (state, payload) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     consolidateAllBookingsData (state, payload) {
       state.allBookingsData = payload
+    },
+    consolidateLiveStreamingData (state, payload) {
+      state.liveStreaming = payload
     }
   },
   actions: {
@@ -158,6 +162,21 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('fetched  ALL bookings data.')
             this.commit('consolidateAllBookingsData', res.data)
+          }
+        })
+    },
+    fetchLiveStreamingData () {
+      let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`
+      let apiKey = `AIzaSyAXGRFq8s2EKP4g_LFIk7zuZf9MHivJ9DI`
+      let url = `https://www.googleapis.com/youtube/v3/search?eventType=live&part=snippet&channelId=${ytId}&type=video&key=${apiKey}`
+      console.log('fetching live streaming data...')
+      axios.get(url)
+        .then(res => {
+          if (res.status === 200) {
+            console.log('fetched  live streams data', res.data)
+            if (res.data !== this.state.liveStreaming) {
+              this.commit('consolidateLiveStreamingData', res.data)
+            }
           }
         })
     }
