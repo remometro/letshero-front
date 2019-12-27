@@ -20,6 +20,12 @@
         h1.hp__sounds__title.hp__box__title="Latest Sounds"
         <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/79985529&color=%23333333&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=false"></iframe>
 
+      section.hp__insta.hp__box(v-if="instagramData && instagramData.length > 0")
+        h1.hp__insta__title.hp__box__title="Instagram"
+        .hp__insta__grid
+          a.hp__insta__grid__image--container(v-for="image in instagramData", href="https://instagram.com/dhruidmusic", target="_blank", rel="noreferrer noopener")
+            img.hp__insta__grid__image(:src="image")
+
       section.hp__bookings.hp__box(v-if="bookingsData.length > 0")
         h1.hp__bookings__title.hp__box__title="Next Dates"
         .hp__bookings__year(v-for="year in bookingsData")="{{Object.keys(year)[0]}}"
@@ -54,11 +60,16 @@ export default {
     },
     liveStreaming () {
       return this.$store.state.liveStreaming
+    },
+    instagramData () {
+      return this.$store.state.instagram
     }
   },
   mounted () {
     this.$store.dispatch('fetchBookingsData')
     this.$store.dispatch('fetchLiveStreamingData')
+    this.$store.dispatch('fetchInstagramData')
+    console.log('insta', this.instagramData)
     // setInterval(() => {
     //   if (this.liveStreaming && this.liveStreaming.items && this.liveStreaming.items.length > 0) {
     //     this.$store.dispatch('fetchLiveStreamingData')
@@ -143,6 +154,10 @@ export default {
     font-family: $font-main;
     padding: 3em;
     letter-spacing: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     @include sm {
       font-size: 12px;
@@ -201,6 +216,22 @@ export default {
     &__details {
       max-width: 350px;
       width: 100%;
+    }
+  }
+
+  &__insta {
+    &__grid {
+        display: grid;
+      grid-template-columns: 200px 200px 200px;
+      grid-gap: 20px;
+      &__image {
+        width: 100%;
+        &--container {
+          max-height: 200px;
+          max-width: 200px;
+          overflow: hidden;
+        }
+      }
     }
   }
 }

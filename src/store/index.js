@@ -41,6 +41,9 @@ export default new Vuex.Store({
     },
     consolidateLiveStreamingData (state, payload) {
       state.liveStreaming = payload
+    },
+    consolidateInstagramData (state, payload) {
+      state.instagram = payload
     }
   },
   actions: {
@@ -177,6 +180,20 @@ export default new Vuex.Store({
             if (res.data !== this.state.liveStreaming) {
               this.commit('consolidateLiveStreamingData', res.data)
             }
+          }
+        })
+    },
+    fetchInstagramData () {
+      let url = `https://www.instagram.com/dhruidmusic/?__a=1`
+      console.log('fetching instagram data...')
+      axios.get(url)
+        .then(res => {
+          if (res.status === 200) {
+            let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.map(el => {
+              return el.node.thumbnail_src
+            })
+            console.log('fetched  instagram data', images)
+            this.commit('consolidateInstagramData', images)
           }
         })
     }
