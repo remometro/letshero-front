@@ -222,13 +222,13 @@ export default {
   &__insta {
     &__grid {
         display: grid;
-      grid-template-columns: 200px 200px 200px;
+      grid-template-columns: minmax(50px, 33%) minmax(50px, 33%) minmax(50px, 33%);
       grid-gap: 20px;
       &__image {
         width: 100%;
         &--container {
-          max-height: 200px;
-          max-width: 200px;
+          max-height: 100%;
+          max-width: 100%;
           overflow: hidden;
         }
       }
