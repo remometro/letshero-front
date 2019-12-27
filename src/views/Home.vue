@@ -23,8 +23,11 @@
       section.hp__insta.hp__box(v-if="instagramData && instagramData.length > 0")
         h1.hp__insta__title.hp__box__title="Instagram"
         .hp__insta__grid
-          a.hp__insta__grid__image--container(v-for="image in instagramData", href="https://instagram.com/dhruidmusic", target="_blank", rel="noreferrer noopener")
-            img.hp__insta__grid__image(:src="image")
+          .hp__insta__grid__image--container(v-for="image in instagramData")
+            a.hp__insta__grid__image--link(:href="image.link", target="_blank", rel="noreferrer noopener")
+              .hp__insta__grid__image--overlay
+                .hp__insta__grid__image--overlay--text="{{image.text}}"
+              img.hp__insta__grid__image(:src="image.image")
 
       section.hp__bookings.hp__box(v-if="bookingsData.length > 0")
         h1.hp__bookings__title.hp__box__title="Next Dates"
@@ -226,10 +229,38 @@ export default {
       grid-gap: 20px;
       &__image {
         width: 100%;
+        height: 100%;
         &--container {
           max-height: 100%;
           max-width: 100%;
           overflow: hidden;
+          position: relative;
+        }
+        &--overlay {
+          opacity: 0;
+          transition: all .8s;
+          z-index: 1;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &--text {
+            padding: 2em;
+
+            @include sm {
+              display: none;
+            }
+          }
+
+          &:hover {
+            opacity: .6;
+            background-color: #333333;
+            color: #f9f9f9;
+            transition: all .8s;
+          }
         }
       }
     }

@@ -191,7 +191,10 @@ export default new Vuex.Store({
         .then(res => {
           if (res.status === 200) {
             let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.map(el => {
-              return el.node.thumbnail_src
+              let url = `https://instagram.com/dhruidmusic/p/${el.node.shortcode}`
+              let image = el.node.thumbnail_src
+              let text = el.node.edge_media_to_caption.edges[0].node.text
+              return { 'image': image, 'text': text.length > 160 ? text.substring(0, 160) + '...' : text, 'link': url }
             })
             console.log('fetched  instagram data', images)
             this.commit('consolidateInstagramData', images)
