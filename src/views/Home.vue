@@ -157,11 +157,6 @@ export default {
     font-family: $font-main;
     padding: 3em;
     letter-spacing: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     @include sm {
       font-size: 12px;
     }
@@ -223,6 +218,10 @@ export default {
   }
 
   &__insta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     &__grid {
         display: grid;
       grid-template-columns: minmax(50px, 33%) minmax(50px, 33%) minmax(50px, 33%);
