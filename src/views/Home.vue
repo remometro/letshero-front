@@ -9,6 +9,10 @@
           img(src='../assets/instagram.svg')
         a(href='https://soundcloud.com/dhruid', target='_blank', rel='noreferrer noopener')
           img(src='../assets/soundcloud.svg')
+        a(href='https://open.spotify.com/show/5LLoTb92zFWRP5qBm74Pbw?si=CFPIA86SSwG1Uv9GaFm0Ew', target='_blank', rel='noreferrer noopener')
+          img(src='../assets/spotify.svg')
+        a(href='https://www.youtube.com/channel/UCyhZSljGzQ5da_u-n2uR--Q', target='_blank', rel='noreferrer noopener')
+          img(src='../assets/youtube.svg')
 
       section.hp__live.hp__box(v-if="liveStreaming && liveStreaming.data && liveStreaming.data.length > 0")
         h1.hp__live__title.hp__box__title="Now Live"
@@ -160,8 +164,7 @@ export default {
       align-items: center;
 
       img {
-        width: 40px;
-        height: 40px;
+        width: 80%;
       }
     }
   }
