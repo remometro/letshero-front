@@ -10,10 +10,13 @@
         a(href='https://soundcloud.com/dhruid', target='_blank', rel='noreferrer noopener')
           img(src='../assets/soundcloud.svg')
 
-      section.hp__live.hp__box(v-if="liveStreaming && liveStreaming.items && liveStreaming.items.length > 0")
+      section.hp__live.hp__box(v-if="liveStreaming && liveStreaming.data && liveStreaming.data.length > 0")
         h1.hp__live__title.hp__box__title="Now Live"
         <div style="position:relative;padding-top:56.25%;">
-          <iframe src="https://www.youtube.com/embed/live_stream?channel=UCyhZSljGzQ5da_u-n2uR--Q" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          //-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCyhZSljGzQ5da_u-n2uR--Q" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          //- .twitch-embed
+          <iframe src="https://player.twitch.tv/?channel=dhruid"  frameborder="0" scrolling="no" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+        </iframe>
         </div>
 
       section.hp__sounds.hp__box
@@ -44,6 +47,19 @@
         h1.hp__contact__title.hp__box__title="Bookings"
         img.hp__contact__details(src="../assets/contact.svg" alt="Contact details")
     .hp__bg
+    //- .twitch-embed-settings(v-if="liveStreaming && liveStreaming.data && liveStreaming.data.length > 0")
+
+    //-   //- <!-- Load the Twitch embed script -->
+    //-   <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+    //-   //- <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+    //-   <script type="text/javascript">
+    //-   new Twitch.Embed("twitch-embed", {
+    //-     width: 854,
+    //-     height: 480,
+    //-     channel: "monstercat"
+    //-   });
+    //-   </script>
 </template>
 
 <script>
@@ -73,11 +89,9 @@ export default {
     this.$store.dispatch('fetchLiveStreamingData')
     this.$store.dispatch('fetchInstagramData')
     console.log('insta', this.instagramData)
-    // setInterval(() => {
-    //   if (this.liveStreaming && this.liveStreaming.items && this.liveStreaming.items.length > 0) {
-    //     this.$store.dispatch('fetchLiveStreamingData')
-    //   }
-    // }, 10000)
+    setInterval(() => {
+      this.$store.dispatch('fetchLiveStreamingData')
+    }, 5000)
   },
   methods: {
     parsedDate (date) {

@@ -170,11 +170,23 @@ export default new Vuex.Store({
         })
     },
     fetchLiveStreamingData () {
-      let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`
-      let apiKey = `AIzaSyAXGRFq8s2EKP4g_LFIk7zuZf9MHivJ9DI`
-      let url = `https://www.googleapis.com/youtube/v3/search?eventType=live&part=snippet&channelId=${ytId}&type=video&key=${apiKey}`
+      // let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`
+      // let apiKey = `AIzaSyAXGRFq8s2EKP4g_LFIk7zuZf9MHivJ9DI`
+      // let url = `https://www.googleapis.com/youtube/v3/search?eventType=live&part=snippet&channelId=${ytId}&type=video&key=${apiKey}`
+      // console.log('fetching live streaming data...')
+      // axios.get(url)
+      //   .then(res => {
+      //     if (res.status === 200) {
+      //       console.log('fetched  live streams data', res.data)
+      //       if (res.data !== this.state.liveStreaming) {
+      //         this.commit('consolidateLiveStreamingData', res.data)
+      //       }
+      //     }
+      //   })
+      let twitchID = `86av2s62mqsu19zptacf7ly00t4l0f`
+      let url = `https://api.twitch.tv/helix/streams?user_login=dhruid`
       console.log('fetching live streaming data...')
-      axios.get(url)
+      axios.get(url, { headers: { 'Client-ID': twitchID } })
         .then(res => {
           if (res.status === 200) {
             console.log('fetched  live streams data', res.data)
