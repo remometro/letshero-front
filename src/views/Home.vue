@@ -23,6 +23,13 @@
         h1.hp__sounds__title.hp__box__title="Latest Sounds"
         <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/79985529&color=%23333333&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=false"></iframe>
 
+      section.hp_streams.hp__box
+        h1.hp__live__title.hp__box__title="Latest Streams"
+        <div style="position:relative;padding-top:56.25%;">
+          //-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCyhZSljGzQ5da_u-n2uR--Q" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          <iframe src="https://www.youtube.com/embed/+lastest?list=PLnFekemqRTYs1YostKMXQEacxEI0yoXUF" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        </div>
+
       section.hp__insta.hp__box(v-if="instagramData && instagramData.length > 0")
         h1.hp__insta__title.hp__box__title="Instagram"
         .hp__insta__grid
