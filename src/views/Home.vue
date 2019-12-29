@@ -247,12 +247,12 @@ export default {
     justify-content: center;
     align-items: center;
     &__grid {
-        display: grid;
+      display: grid;
       grid-template-columns: minmax(50px, 33%) minmax(50px, 33%) minmax(50px, 33%);
       grid-gap: 20px;
       &__image {
         width: 100%;
-        height: 100%;
+        height: auto;
         &--container {
           max-height: 100%;
           max-width: 100%;
