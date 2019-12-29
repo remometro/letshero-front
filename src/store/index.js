@@ -202,7 +202,7 @@ export default new Vuex.Store({
       axios.get(url)
         .then(res => {
           if (res.status === 200) {
-            let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.map(el => {
+            let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 9).map(el => {
               let url = `https://instagram.com/dhruidmusic/p/${el.node.shortcode}`
               let image = el.node.thumbnail_src
               let text = el.node.edge_media_to_caption.edges[0].node.text
