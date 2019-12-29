@@ -17,11 +17,12 @@
       section.hp__live.hp__box(v-if="liveStreaming && liveStreaming.data && liveStreaming.data.length > 0")
         h1.hp__live__title.hp__box__title="Now Live"
         <div style="position:relative;padding-top:56.25%;">
-          //-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCyhZSljGzQ5da_u-n2uR--Q" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-          //- .twitch-embed
-          <iframe src="https://player.twitch.tv/?channel=dhruid"  frameborder="0" scrolling="no" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-        </iframe>
+          <iframe src="https://player.twitch.tv/?channel=dhruid"  frameborder="0" scrolling="no" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
+
+      section.hp__about.hp__box
+        h1.hp__about__title.hp__box__title="About"
+          p.hp__about__text.hp__box__text="Formerly going under his real name, Angelo Reale, on 12/25/2019, Dhruid was born as a new artist. Musician since 1999, producer and DJ since 2009, Dhruid has already won 2 prizes in the Minute Festival with the short-film \"Único\" by Ícaro Cooke and Morgana Assunção, for which he has made the original soundtrack. Dhruid has also played in the most relevant events of his hometown (Salvador, Brazil), as well as in Europe (where he lived for 4 years)."
 
       section.hp__sounds.hp__box
         h1.hp__sounds__title.hp__box__title="Latest Sounds"
@@ -30,7 +31,6 @@
       section.hp_streams.hp__box
         h1.hp__live__title.hp__box__title="Latest Streams"
         <div style="position:relative;padding-top:56.25%;">
-          //-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCyhZSljGzQ5da_u-n2uR--Q" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
           <iframe src="https://www.youtube.com/embed/+lastest?list=PLnFekemqRTYs1YostKMXQEacxEI0yoXUF" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
 
@@ -187,6 +187,12 @@ export default {
 
     &__title {
       margin-bottom: 2em;
+    }
+
+    &__text {
+      font-size: 16px;
+      line-height: 32px;
+      font-weight: normal;
     }
   }
 
