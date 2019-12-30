@@ -255,15 +255,15 @@ export default {
     &__grid {
       display: grid;
       grid-template-columns: minmax(50px, 33%) minmax(50px, 33%) minmax(50px, 33%);
-      grid-gap: 20px;
+      grid-gap: 0px;
+      grid-auto-rows: 1fr;
       &__image {
         width: 100%;
         height: auto;
         &--container {
-          max-height: 100%;
-          max-width: 100%;
-          overflow: hidden;
           position: relative;
+          padding-bottom: 100%;
+          height: 0;
         }
         &--overlay {
           opacity: 0;
