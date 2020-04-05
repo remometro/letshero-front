@@ -41,9 +41,6 @@ export default {
   overflow: hidden;
   margin: 0 !important;
 }
-.hp__footer {
-  display: none;
-}
 </style>
 <style lang="scss" scoped>
 .hp__footer {
