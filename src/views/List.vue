@@ -18,17 +18,21 @@
               </div>
               <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
             </div>
-
           </div>
         </div>
       </div>
+      <Subtitles />
     </div>
   </main>
 </template>
 
 <script>
 import data from "../../data/help-data.json"
+import Subtitles from "./components/Subtitles"
 export default {
+  components: {
+    Subtitles
+  },
   data() {
     return {
       tabOpened: null
