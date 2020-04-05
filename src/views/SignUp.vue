@@ -13,10 +13,10 @@
         <label for="signup__form__user__email">Email</label>
         <input type="password" />
       </div>
-      <button class="lh--button signup__form__email">
+      <button class="lh--button signup__form__submit">
         Sign up
       </button>
-      <a href="/login" class="signup__form__existing">Existing hero?</a>
+      <router-link to="/login" class="signup__form__existing">Existing hero?</router-link>
 
     </form>
 

@@ -5,16 +5,16 @@
       img.nav__logo(src="./assets/imgs/logo-hor-nobg.svg")
       .nav__links--wrapper(:class='{"nav-opened": isNavOpen}')
         <div id="nav-logged" class="nav__links"  v-if="isLogged">
-          <router-link class="nav__links__link" to="/">Home</router-link>
-          <router-link class="nav__links__link" to="/map">Map</router-link>
-          <router-link class="nav__links__link" to="/list">List</router-link>
-          <router-link class="nav__links__link" to="/profile">Profile</router-link>
-          <router-link class="nav__links__link" to="/settings">Settings</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
           .bg
         </div>
         <div id="nav-unlogged" class="nav__links" v-else>
-          <router-link class="nav__links__link" to="/signup">Sign Up</router-link>
-          <router-link class="nav__links__link" to="/login">Log In</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">Sign Up</router-link>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/login">Log In</router-link>
           .bg
         </div>
     <router-view/>

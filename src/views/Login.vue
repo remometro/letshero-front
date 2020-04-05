@@ -1,66 +1,49 @@
-<template lang="pug">
-  main
-    .login
-      form.login__form(:action="serverURL+'/api-v1/login'", method="POST" v-if="!isLoggedIn")
-        .field
-          label.login__form__username--label='Username'
-          input.login__form__username(name='username', v-model='uname')
-        .field
-          label.login__form__password--label='Password'
-          input.login__form__password(name='password', type="password", v-model='pwd')
-        button(type='submit', @click='login')='Submit'
-      .logout(v-else='')
-        span="You're already logged in."
-        button(@click="logout")="Log out."
+<template>
+  <main class="login">
+    <form action="" class="login__form">
+      <div class="lh--input--text login__form__user">
+        <label for="login__form__user__input">Heroname</label>
+        <input type="text" />
+      </div>
+      <div class="lh--input--text login__form__pass">
+        <label for="login__form__user__input">Password</label>
+        <input type="password" />
+      </div>
+      <button class="lh--button login__form__submit">
+        Log In
+      </button>
+      <router-link to="/signup" class="login__form__new">Existing hero?</router-link>
+      <router-link to="/forgot" class="login__form__forgot">Forgot?</router-link>
+    </form>
 
+  </main>
 </template>
 
 <script>
 export default {
-  props: {
-    serverURL: String
-  },
-  mounted() {
-    this.serverURL = window.serverURL
-  },
-  computed: {
-    isLoggedIn() {
-      return !!this.$store.state.isLoggedIn
-    }
-  },
-  methods: {
-    login(e) {
-      let payload = { username: this.uname, password: this.pwd }
-      e.preventDefault()
-      this.$store.dispatch('logIn', payload)
-    },
-    logout(e) {
-      e.preventDefault()
-      this.$store.dispatch('logOut')
-    }
-  }
+  name: "login",
+  components: {}
 }
 </script>
 
-<style scoped lang="scss">
-  .login {
-    &__form {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-      margin: 0 auto;
+<style lang="scss">
+.login {
+  height: 100vh;
+  padding: 2rem;
 
-      .field {
-        display: flex;
+  &__form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
-        label {
-          width: 30%;
-        }
-
-        input {
-          width: 70%;
-        }
+    &__new, &__forgot {
+      margin: 1rem;
+      &:link {
+        color: $color-black;
+        font-size: 12px;
       }
     }
   }
+}
 </style>

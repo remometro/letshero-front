@@ -22,6 +22,12 @@ h1 {
   font-size: 64px;
 }
 
+a {
+  &:visited {
+    color: $color-black;
+  }
+}
+
 .lh {
   &--btn {
     &--plus {
