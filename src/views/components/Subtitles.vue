@@ -33,6 +33,11 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
 
     .lh-container {
       display: flex;
