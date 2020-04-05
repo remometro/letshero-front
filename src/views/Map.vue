@@ -21,9 +21,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .map {
   width: 100vw;
-  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
+
+  iframe {
+    height: calc(100vh - 200px);
+  }
 }
 </style>

@@ -10,6 +10,7 @@
           <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
           <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
           <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
+          <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
           .bg
         </div>
         <div id="nav-unlogged" class="nav__links" v-else>
@@ -46,6 +47,11 @@ export default {
   methods: {
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
+    },
+    logout(e) {
+      e.preventDefault()
+      this.$store.dispatch('logOut')
+      this.toggleNav()
     }
   }
 }

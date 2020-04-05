@@ -62,7 +62,7 @@ export default {
   margin: 0 auto;
   height: 100vh;
   font-family: $font-alt;
-  padding: 1rem;
+  padding: 2rem;
 
   &__today {
     &__title {
