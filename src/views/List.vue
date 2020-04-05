@@ -158,8 +158,8 @@ export default {
   &Urgent {
     .list__table__item__img {
       display: block;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       background: url(../assets/imgs/heart-red.svg) center center no-repeat;
     }
 
@@ -167,8 +167,8 @@ export default {
   &MediumUrgent {
     .list__table__item__img {
       display: block;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       background: url(../assets/imgs/heart-yellow.svg) center center no-repeat;
     }
   }
@@ -176,8 +176,8 @@ export default {
   &NonUrgent {
     .list__table__item__img {
       display: block;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       background: url(../assets/imgs/heart-green.svg) center center no-repeat;
     }
   }
