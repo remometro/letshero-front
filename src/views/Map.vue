@@ -78,7 +78,7 @@ export default {
       }
 
       &__caption {
-        @include fluid-type(320px, 9600px, 10px, 24px);
+        @include fluid-type(320px, 960px, 10px, 24px);
       }
     }
 
