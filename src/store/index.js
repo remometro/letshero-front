@@ -183,35 +183,35 @@ export default new Vuex.Store({
       //       }
       //     }
       //   })
-      let twitchID = `86av2s62mqsu19zptacf7ly00t4l0f`
-      let url = `https://api.twitch.tv/helix/streams?user_login=dhruid`
-      console.log('fetching live streaming data...')
-      axios.get(url, { headers: { 'Client-ID': twitchID } })
-        .then(res => {
-          if (res.status === 200) {
-            console.log('fetched  live streams data', res.data)
-            if (res.data !== this.state.liveStreaming) {
-              this.commit('consolidateLiveStreamingData', res.data)
-            }
-          }
-        })
+      // let twitchID = `86av2s62mqsu19zptacf7ly00t4l0f`
+      // let url = `https://api.twitch.tv/helix/streams?user_login=dhruid`
+      // console.log('fetching live streaming data...')
+      // axios.get(url, { headers: { 'Client-ID': twitchID } })
+      //   .then(res => {
+      //     if (res.status === 200) {
+      //       console.log('fetched  live streams data', res.data)
+      //       if (res.data !== this.state.liveStreaming) {
+      //         this.commit('consolidateLiveStreamingData', res.data)
+      //       }
+      //     }
+      //   })
     },
     fetchInstagramData () {
-      let url = `https://www.instagram.com/dhruidmusic/?__a=1`
-      console.log('fetching instagram data...')
-      axios.get(url)
-        .then(res => {
-          if (res.status === 200) {
-            let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 9).map(el => {
-              let url = `https://instagram.com/dhruidmusic/p/${el.node.shortcode}`
-              let image = el.node.thumbnail_src
-              let text = el.node.edge_media_to_caption.edges[0].node.text
-              return { 'image': image, 'text': text.length > 160 ? text.substring(0, 160) + '...' : text, 'link': url }
-            })
-            console.log('fetched  instagram data', images)
-            this.commit('consolidateInstagramData', images)
-          }
-        })
+      // let url = `https://www.instagram.com/dhruidmusic/?__a=1`
+      // console.log('fetching instagram data...')
+      // axios.get(url)
+      //   .then(res => {
+      //     if (res.status === 200) {
+      //       let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 9).map(el => {
+      //         let url = `https://instagram.com/dhruidmusic/p/${el.node.shortcode}`
+      //         let image = el.node.thumbnail_src
+      //         let text = el.node.edge_media_to_caption.edges[0].node.text
+      //         return { 'image': image, 'text': text.length > 160 ? text.substring(0, 160) + '...' : text, 'link': url }
+      //       })
+      //       console.log('fetched  instagram data', images)
+      //       this.commit('consolidateInstagramData', images)
+      //     }
+      //   })
     }
   },
   modules: {

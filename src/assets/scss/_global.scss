@@ -1,0 +1,19 @@
+.height-hidden {
+  max-height: 0em;
+  overflow: hidden;
+  display: flex;
+}
+
+.mobile-hidden {
+  @include sm {
+    display: initial;
+  }
+}
+
+.nav-closed {
+  display: none;
+}
+
+html, body {
+  font-family: $font-main;
+}
