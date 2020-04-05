@@ -35,5 +35,6 @@ export default {
 .map {
   width: 100vw;
   max-width: 100vw !important;
+  overflow: hidden;
 }
 </style>
