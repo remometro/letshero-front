@@ -58,9 +58,8 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  max-width: 960px;
   margin: 0 auto;
-  height: 100vh;
+  height: calc(100vh - 200px);
   font-family: $font-alt;
   padding: 2rem;
 
