@@ -1,24 +1,26 @@
 <template lang="pug">
   <div id="app">
     .nav
-      button.nav__toggle.desktop-hidden(@click="toggleNav",:class='{"nav-opened": isNavOpen}' )
-      img.nav__logo(src="./assets/imgs/logo-hor-nobg.svg")
+      .lh-container
+        button.nav__toggle.desktop-hidden(@click="toggleNav",:class='{"nav-opened": isNavOpen}' )
+        img.nav__logo(src="./assets/imgs/logo-hor-nobg.svg")
       .nav__links--wrapper(:class='{"nav-opened": isNavOpen}')
-        <div id="nav-logged" class="nav__links"  v-if="isLogged">
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
-          <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
-          .bg
-        </div>
-        <div id="nav-unlogged" class="nav__links" v-else>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">Sign Up</router-link>
-          <router-link class="nav__links__link" @click.native="toggleNav" to="/login">Log In</router-link>
-          .bg
-        </div>
+        .lh-container
+          <div id="nav-logged" class="nav__links"  v-if="isLogged">
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
+            <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
+            .bg
+          </div>
+          <div id="nav-unlogged" class="nav__links" v-else>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">Sign Up</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/login">Log In</router-link>
+            .bg
+          </div>
     <router-view/>
     .bg
     .hp__footer
@@ -69,14 +71,20 @@ export default {
 
 .nav {
   background-color: $color-black;
-  height: 80px;
+  height: 100px;
+  z-index: 999;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  flex-wrap: wrap;
-  position: fixed;
-  z-index: 999;
+
+  .lh-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-wrap: wrap;
+  }
 
   &__logo {
     max-width: 225px;
@@ -102,7 +110,6 @@ export default {
     height: calc(100vh - 80px);
     width: 100vw;
     opacity: 1;
-    background-color: $color-black;
     padding: 2rem;
     padding-left: 1rem;
     justify-items: flex-start;
@@ -129,6 +136,8 @@ export default {
         position: absolute;
         top: 80px;
         left: 0;
+        width: 100vw;
+        background-color: $color-black;
       }
     }
   }
@@ -149,7 +158,6 @@ export default {
 }
 
 .nav {
-  padding: 10px 0;
   position: fixed;
   width: 100%;
   top: 0;
