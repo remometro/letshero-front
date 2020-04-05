@@ -10,10 +10,12 @@
           <router-link class="nav__links__link" to="/list">List</router-link>
           <router-link class="nav__links__link" to="/profile">Profile</router-link>
           <router-link class="nav__links__link" to="/settings">Settings</router-link>
+          .bg
         </div>
         <div id="nav-unlogged" class="nav__links" v-else>
-        <router-link class="nav__links__link" to="/signup">Sign Up</router-link>
+          <router-link class="nav__links__link" to="/signup">Sign Up</router-link>
           <router-link class="nav__links__link" to="/login">Log In</router-link>
+          .bg
         </div>
     <router-view/>
     .bg

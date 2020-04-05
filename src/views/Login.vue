@@ -20,21 +20,21 @@ export default {
   props: {
     serverURL: String
   },
-  mounted () {
+  mounted() {
     this.serverURL = window.serverURL
   },
   computed: {
-    isLoggedIn () {
+    isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     }
   },
   methods: {
-    login (e) {
+    login(e) {
       let payload = { username: this.uname, password: this.pwd }
       e.preventDefault()
       this.$store.dispatch('logIn', payload)
     },
-    logout (e) {
+    logout(e) {
       e.preventDefault()
       this.$store.dispatch('logOut')
     }
