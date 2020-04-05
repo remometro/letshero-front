@@ -11,7 +11,7 @@
       </div>
       <div class="lh--input--text signup__form__email">
         <label for="signup__form__user__email">Email</label>
-        <input type="password" />
+        <input type="email" />
       </div>
       <button class="lh--button signup__form__submit">
         Sign up

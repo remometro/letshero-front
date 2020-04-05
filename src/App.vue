@@ -13,6 +13,7 @@
           .bg
         </div>
         <div id="nav-unlogged" class="nav__links" v-else>
+          <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
           <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">Sign Up</router-link>
           <router-link class="nav__links__link" @click.native="toggleNav" to="/login">Log In</router-link>
           .bg

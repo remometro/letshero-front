@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
+import FindAHero from '../views/FindAHero.vue'
 
 Vue.use(VueRouter)
 
@@ -22,9 +23,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
-    path: '/bookings',
-    name: 'bookings',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Bookings.vue')
+    path: '/find-a-hero',
+    name: 'findAHero',
+    component: FindAHero
   }
 ]
 

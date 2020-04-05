@@ -4,10 +4,10 @@
       .hp__today
         h1.hp__today__title="Today I..."
         .hp__today__cta
-          h2.hp__today__cta__need
+          router-link.hp__today__cta__need(to="/find-a-hero")
             span="Need a hero"
             button.hp__today__cta__need__btn.lh--btn--plus
-          h2.hp__today__cta__want
+          router-link.hp__today__cta__want(to="/login")
             span="Want to be a hero"
             button.hp__today__cta__btn.lh--btn--plus
 
@@ -74,8 +74,14 @@ export default {
         display: flex;
         align-items: center;
 
+        &:link, &:visited {
+          color: $color-black;
+        }
+
         span {
           margin-right: 1rem;
+          font-size: 16px;
+          font-weight: 700;
         }
       }
     }
