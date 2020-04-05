@@ -105,6 +105,7 @@ export default {
       margin: 1rem 0;
       padding: .5rem;
       border-radius: 8px;
+      cursor: pointer;
 
       &__top {
         display: flex;
