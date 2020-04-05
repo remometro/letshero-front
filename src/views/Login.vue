@@ -15,6 +15,7 @@
       <router-link to="/signup" class="login__form__new">Existing hero?</router-link>
       <router-link to="/forgot" class="login__form__forgot">Forgot?</router-link>
     </form>
+    <div class="lh--alert lh--alert--warning">Invalid username or password</div>
 
   </main>
 </template>
