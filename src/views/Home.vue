@@ -60,12 +60,13 @@ export default {
   flex-direction: column;
   margin: 0 auto;
   height: calc(100vh - 200px);
-  font-family: $font-alt;
+  font-family: $font-main;
   padding: 2rem;
 
   &__today {
     &__title {
-      font-family: $font-alt;
+      font-family: $font-main;
+      color: $color-black;
     }
 
     &__cta {
