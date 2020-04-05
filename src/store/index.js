@@ -15,40 +15,41 @@ export default new Vuex.Store({
     instagram: []
   },
   mutations: {
-    performLogin (state, payload) {
-      state.userId = payload.user._id
-      localStorage.setItem('tkn', payload.token)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
-      console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
-      this.dispatch('fetchUserData')
+    performLogin(state, payload) {
+      // state.userId = payload.user._id
+      // localStorage.setItem('tkn', payload.token)
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
+      // console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
+      // this.dispatch('fetchUserData')
+      state.isLoggedIn = true
     },
-    performLogOut (state) {
+    performLogOut(state) {
       state.isLoggedIn = false
       state.userId = ''
       state.userData = ''
       localStorage.removeItem('tkn')
       axios.defaults.headers.common['Authorization'] = ''
     },
-    consolidateUserData (state, payload) {
+    consolidateUserData(state, payload) {
       state.userId = payload._id
       state.isLoggedIn = true
       state.userData = payload
     },
-    consolidateBookingsData (state, payload) {
+    consolidateBookingsData(state, payload) {
       state.bookingsData = payload
     },
-    consolidateAllBookingsData (state, payload) {
+    consolidateAllBookingsData(state, payload) {
       state.allBookingsData = payload
     },
-    consolidateLiveStreamingData (state, payload) {
+    consolidateLiveStreamingData(state, payload) {
       state.liveStreaming = payload
     },
-    consolidateInstagramData (state, payload) {
+    consolidateInstagramData(state, payload) {
       state.instagram = payload
     }
   },
   actions: {
-    checkLogin (context) {
+    checkLogin(context) {
       let token = localStorage.getItem('tkn')
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -57,31 +58,33 @@ export default new Vuex.Store({
         axios.defaults.headers.common['Authorization'] = ''
       }
     },
-    logIn (context, payload) {
-      let url = `${window.serverURL}/api-v1/login`
+    logIn(context, payload) {
+      // let url = `${window.serverURL}/api-v1/login`
       console.log('logging in..')
-      axios.post(url, payload, { headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true })
-        .then(res => {
-          if (res.statusText === 'OK') {
-            console.log('logged', res)
-            this.commit('performLogin', res.data)
-          }
-        })
+      this.commit('performLogin')
+      // axios.post(url, payload, { headers: {
+      //   'Content-Type': 'application/json'
+      // },
+      // withCredentials: true })
+      //   .then(res => {
+      //     if (res.statusText === 'OK') {
+      //       console.log('logged', res)
+      //       //this.commit('performLogin', res.data)
+      //     }
+      //   })
     },
-    logOut () {
-      let url = `${window.serverURL}/api-v1/logout`
-      axios.get(url, { withCredentials: true })
-        .then(res => {
-          if (res.statusText === 'OK') {
-            console.log('logged out')
-            this.commit('performLogOut')
-          }
-        })
+    logOut() {
+      this.commit('performLogOut')
+      // let url = `${window.serverURL}/api-v1/logout`
+      // axios.get(url, { withCredentials: true })
+      //   .then(res => {
+      //     if (res.statusText === 'OK') {
+      //       console.log('logged out')
+      //       this.commit('performLogOut')
+      //     }
+      //   })
     },
-    addBooking (context, payload) {
+    addBooking(context, payload) {
       let url = `${window.serverURL}/api-v1/bookings`
       console.log('adding booking...', payload)
       let data = { payload: { ...payload }, id: this.state.userId }
@@ -97,7 +100,7 @@ export default new Vuex.Store({
           }
         })
     },
-    editBooking (context, payload) {
+    editBooking(context, payload) {
       let url = `${window.serverURL}/api-v1/bookings`
       console.log('editing booking...', payload)
       let { id, ...newload } = payload
@@ -114,7 +117,7 @@ export default new Vuex.Store({
           }
         })
     },
-    deleteBooking (context, payload) {
+    deleteBooking(context, payload) {
       let url = `${window.serverURL}/api-v1/bookings`
       console.log('removing booking...', payload)
       let data = { id: payload }
@@ -132,7 +135,7 @@ export default new Vuex.Store({
           }
         })
     },
-    fetchUserData () {
+    fetchUserData() {
       let url = `${window.serverURL}/api-v1/userdata`
       let data = { id: this.state.userId }
       console.log('fetching user data...')
@@ -147,7 +150,7 @@ export default new Vuex.Store({
           }
         })
     },
-    fetchBookingsData () {
+    fetchBookingsData() {
       let url = `${window.serverURL}/api-v1/bookings`
       console.log('fetching bookings data...')
       axios.get(url, { withCredentials: true })
@@ -158,7 +161,7 @@ export default new Vuex.Store({
           }
         })
     },
-    fetchAllBookingsData () {
+    fetchAllBookingsData() {
       let url = `${window.serverURL}/api-v1/allbookings`
       console.log('fetching ALL bookings data...')
       axios.get(url, { withCredentials: true })
@@ -169,7 +172,7 @@ export default new Vuex.Store({
           }
         })
     },
-    fetchLiveStreamingData () {
+    fetchLiveStreamingData() {
       // let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`
       // let apiKey = `AIzaSyAXGRFq8s2EKP4g_LFIk7zuZf9MHivJ9DI`
       // let url = `https://www.googleapis.com/youtube/v3/search?eventType=live&part=snippet&channelId=${ytId}&type=video&key=${apiKey}`
@@ -196,7 +199,7 @@ export default new Vuex.Store({
       //     }
       //   })
     },
-    fetchInstagramData () {
+    fetchInstagramData() {
       // let url = `https://www.instagram.com/dhruidmusic/?__a=1`
       // console.log('fetching instagram data...')
       // axios.get(url)

@@ -70,6 +70,7 @@ export default {
   position: relative;
   flex-wrap: wrap;
   position: fixed;
+  z-index: 999;
 
   &__logo {
     max-width: 225px;
@@ -165,6 +166,9 @@ export default {
     width: 100%;
     box-sizing: border-box;
     left: 0;
+    height: 100px;
+    position: fixed;
+    bottom: 0;
 
     &__copy {
       max-width: 80%;
