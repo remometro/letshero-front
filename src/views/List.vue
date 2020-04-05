@@ -14,7 +14,7 @@
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.help.location.placeName}}</div>
               <div class="list__table__item__distance">(2km away)</div>
-              <div class="list__table__item__reward">{{item.help.reward.active ? `${treatment(item.user.gender)} offers up to ${item.help.reward.value + item.help.reward.currency} in reward.` : "He can't afford a reward"}}
+              <div class="list__table__item__reward">{{item.help.reward.active ? `${treatment(item.user.gender)} offers up to ${item.help.reward.value + item.help.reward.currency} in reward.` : `${treatment(item.user.gender)} can't afford a reward`}}
               </div>
               <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
             </div>
