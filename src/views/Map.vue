@@ -20,7 +20,7 @@ export default {
   },
   mounted() {
     let height = window.innerHeight
-    this.$refs.map__iframe.height = height
+    this.$refs.map__iframe.height = height - 100
   }
 }
 </script>
