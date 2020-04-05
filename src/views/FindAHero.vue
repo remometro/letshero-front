@@ -35,7 +35,6 @@ export default {
 
 <style lang="scss">
 .find-a-hero {
-  height: 100vh;
   padding: 2rem;
 
   &__form {

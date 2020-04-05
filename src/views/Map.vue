@@ -74,7 +74,11 @@ export default {
       text-align: left;
 
       &__img {
-        margin-right: 1rem;
+        margin-right: .3rem;
+      }
+
+      &__caption {
+        @include fluid-type(320px, 9600px, 10px, 24px);
       }
     }
 
