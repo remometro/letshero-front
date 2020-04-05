@@ -190,4 +190,7 @@ export default {
     }
   }
 }
+.hp__footer {
+  display: none;
+}
 </style>
