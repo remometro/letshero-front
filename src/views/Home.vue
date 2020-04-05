@@ -1,6 +1,16 @@
 <template lang="pug">
   main
     .hp
+      .hp__today
+        h1.hp__today__title="Today I..."
+        .hp__today__cta
+          h2.hp__today__cta__need
+            span="Need a hero"
+            button.hp__today__cta__need__btn.lh--btn--plus
+          h2.hp__today__cta__want
+            span="Want to be a hero"
+            button.hp__today__cta__btn.lh--btn--plus
+
 </template>
 
 <script>
@@ -46,11 +56,30 @@ export default {
 <style lang="scss">
 .hp {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   max-width: 960px;
   margin: 0 auto;
   height: 100vh;
+  font-family: $font-alt;
+  padding: 1rem;
+
+  &__today {
+    &__title {
+      font-family: $font-alt;
+    }
+
+    &__cta {
+      &__need, &__want {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
 
   &__logo {
     margin-top: 10em;

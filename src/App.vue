@@ -131,7 +131,7 @@ export default {
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 0;
+  z-index: -1;
   position: fixed;
   height: 300px;
   width: 300px;

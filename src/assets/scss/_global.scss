@@ -17,3 +17,18 @@
 html, body {
   font-family: $font-main;
 }
+
+h1 {
+  font-size: 64px;
+}
+
+.lh {
+  &--btn {
+    &--plus {
+      background: url(~@/assets/imgs/plus.svg) center center no-repeat;
+      height: 35px;
+      width: 35px;
+      border: none;
+    }
+  }
+}
