@@ -3,18 +3,18 @@
     <div class="lh-container">
       <div class="list__table">
         <div class="list__table__item" :key="item.id" v-for="(item, i) in entries">
-          <div class="list__table__item" :class="{itemUrgent: item.help.category.urgency == 3, itemMediumUrgent: item.help.category.urgency == 2, itemNonUrgent: item.help.category.urgency == 1 }" @click="openTab(i)">
+          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }" @click="openTab(i)">
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.name}} needs {{item.help.category.mainCategory}}</span>
+                <span class="list__table__item__title">{{item.user.name}} needs {{item.category.mainCategory}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
-              <div class="list__table__item__location">In {{item.help.location.placeName}}</div>
+              <div class="list__table__item__location">In {{item.location.placeName}}</div>
               <div class="list__table__item__distance">(2km away)</div>
-              <div class="list__table__item__reward">{{item.help.reward.active ? `${treatment(item.user.gender)} offers up to ${item.help.reward.value + item.help.reward.currency} in reward.` : `${treatment(item.user.gender)} can't afford a reward`}}
+              <div class="list__table__item__reward">{{item.reward.active ? `${treatment(item.user.gender)} offers up to ${item.reward.value + item.reward.currency} in reward.` : `${treatment(item.user.gender)} can't afford a reward`}}
               </div>
               <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
             </div>
