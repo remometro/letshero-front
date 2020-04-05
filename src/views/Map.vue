@@ -32,7 +32,7 @@ export default {
   max-width: 100vw !important;
 
   iframe {
-    height: calc(100vh - 200px);
+
   }
 }
 </style>

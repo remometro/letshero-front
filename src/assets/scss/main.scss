@@ -11,10 +11,10 @@ main {
   box-sizing: border-box;
   margin-top: 100px;
   left: 0;
-  max-height: calc(100vw - 100px);
   width: 100vw;
   max-width: 960px;
   margin: 100px auto;
+  min-height: calc(100vh - 200px);
 }
 
 body {

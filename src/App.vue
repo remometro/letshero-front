@@ -167,13 +167,13 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    //position: absolute;
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
     left: 0;
     height: 100px;
-    position: fixed;
+    position: relative;
     bottom: 0;
 
     &__copy {
