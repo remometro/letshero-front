@@ -1,5 +1,5 @@
 <template>
-  <main class="list">
+  <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="list__table">
         <div class="list__table__item" :key="item.id" v-for="(item, i) in entries">
@@ -24,14 +24,19 @@
       <Subtitles />
     </div>
   </main>
+  <main class="not-logged" v-else>
+    <Login />
+  </main>
 </template>
 
 <script>
 import data from "../../data/help-data.json"
 import Subtitles from "./components/Subtitles"
+import Login from "./Login"
 export default {
   components: {
-    Subtitles
+    Subtitles,
+    Login
   },
   data() {
     return {
@@ -41,6 +46,9 @@ export default {
   computed: {
     entries() {
       return data
+    },
+    isLoggedIn() {
+      return !!this.$store.state.isLoggedIn
     }
   },
   methods: {
