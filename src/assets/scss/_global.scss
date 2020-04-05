@@ -123,3 +123,15 @@ a {
     }
   }
 }
+
+.text {
+  &-green {
+    color: $color-green;
+  }
+  &-yellow  {
+    color: $color-yellow;
+  }
+  &-red {
+    color: $color-red;
+  }
+}
