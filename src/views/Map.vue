@@ -1,6 +1,6 @@
 <template>
   <main class="map" v-if="isLoggedIn">
-    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=10&center=40.7128%2C-74.0060&key=AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw" allowfullscreen></iframe>
+    <iframe ref="map__iframe" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=10&center=40.7128%2C-74.0060&key=AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw" allowfullscreen></iframe>
   </main>
   <main class="not-logged" v-else>
     <LogIn />
@@ -17,6 +17,10 @@ export default {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     }
+  },
+  mounted() {
+    let height = window.innerHeight
+    this.$refs.map__iframe.height = height
   }
 }
 </script>
