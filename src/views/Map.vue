@@ -25,6 +25,7 @@ export default {
 .map {
   width: 100vw;
   min-height: calc(100vh - 200px);
+  max-width: 100vw !important;
 
   iframe {
     height: calc(100vh - 200px);
