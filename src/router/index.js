@@ -5,6 +5,7 @@ import SignUp from '../views/SignUp.vue'
 import FindAHero from '../views/FindAHero.vue'
 import Map from "../views/Map.vue"
 import List from "../views/List.vue"
+import Profile from "../views/Profile.vue"
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/list',
     name: 'List',
     component: List
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   }
 ]
 

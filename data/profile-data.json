@@ -1,0 +1,17 @@
+{
+  "user": {
+    "id": "129i310293109",
+    "name": "Juan",
+    "paypal": "juan@email.com",
+    "gender": "1"
+  },
+  "stats": {
+    "points": 2356,
+    "medals": 356,
+    "trophees": 2
+  },
+  "title": {
+    "name": "Super-Hero",
+    "id": 5
+  }
+}
