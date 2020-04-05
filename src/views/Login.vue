@@ -58,7 +58,6 @@ export default {
 
 <style lang="scss">
 .login {
-  height: calc(100vh - 200px);
   padding: 2rem;
   color: $color-black;
 

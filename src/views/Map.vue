@@ -45,3 +45,8 @@ export default {
   display: none;
 }
 </style>
+<style lang="scss" scoped>
+.hp__footer {
+  display: none;
+}
+</style>

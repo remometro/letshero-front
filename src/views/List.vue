@@ -190,6 +190,8 @@ export default {
     }
   }
 }
+</style>
+<style lang="scss" scoped>
 .hp__footer {
   display: none;
 }
