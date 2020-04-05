@@ -11,7 +11,7 @@ main {
   box-sizing: border-box;
   margin-top: 100px;
   left: 0;
-  width: 100vw;
+  width: 100%;
   max-width: 960px;
   margin: 100px auto;
   min-height: calc(100vh - 200px);
@@ -20,5 +20,5 @@ main {
 body {
   margin: 0;
   display: flex;
-  max-width: 100vw;
+  max-width: 100%;
 }

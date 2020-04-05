@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
 .map {
-  width: 100vw;
+  width: 100%;
   max-width: 100vw !important;
   overflow: hidden;
   margin: 0 !important;
