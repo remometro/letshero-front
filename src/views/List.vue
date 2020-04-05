@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <Subtitles />
+      <Subtitles isFixed="true" />
     </div>
   </main>
   <main class="not-logged" v-else>

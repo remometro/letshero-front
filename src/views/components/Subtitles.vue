@@ -1,5 +1,5 @@
 <template>
-  <div class="lh__subtitle">
+  <div class="lh__subtitle" :class="{positionFixed: isFixed}">
       <div class="lh-container">
         <div class="lh__subtitle__item">
           <img src="@/assets/imgs/heart-green.svg" alt="" class="lh__subtitle__item__img">
@@ -19,7 +19,9 @@
 
 <script>
 export default {
-
+  props: {
+    isFixed: null
+  }
 }
 </script>
 
@@ -33,11 +35,14 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
+
+    &.positionFixed {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 10;
+    }
 
     .lh-container {
       display: flex;
