@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import FindAHero from '../views/FindAHero.vue'
 import Map from "../views/Map.vue"
+import List from "../views/List.vue"
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,11 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: Map
+  },
+  {
+    path: '/list',
+    name: 'List',
+    component: List
   }
 ]
 

@@ -112,6 +112,10 @@ a {
     font-family: $font-main;
     padding: .5rem 2rem;
     margin: 1rem;
+    &--white {
+      color: $color-white;
+      border-color: $color-white;
+    } 
   }
   &--alert {
     padding: 2rem;

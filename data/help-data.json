@@ -1,0 +1,130 @@
+[
+  {
+    "id": "0901283091",
+    "createdAt": "2011-10-05T14:48:00.000Z",
+    "modifiedAt": "2011-10-06T14:48:00.000Z",
+    "user": {
+      "id": "129i310293109",
+      "name": "Juan",
+      "paypal": "juan@email.com",
+      "gender": "1"
+    },
+    "help": {
+      "category": {
+        "mainCategory": "Companion",
+        "mainCategoryId": "1",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "custom description": "",
+        "urgency": "3"
+      },
+      "location": {
+        "lat": "",
+        "lon": "",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": "20",
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "id": "093128409238",
+    "createdAt": "2011-10-07T14:48:00.000Z",
+    "modifiedAt": "2011-10-08T14:48:00.000Z",
+    "user": {
+      "id": "129i310293109",
+      "name": "IrmaDulce",
+      "paypal": "juan@email.com",
+      "gender": "3"
+    },
+    "help": {
+      "category": {
+        "mainCategory": "Other",
+        "mainCategoryId": "4",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "custom description": "",
+        "urgency": "1"
+      },
+      "location": {
+        "lat": "",
+        "lon": "",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": "200",
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "id": "21309812",
+    "createdAt": "2011-10-09T14:48:00.000Z",
+    "modifiedAt": "2011-10-10T14:48:00.000Z",
+    "user": {
+      "id": "129i310293109",
+      "name": "Diego",
+      "paypal": "juan@email.com",
+      "gender": "1"
+    },
+    "help": {
+      "category": {
+        "mainCategory": "Shelter",
+        "mainCategoryId": "3",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "custom description": "",
+        "urgency": "2"
+      },
+      "location": {
+        "lat": "",
+        "lon": "",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": "30",
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "id": "09830924",
+    "createdAt": "2011-10-12T14:48:00.000Z",
+    "modifiedAt": "2011-10-13T14:48:00.000Z",
+    "user": {
+      "id": "129i310293109",
+      "name": "Angelo",
+      "paypal": "juan@email.com",
+      "gender": "1"
+    },
+    "help": {
+      "category": {
+        "mainCategory": "Food",
+        "mainCategoryId": "2",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "", 
+        "custom description": "",
+        "urgency": "3"
+      },
+      "location": {
+        "lat": "",
+        "lon": "",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": false,
+        "value": "100",
+        "currency": "USD"
+      }
+    }
+  }
+]
