@@ -11,7 +11,7 @@
         </div>
         <div class="lh__subtitle__item">
           <img src="@/assets/imgs/heart-red.svg" alt="" class="lh__subtitle__item__img">
-          <span class="map__subtitle__item__caption text-red">Very <br/> urgent</span>
+          <span class="lh__subtitle__item__caption text-red">Very <br/> urgent</span>
         </div>
       </div>
     </div>
