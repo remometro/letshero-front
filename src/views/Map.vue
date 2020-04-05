@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
 .map {
   width: 100vw;
-  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
   max-width: 100vw !important;
 }
 </style>
