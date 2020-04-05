@@ -50,7 +50,7 @@ a {
       align-items: flex-start;
       text-align: left;
       margin: 1rem;
-      background: none;
+      background: transparent;
 
       label {
         font-size: 12px;
@@ -76,7 +76,7 @@ a {
       text-align: left;
       margin: 1rem;
       position: relative;
-      background: none;
+      background: transparent;
 
       &:after {
         content: "";
