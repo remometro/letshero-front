@@ -25,7 +25,7 @@ export default {
     setHeight() {
       let height = window.innerHeight
       this.$refs.map__iframe.height = height - 100
-      this.$refs.map.style.maxHeight = height - 200 + "px"
+      this.$refs.map.style.maxHeight = height - 100 + "px"
     }
   }
 }
