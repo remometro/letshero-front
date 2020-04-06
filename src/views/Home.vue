@@ -6,10 +6,8 @@
         .hp__today__cta
           router-link.hp__today__cta__need(to="/find-a-hero")
             span="Need a hero"
-            button.hp__today__cta__need__btn.lh--btn--plus
-          router-link.hp__today__cta__want(to="/login")
+          router-link.hp__today__cta__want(to="/list")
             span="Want to be a hero"
-            button.hp__today__cta__btn.lh--btn--plus
 
 </template>
 
