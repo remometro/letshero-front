@@ -16,7 +16,7 @@
               <div class="list__table__item__distance">(2km away)</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
               </div>
-              <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
+              <router-link :to="'/help/' + item.id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</router-link>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .list__find-help {
   display: block;
   width: 75px;

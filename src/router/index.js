@@ -6,6 +6,7 @@ import FindAHero from '../views/FindAHero.vue'
 import Map from "../views/Map.vue"
 import List from "../views/List.vue"
 import Profile from "../views/Profile.vue"
+import Help from "../views/Help.vue"
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/help/:id',
+    name: 'Help',
+    component: Help
   }
 ]
 
