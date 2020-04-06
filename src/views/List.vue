@@ -21,6 +21,7 @@
           </div>
         </div>
       </div>
+      <button class="list__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="list__find-help--img"></router-link></button>
       <Subtitles isFixed="true" />
     </div>
   </main>
@@ -97,9 +98,26 @@ export default {
 </script>
 
 <style lang="scss">
+.list__find-help {
+  display: block;
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  border: none;
+  //background: url(../assets/imgs/find-a-help.svg) center center no-repeat;
+  margin-left: 1rem;
+  position: fixed;
+  bottom: 110px;
+  background: none;
+
+  &--img {
+    -webkit-filter: drop-shadow( -8px 8px 1px $color-black);
+    filter: drop-shadow( -8px 8px 1px $color-black);
+  }
+}
 .list {
   &__table {
-    padding-top: 2rem;
+    padding: 2rem 0;
     max-width: 80%;
     margin: 0 auto;
     &__item {
