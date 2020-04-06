@@ -13,6 +13,11 @@
         <label for="signup__form__user__email">Email</label>
         <input type="email" />
       </div>
+      <LH-Dropdown ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
+      <div class="lh--input--text signup__form__email">
+        <label for="signup__form__user__email">Your whatsapp (with country code)</label>
+        <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="Telephone Number" required>
+      </div>
       <button class="lh--button signup__form__submit">
         Sign up
       </button>
@@ -24,9 +29,40 @@
 </template>
 
 <script>
+import LHDropdown from "./components/LH-Dropdown"
 export default {
   name: "SignUp",
-  components: {}
+  components: {
+    LHDropdown
+  },
+  data() {
+    return {
+      formGender: null
+    }
+  },
+  computed: {
+    getOptionsGender() {
+      return [
+        {
+          "label": "Male",
+          "value": 1
+        },
+        {
+          "label": "Female",
+          "value": 2
+        },
+        {
+          "label": "Other",
+          "value": 3
+        }
+      ]
+    }
+  },
+  methods: {
+    setGender(value) {
+      this.formGender = value
+    }
+  }
 }
 </script>
 
