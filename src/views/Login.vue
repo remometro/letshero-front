@@ -12,8 +12,8 @@
       <button class="lh--button login__form__submit" @click="login">
         Log In
       </button>
-      <router-link to="/signup" class="login__form__new">New hero?</router-link>
-      <router-link to="/forgot" class="login__form__forgot">Forgot?</router-link>
+      <router-link to="/signup"  class="lh--link--black login__form__new">New hero?</router-link>
+      <router-link to="/forgot" class="lh--link--black login__form__forgot">Forgot?</router-link>
       <div class="lh--alert lh--alert--warning">Invalid username or password</div>
     </form>
 
@@ -21,7 +21,7 @@
       <h1 class="login__islogged__welcome">
         Welcome hero!
       </h1>
-      <router-link class="login__islogged__logout" to="/logout" @click.native="logout">Log out</router-link>
+      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">Log out</router-link>
     </div>
 
   </main>

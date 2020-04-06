@@ -16,7 +16,7 @@
       <button class="lh--button signup__form__submit">
         Sign up
       </button>
-      <router-link to="/login" class="signup__form__existing">Existing hero?</router-link>
+      <router-link to="/login" class="lh--link--black signup__form__existing">Existing hero?</router-link>
 
     </form>
 

@@ -20,7 +20,7 @@
         Find a Hero
       </button>
     </form>
-    <router-link class="lh--link lh--link--small" to="/list">Or be someone's hero.</router-link>
+    <router-link class="lh--link lh--link--small lh--link--black" to="/list">Or be someone's hero.</router-link>
 
   </main>
 </template>

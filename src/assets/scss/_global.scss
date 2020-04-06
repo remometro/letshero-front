@@ -23,12 +23,12 @@ h1 {
   font-size: 48px;
 }
 
-a {
-  color: $color-black;
-  &:visited {
-    color: $color-black;
-  }
-}
+// a {
+//   color: $color-black;
+//   &:visited {
+//     color: $color-black;
+//   }
+// }
 
 .lh {
   &--btn {
@@ -40,15 +40,27 @@ a {
     }
   }
   &--link {
-    color: $color-black;
+
+    &--black {
+      color: $color-black;
+      &:link, &:visited {
+        color: $color-black;
+      }
+    }
+
+    &--white {
+      color: $color-white;
+      &:link, &:visited {
+        color: $color-white;
+      }
+    }
+    
 
     &--small {
       font-size: 12px;
     }
 
-    &:link, &:visited {
-      color: $color-black;
-    }
+    
   }
   &--input {
     &--text {
@@ -154,7 +166,11 @@ a {
     color: $color-black;
     font-family: $font-main;
     padding: .5rem 2rem;
-    margin: 1rem;
+    margin: 1rem auto;
+    text-decoration: none;
+    max-width: 150px;
+    width: 100%;
+    text-align: center;
     &--white {
       color: $color-white;
       border-color: $color-white;
