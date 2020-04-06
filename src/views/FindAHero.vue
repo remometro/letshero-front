@@ -12,6 +12,10 @@
         <label for="find-a-hero__form__where__label">Where do you need help?</label>
         <input type="text" required />
       </div>
+      <div class="lh--input--text find-a-hero__form__where">
+        <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
+        <textarea class="lh--input--textarea" type="text" required maxlength="256" rows="5" />
+      </div>
       <button class="lh--button find-a-hero__form__submit">
         Find a Hero
       </button>
@@ -43,23 +47,27 @@ export default {
       return [
         {
           "label": "Food",
-          "value": "1"
+          "value": 1
         },
         {
           "label": "Shelter",
-          "value": "2"
+          "value": 2
         },
         {
           "label": "Medical Care",
-          "value": "3"
+          "value": 3
+        },
+        {
+          "label": "Psychological Care",
+          "value": 4
         },
         {
           "label": "Companion",
-          "value": "4"
+          "value": 5
         },
         {
           "label": "Other",
-          "value": "5"
+          "value": 6
         }
       ]
     },

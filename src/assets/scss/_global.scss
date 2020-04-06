@@ -45,6 +45,7 @@ a {
       color: $color-black;
       display: flex;
       flex-direction: column;
+      width: 100%;
       max-width: 300px;
       justify-content: flex-start;
       align-items: flex-start;
@@ -63,8 +64,20 @@ a {
         font-family: $font-main;
         color: $color-black;
         background: none;
+        width: 100%;
       }
-
+    }
+    &--textarea {
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border: none;
+      border-bottom: 2px solid $color-black;
+      font-family: $font-main;
+      color: $color-black;
+      background: none;
     }
     &--select {
       font-family: $font-main;
@@ -78,6 +91,8 @@ a {
       margin: 1rem 0;
       position: relative;
       background: transparent;
+      width: 100%;
+      min-width: 300px;
 
       &--field {
         position: relative;
@@ -112,6 +127,7 @@ a {
         border-bottom: 2px solid $color-black;
         font-family: $font-main;
         color: $color-black;
+        width: 100%;
         cursor: pointer;
         background: none;
         &:focus {
