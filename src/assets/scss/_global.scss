@@ -75,9 +75,16 @@ a {
       justify-content: flex-start;
       align-items: flex-start;
       text-align: left;
-      margin: 1rem;
+      margin: 1rem 0;
       position: relative;
       background: transparent;
+
+      &--field {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;    
+      }
 
       &:after {
         content: "";
@@ -89,6 +96,11 @@ a {
 
       }
       
+      &.isOpen {
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
 
       label {
         font-size: 12px;
@@ -100,7 +112,11 @@ a {
         border-bottom: 2px solid $color-black;
         font-family: $font-main;
         color: $color-black;
+        cursor: pointer;
         background: none;
+        &:focus {
+          outline: none;
+        }
       }
 
     }
