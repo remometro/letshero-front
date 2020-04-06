@@ -52,13 +52,14 @@ export default {
   display: none;
   position: absolute;
   background-color: $color-white;
-  width: 100%;
+  width: 99%;
   top: 49px;
   z-index: 1;
   color: $color-black;
   max-height: 300px;
   overflow-y: scroll;
   cursor: pointer;
+  border: 2px solid $color-black;
 
   &__option {
     padding: 1rem .5rem;

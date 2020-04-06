@@ -3,18 +3,18 @@
     <form action="" class="find-a-hero__form">
 
       <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" :isOpen="typeOpen" />
-      <LH-Dropdown ref="typeOpen" label="Do you offer a reward?" :options="getOptionsHasReward" @selected="setType" :isOpen="typeOpen" />
+      <LH-Dropdown ref="typeOpen" label="Do you offer a reward?" :options="getOptionsHasReward" @selected="setReward" :isOpen="typeOpen" />
       <div class="lh--input--text find-a-hero__form__reward">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
-        <input type="number" min="1" step="1" />
+        <input type="number" min="1" step="1" v-model="formAmount" />
       </div>
       <div class="lh--input--text find-a-hero__form__where">
         <label for="find-a-hero__form__where__label">Where do you need help?</label>
-        <input type="text" required />
+        <input type="text" required v-model="formWhere" />
       </div>
-      <div class="lh--input--text find-a-hero__form__where">
+      <div class="lh--input--text find-a-hero__form__why">
         <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
-        <textarea class="lh--input--textarea" type="text" required maxlength="256" rows="5" />
+        <textarea class="lh--input--textarea" type="text" required maxlength="256" rows="5" v-model="formWhy" />
       </div>
       <button class="lh--button find-a-hero__form__submit">
         Find a Hero
@@ -34,12 +34,11 @@ export default {
   },
   data() {
     return {
-      formTypeLabel: null,
-      formTypeValue: null,
-      typeOpen: false,
-      formHasRewardLabel: null,
-      formHasRewardValue: null,
-      hasRewardOpen: false
+      formType: null,
+      formReward: null,
+      formAmount: null,
+      formWhere: null,
+      formWhy: null
     }
   },
   computed: {
@@ -94,9 +93,10 @@ export default {
   },
   methods: {
     setType(value) {
-      this.formTypeLabel = value[1]
-      this.formTypeValue = value[0]
-      this.toggleSelect('typeOpen')
+      this.formType = value
+    },
+    setReward(value) {
+      this.formReward = value
     }
   }
 }
