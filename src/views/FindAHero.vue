@@ -19,8 +19,8 @@
       <button class="lh--button find-a-hero__form__submit">
         Find a Hero
       </button>
-
     </form>
+    <router-link class="lh--link lh--link--small" to="/list">Or be someone's hero.</router-link>
 
   </main>
 </template>
