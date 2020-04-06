@@ -22,9 +22,7 @@
         Sign up
       </button>
       <router-link to="/login" class="lh--link--black signup__form__existing">Existing hero?</router-link>
-
     </form>
-
   </main>
 </template>
 
