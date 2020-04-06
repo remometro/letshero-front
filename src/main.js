@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 
 let serverURL = ''
 
-function setServerURL () {
+function setServerURL() {
   if (process.env.NODE_ENV === 'development') {
     serverURL = 'http://localhost:3000'
   } else {
