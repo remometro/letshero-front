@@ -2,7 +2,7 @@
   main
     .hp
       .hp__today
-        h1.hp__today__title="Today I..."
+        h1.hp__today__title="Today I... (testint CI)"
         .hp__today__cta
           router-link.hp__today__cta__need(to="/find-a-hero")
             span="Need a hero"
