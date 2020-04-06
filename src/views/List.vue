@@ -14,7 +14,7 @@
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.location.placeName}}</div>
               <div class="list__table__item__distance">(2km away)</div>
-              <div class="list__table__item__reward">{{item.reward.active ? `${treatment(item.user.gender)} offers up to ${item.reward.value + item.reward.currency} in reward.` : `${treatment(item.user.gender)} can't afford a reward`}}
+              <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
               </div>
               <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
             </div>
@@ -88,6 +88,9 @@ export default {
       } else {
         this.tabOpened = i
       }
+    },
+    getRewardText(gender, reward) {
+      return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
     }
   }
 }
