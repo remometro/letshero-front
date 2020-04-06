@@ -59,7 +59,6 @@ export default {
   justify-content: flex-start;
   flex-direction: column;
   margin: 0 auto;
-  height: calc(100vh - 200px);
   font-family: $font-main;
   padding: 2rem;
 
