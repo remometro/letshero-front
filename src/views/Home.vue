@@ -67,6 +67,9 @@ export default {
     }
 
     &__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       &__need, &__want {
         display: flex;
         align-items: center;
@@ -76,7 +79,7 @@ export default {
         }
 
         span {
-          margin-right: 1rem;
+          margin-top: 2rem;
           font-size: 16px;
           font-weight: 700;
         }
