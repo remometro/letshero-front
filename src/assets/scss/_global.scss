@@ -40,7 +40,8 @@ h1 {
     }
   }
   &--link {
-
+    display: block;
+    margin: 1rem 0;
     &--black {
       color: $color-black;
       &:link, &:visited {

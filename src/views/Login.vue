@@ -21,9 +21,9 @@
       <h1 class="login__islogged__welcome">
         Welcome hero!
       </h1>
-      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">Log out</router-link>
+      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Now, be someone's hero</router-link>
+      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">Or log out</router-link>
     </div>
-
   </main>
 </template>
 
