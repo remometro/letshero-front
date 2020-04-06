@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import FindAHero from '../views/FindAHero.vue'
 import Map from "../views/Map.vue"
 import List from "../views/List.vue"
 import Profile from "../views/Profile.vue"
+import ComingSoon from "../views/ComingSoon.vue"
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: ComingSoon
   },
   {
     path: '/signup',

@@ -2,9 +2,9 @@
   <div id="app">
     .nav
       .lh-container
-        button.nav__toggle.desktop-hidden(@click="toggleNav",:class='{"nav-opened": isNavOpen}' )
+        //button.nav__toggle.desktop-hidden(@click="toggleNav",:class='{"nav-opened": isNavOpen}' )
         img.nav__logo(src="./assets/imgs/logo-hor-nobg.svg")
-      .nav__links--wrapper(:class='{"nav-opened": isNavOpen}')
+      //.nav__links--wrapper(:class='{"nav-opened": isNavOpen}')
         .lh-container
           <div id="nav-logged" class="nav__links"  v-if="isLogged">
             <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
