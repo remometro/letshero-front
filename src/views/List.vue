@@ -14,13 +14,14 @@
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.location.placeName}}</div>
               <div class="list__table__item__distance">(2km away)</div>
-              <div class="list__table__item__reward">{{item.reward.active ? `${treatment(item.user.gender)} offers up to ${item.reward.value + item.reward.currency} in reward.` : `${treatment(item.user.gender)} can't afford a reward`}}
+              <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
               </div>
               <button class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</button>
             </div>
           </div>
         </div>
       </div>
+      <button class="list__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="list__find-help--img"></router-link></button>
       <Subtitles isFixed="true" />
     </div>
   </main>
@@ -88,15 +89,35 @@ export default {
       } else {
         this.tabOpened = i
       }
+    },
+    getRewardText(gender, reward) {
+      return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
     }
   }
 }
 </script>
 
 <style lang="scss">
+.list__find-help {
+  display: block;
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  border: none;
+  //background: url(../assets/imgs/find-a-help.svg) center center no-repeat;
+  margin-left: 1rem;
+  position: fixed;
+  bottom: 110px;
+  background: none;
+
+  &--img {
+    -webkit-filter: drop-shadow( -8px 8px 1px $color-black);
+    filter: drop-shadow( -8px 8px 1px $color-black);
+  }
+}
 .list {
   &__table {
-    padding-top: 2rem;
+    padding: 2rem 0;
     max-width: 80%;
     margin: 0 auto;
     &__item {
