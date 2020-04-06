@@ -29,3 +29,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET_STG }}
+    - uses: 8398a7/action-slack@v3
+    with:
+      status: ${{ job.status }}
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+    if: always() # Pick up events even if the job fails or is canceled.
