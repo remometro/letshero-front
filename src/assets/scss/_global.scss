@@ -39,6 +39,17 @@ a {
       border: none;
     }
   }
+  &--link {
+    color: $color-black;
+
+    &--small {
+      font-size: 12px;
+    }
+
+    &:link, &:visited {
+      color: $color-black;
+    }
+  }
   &--input {
     &--text {
       font-family: $font-main;
