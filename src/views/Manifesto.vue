@@ -37,21 +37,21 @@ Mostly, we marginalize common human beings to antiquated reformatories or senten
 <br /><br />
 Societies seem to have not just yet understood that they are simply not succeeding & excelling when it comes to managing human resources and achieving true reintegration of a being.
 <br /><br />
-Call it spare lives, game over, handicap, restart, unconditional love. One experiences immortality in many levels when playing any virtual game. 
+Call it spare lives, game over, handicap, restart, unconditional love. One experiences immortality in many levels when playing any virtual game.
 <br /><br />
 The mere acknowledgement that: somewhere, somehow, we can be somewhat shot and still keep on playing, is both as daunting as it is appealing to us.
 <br /><br />
-Now, talking about a serious way one can experience infinite forgiveness and mutual learning is by always giving them the possibility to create a new beginning. 
+Now, talking about a serious way one can experience infinite forgiveness and mutual learning is by always giving them the possibility to create a new beginning.
 <br /><br />
 From now on.
 <br /><br />
 If we know now we've invested on something that later on revealed to be corruptive and fraudulent, how can we give back to the balance of things what we've helped to take?
 <br /><br />
-The very user experience of a video-game is at the same time: 
+The very user experience of a video-game is at the same time:
 <br /><br />
 (a) absolutely engaging;
 <br /><br />
-(b) often effective & 
+(b) often effective &
 <br /><br />
 (c) mostly satisfactory.
 <br /><br />
