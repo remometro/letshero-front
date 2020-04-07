@@ -5,9 +5,11 @@ import router from './router'
 import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+let gMapsAPIKEY = process.env.NODE_ENV === "development" ? 'AIzaSyClxqoc_vuBbW4BcgARukp-t86uTVvSz0U' : 'AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw'
+
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyClxqoc_vuBbW4BcgARukp-t86uTVvSz0U',
+    key: gMapsAPIKEY,
     libraries: 'places' // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
