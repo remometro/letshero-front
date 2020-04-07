@@ -14,6 +14,139 @@
     "name": "Super-Hero",
     "id": 5
   },
-  "my_helps": [],
-  "im_helping": []
+  "my_helps": [
+    {
+      "id": "69876",
+      "createdAt": "2011-10-07T14:48:00.000Z",
+      "modifiedAt": "2011-10-08T14:48:00.000Z",
+      "user": {
+        "id": "129i310293109",
+        "name": "Juan",
+        "paypal": "juan@email.com",
+        "gender": "1"
+      },
+      "category": {
+        "mainCategory": "Companion",
+        "mainCategoryId": "3",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+        "urgency": "1"
+      },
+      "location": {
+        "lat": "50",
+        "lng": "30",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": 20,
+        "currency": "USD"
+      },
+      "who_is_helping": [
+        {
+          "id": "129i310293109",
+          "name": "Diego",
+          "hasHelped": 0
+        },
+        {
+          "id": "129i310293109",
+          "name": "Lucas",
+          "hasHelped": 1
+        },
+        {
+          "id": "129i310293109",
+          "name": "João",
+          "hasHelped": -1
+        }
+      ]
+    },
+    {
+      "id": "69876",
+      "createdAt": "2011-10-07T14:48:00.000Z",
+      "modifiedAt": "2011-10-08T14:48:00.000Z",
+      "user": {
+        "id": "129i310293109",
+        "name": "Juan",
+        "paypal": "juan@email.com",
+        "gender": "1"
+      },
+      "category": {
+        "mainCategory": "Food",
+        "mainCategoryId": "1",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+        "urgency": "3"
+      },
+      "location": {
+        "lat": "50",
+        "lng": "30",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": 20,
+        "currency": "USD"
+      },
+      "who_is_helping": [
+        {
+          "id": "129i310293109",
+          "name": "Diego",
+          "hasHelped": 1
+        },
+        {
+          "id": "129i310293109",
+          "name": "Lucas",
+          "hasHelped": -1
+        },
+        {
+          "id": "129i310293109",
+          "name": "João",
+          "hasHelped": 0
+        }
+      ]
+    }
+  ],
+  "im_helping": [
+    {
+      "id": "90870",
+      "createdAt": "2011-10-07T14:48:00.000Z",
+      "modifiedAt": "2011-10-08T14:48:00.000Z",
+      "user": {
+        "id": "129i310293109",
+        "name": "IrmaDulce",
+        "paypal": "juan@email.com",
+        "gender": "3"
+      },
+      "stats": {
+        "views": 124,
+        "completed": false,
+        "clickedMessage": 123,
+        "clickedDonate": 423,
+        "amountRaised": 20
+      },
+      "category": {
+        "mainCategory": "Other",
+        "mainCategoryId": "4",
+        "subCategory": "",
+        "subCategoryId": "",
+        "customTitle": "",
+        "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+        "urgency": "3"
+      },
+      "location": {
+        "lat": "23",
+        "lng": "-10",
+        "placeName": "Salvador, Brazil"
+      },
+      "reward": {
+        "active": true,
+        "value": -100,
+        "currency": "BRL"
+      }
+    }
+  ]
 }

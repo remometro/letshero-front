@@ -10,6 +10,8 @@
             <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-im-helping">Who I'm Helping</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-is-helping-me">Who Is Helping me</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
             <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
