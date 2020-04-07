@@ -87,7 +87,7 @@ h1 {
         border-bottom: 2px solid $color-black;
         font-family: $font-main;
         color: $color-black;
-        background: none;
+        background: none !important;
         width: 100%;
       }
     }
