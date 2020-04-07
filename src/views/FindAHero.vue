@@ -4,9 +4,13 @@
 
       <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
       <LH-Dropdown ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
-      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 4">
+      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 4 && formReward !== 2">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
         <input type="number" min="1" step="1" v-model="formAmount" />
+      </div>
+      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2">
+        <label for="find-a-hero__form__reward__label">What do you offer?</label>
+        <input type="text" maxlength="32" v-model="formRewardOther" />
       </div>
       <div class="lh--input--text find-a-hero__form__where">
         <label for="find-a-hero__form__where__label">Where are you at the moment?</label>
@@ -54,6 +58,7 @@ export default {
       formType: null,
       formReward: null,
       formAmount: null,
+      formRewardOther: null,
       formWhere: null,
       formWhy: null,
       formPosition: null,
@@ -101,16 +106,20 @@ export default {
           "value": 1
         },
         {
-          "label": "I need some cash or help",
+          "label": "I offer some other help",
           "value": 2
         },
         {
-          "label": "I need some cash only",
+          "label": "I need some cash or help",
           "value": 3
         },
         {
-          "label": "I need some help only",
+          "label": "I need some cash only",
           "value": 4
+        },
+        {
+          "label": "I need some help only",
+          "value": 5
         }
       ]
     }

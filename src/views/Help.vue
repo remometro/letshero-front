@@ -9,7 +9,7 @@
 
           <p class="help__table__item__reward">{{getRewardText(help.user.gender, help.reward)}}</p>
 
-          <a href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Message</a>
+          <a href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help</a>
 
           <a v-if="help.reward.active && help.reward.value < 0" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate</a>
 
