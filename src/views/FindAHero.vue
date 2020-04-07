@@ -18,7 +18,7 @@
         <GmapAutocomplete @place_changed="setPlace" />
         <gmap-map
         v-if="formPlace"
-        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{disableDefaultUI:true}"
+        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="17" :options="{disableDefaultUI:true}"
         map-type-id="terrain"
         style="width: 100%; height: 150px"
         >
