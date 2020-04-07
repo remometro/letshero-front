@@ -16,6 +16,7 @@
           <Social-Share />
 
           <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">Back to list</router-link>
+          <router-link :to="'/map/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">Back to map</router-link>
           </div>
         </div>
       </div>
