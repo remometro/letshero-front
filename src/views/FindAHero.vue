@@ -2,15 +2,16 @@
   <main class="find-a-hero">
     <form action="" class="find-a-hero__form">
 
-      <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" :isOpen="typeOpen" />
-      <LH-Dropdown ref="typeOpen" label="Do you offer a reward?" :options="getOptionsHasReward" @selected="setReward" :isOpen="typeOpen" />
-      <div class="lh--input--text find-a-hero__form__reward">
+      <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
+      <LH-Dropdown ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
+      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 4">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
         <input type="number" min="1" step="1" v-model="formAmount" />
       </div>
       <div class="lh--input--text find-a-hero__form__where">
-        <label for="find-a-hero__form__where__label">Where do you need help?</label>
-        <input type="text" required v-model="formWhere" />
+        <label for="find-a-hero__form__where__label">Where are you at the moment?</label>
+        <!--<input type="text" required v-model="formWhere" @change="getPlaces" /> -->
+        <GmapAutocomplete />
       </div>
       <div class="lh--input--text find-a-hero__form__why">
         <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
@@ -27,6 +28,7 @@
 
 <script>
 import LHDropdown from "./components/LH-Dropdown"
+import axios from 'axios'
 export default {
   name: "FindAHero",
   components: {
@@ -97,6 +99,22 @@ export default {
     },
     setReward(value) {
       this.formReward = value
+    },
+    getPlaces() {
+      let token = this.$store.state.sessionToken
+      let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(this.formWhere)}&key=&sessiontoken=${token}`
+
+      axios.get(url, { mode: 'no-cors' })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('fetched places results data.')
+
+            res.json()
+              .then(parRes => {
+                console.log(parRes)
+              })
+          }
+        })
     }
   }
 }
