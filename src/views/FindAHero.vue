@@ -11,7 +11,22 @@
       <div class="lh--input--text find-a-hero__form__where">
         <label for="find-a-hero__form__where__label">Where are you at the moment?</label>
         <!--<input type="text" required v-model="formWhere" @change="getPlaces" /> -->
-        <GmapAutocomplete />
+        <GmapAutocomplete @place_changed="setPlace" />
+        <gmap-map
+        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{disableDefaultUI:true}"
+        map-type-id="terrain"
+        style="width: 100%; height: 150px"
+        >
+        <gmap-marker
+        @dragend="updateMaker"
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        @click="formPosition=m.position"
+        ></gmap-marker>
+    </gmap-map>
       </div>
       <div class="lh--input--text find-a-hero__form__why">
         <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
@@ -28,7 +43,6 @@
 
 <script>
 import LHDropdown from "./components/LH-Dropdown"
-import axios from 'axios'
 export default {
   name: "FindAHero",
   components: {
@@ -40,7 +54,14 @@ export default {
       formReward: null,
       formAmount: null,
       formWhere: null,
-      formWhy: null
+      formWhy: null,
+      formPosition: null,
+      formPlace: null,
+      currentLocation: { lat: 0, lng: 0 },
+      markers: [{
+        position: { lat: 0, lng: 0 }
+      }],
+      place: null
     }
   },
   computed: {
@@ -100,22 +121,35 @@ export default {
     setReward(value) {
       this.formReward = value
     },
-    getPlaces() {
-      let token = this.$store.state.sessionToken
-      let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(this.formWhere)}&key=&sessiontoken=${token}`
-
-      axios.get(url, { mode: 'no-cors' })
-        .then(res => {
-          if (res.statusText === 'OK') {
-            console.log('fetched places results data.')
-
-            res.json()
-              .then(parRes => {
-                console.log(parRes)
-              })
-          }
-        })
+    setPlace(place) {
+      this.place = place
+      this.formPlace = place.formatted_address
+      this.formPosition = place.geometry.location
+      this.recenterMap(this.place.geometry.location)
+      this.updateMaker(null, this.place.geometry.location)
+    },
+    geolocation: function() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.currentLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      })
+    },
+    updateMaker: function(event, center) {
+      this.markers[0].position = {
+        lat: (center && center.lat()) || event.latLng.lat(),
+        lng: (center && center.lng()) || event.latLng.lng()
+      }
+      this.formPosition = this.markers[0].position
+    },
+    recenterMap(center) {
+      this.currentLocation.lat = center.lat()
+      this.currentLocation.lng = center.lng()
     }
+  },
+  mounted: function() {
+    this.geolocation()
   }
 }
 </script>
