@@ -24,6 +24,7 @@
     <router-view/>
     .bg
     .hp__footer
+      router-link.hp__footer__manifesto(to="/manifesto")="Read our manifesto."
       small.hp__footer__copy="© Copyright 2012-{{new Date().getUTCFullYear()}}"
       small="Irmãos Reale Desenvolvimento de Softwares Ltda."
   </div>
@@ -187,6 +188,11 @@ export default {
     height: 100px;
     position: relative;
     bottom: 0;
+
+    &__manifesto {
+      color: $color-white;
+      font-size: 10px;
+    }
 
     &__copy {
       max-width: 80%;
