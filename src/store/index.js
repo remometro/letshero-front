@@ -12,7 +12,8 @@ export default new Vuex.Store({
     bookingsData: [],
     allBookingsData: [],
     liveStreaming: {},
-    instagram: []
+    instagram: [],
+    sessionToken: ''
   },
   mutations: {
     performLogin(state, payload) {
