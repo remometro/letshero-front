@@ -26,8 +26,8 @@
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "23",
+      "lng": "-10",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
@@ -56,8 +56,8 @@
       "urgency": "1"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "50",
+      "lng": "30",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
@@ -86,8 +86,8 @@
       "urgency": "2"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "10",
+      "lng": "15",
       "placeName": "Sao Paulo, Brazil"
     },
     "reward": {
@@ -116,8 +116,8 @@
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "25",
+      "lng": "30",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
@@ -146,8 +146,8 @@
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "35",
+      "lng": "10",
       "placeName": "Salvador, Brazil"
     },
     "reward": {

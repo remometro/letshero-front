@@ -8,12 +8,13 @@
         >
         <gmap-marker
         :key="index"
-        v-for="(m, index) in markers"
+        v-for="(m, index) in storedMarkers"
         :position="m.position"
         :clickable="true"
         :draggable="false"
         help-id=""
-        @click="openHelp"
+        @click="openHelp(m)"
+        :icon="{ url: loadMarker(m) }"
         ></gmap-marker>
     </gmap-map>
     <!-- <iframe @load="setHeight" ref="map__iframe" width="100%" height="auto" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=10&center=40.7128%2C-74.0060&key=AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw" allowfullscreen></iframe> -->
@@ -27,6 +28,7 @@
 <script>
 import LogIn from "./Login"
 import Subtitles from "./components/Subtitles"
+import data from "../../data/help-data.json"
 export default {
   components: {
     LogIn,
@@ -35,6 +37,16 @@ export default {
   computed: {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    helps() {
+      return data
+    },
+    storedMarkers() {
+      let markers = this.helps.map((help) => {
+        return { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help.id, urgency: help.category.urgency }
+      })
+      console.log(markers)
+      return markers
     }
   },
   mounted() {
@@ -75,8 +87,23 @@ export default {
       this.currentLocation.lat = center.lat()
       this.currentLocation.lng = center.lng()
     },
-    openHelp() {
-      console.log("clicked")
+    openHelp(m) {
+      this.$router.push('/help/' + m.id)
+    },
+    loadMarker(m) {
+      let marker = require('../assets/imgs/heart-green.svg')
+      switch (m.urgency) {
+      case "1":
+        marker = require('../assets/imgs/heart-green.svg')
+        break
+      case "2":
+        marker = require('../assets/imgs/heart-yellow.svg')
+        break
+      case "3":
+        marker = require('../assets/imgs/heart-red.svg')
+        break
+      }
+      return marker
     }
   }
 }
