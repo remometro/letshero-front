@@ -9,10 +9,11 @@
             Sketched by the dreams of many.
 <br />
 Dreamed by the sketches of one.
+
+<br /><br />
+Born in 2012 as KARUṆĀ, then krn.cc ™, Let's Hero is a story of freedom.
 <br /><br />
 Initially serving as a web-domain for KARUṆĀ, krn.cc ™ found autonomy over time & space while interceding with the dreams of a kid who always imagined life as an infinite playground.
-<br /><br />
-Born in 1992 as Angelo Reale, krn.cc ™ is a story of freedom.
 <br /><br />
 If freedom is to be here, now and conscious, I believe it'll never be found in roles but rather in work.
 <br /><br />
