@@ -83,10 +83,6 @@ export default {
 </script>
 
 <style lang="scss">
-.vue-map-container {
-  //height: calc(100vh - 200px);
-  margin-top: 100px;
-}
 .map {
   width: 100%;
   max-width: 100vw !important;
@@ -97,5 +93,9 @@ export default {
 <style lang="scss" scoped>
 .hp__footer {
   display: none;
+}
+.vue-map-container {
+  //height: calc(100vh - 200px);
+  margin-top: 100px;
 }
 </style>
