@@ -137,7 +137,6 @@ export default {
       })
     },
     updateMaker: function(event, center) {
-      console.log(event)
       this.markers[0].position = {
         lat: (center && center.lat()) || event.latLng.lat(),
         lng: (center && center.lng()) || event.latLng.lng()
