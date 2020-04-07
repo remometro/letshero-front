@@ -57,7 +57,7 @@ const routes = [
     name: 'Manifesto',
     component: Manifesto,
     meta: {
-      title: 'Let\'s Hero - Manifesto',
+      title: `Let's Hero — Manifesto`,
       metaTags: [
         {
           name: 'description',
@@ -66,6 +66,10 @@ const routes = [
         {
           property: 'og:description',
           content: `Born in 2012 as KARUṆĀ, then krn.cc ™, Let's Hero is a story of freedom.`
+        },
+        {
+          property: 'og:title',
+          content: `Let's Hero — Manifesto`
         }
       ]
     }
