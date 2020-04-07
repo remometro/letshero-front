@@ -1,6 +1,7 @@
 <template>
 <main class="coming-soon">
-<h1 class="coming-soon__header">Coming soon...</h1>
+<h2 class="coming-soon__header">Coming soon...</h2>
+<h2 class="coming-soon__manifesto">Meanwhile, read <router-link class="coming-soon__manifesto__link" to="/manifesto">Our Manifesto.</router-link></h2>
 </main>
 </template>
 
@@ -15,8 +16,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  color: $color-black;
   &__header {
-    color: $color-black;
   }
 }
 

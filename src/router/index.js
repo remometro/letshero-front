@@ -7,6 +7,7 @@ import Map from "../views/Map.vue"
 import List from "../views/List.vue"
 import Profile from "../views/Profile.vue"
 import ComingSoon from "../views/ComingSoon.vue"
+import Manifesto from "../views/Manifesto.vue"
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/manifesto',
+    name: 'Manifesto',
+    component: Manifesto
   }
 ]
 
