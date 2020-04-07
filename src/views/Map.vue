@@ -3,7 +3,7 @@
     <gmap-map
         :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{disableDefaultUI:true}"
         map-type-id="terrain"
-        style="width: 100%;"
+        :style="'width: 100%; height:' + mapHeight + 'px;' "
         ref="lh-map__container"
         >
         <gmap-marker
@@ -50,6 +50,7 @@ export default {
   },
   data() {
     return {
+      mapHeight: window.innerHeight,
       currentLocation: { lat: 0, lng: 0 },
       markers: [{
         position: { lat: 0, lng: 0 }
@@ -59,10 +60,7 @@ export default {
   methods: {
     setHeight() {
       let height = window.innerHeight
-      console.log(this.$refs, this.$refs["lh-map__container"].$el)
-      this.$refs["lh-map__container"].$el.height = height - 100
-      this.$refs["lh-map__container"].$el.style.minHeight = height - 100
-      this.$refs["lh-map__container"].$el.style.height = height - 100
+      this.mapHeight = height - 200
       this.$refs["lh-map"].style.minHeight = height - 100 + "px"
     },
     geolocation: function() {
@@ -86,7 +84,7 @@ export default {
 
 <style lang="scss">
 .vue-map-container {
-  height: calc(100vh - 200px);
+  //height: calc(100vh - 200px);
   margin-top: 100px;
 }
 .map {
