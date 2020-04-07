@@ -55,7 +55,20 @@ const routes = [
   {
     path: '/manifesto',
     name: 'Manifesto',
-    component: Manifesto
+    component: Manifesto,
+    meta: {
+      title: 'Let\'s Hero - Manifesto',
+      metaTags: [
+        {
+          name: 'description',
+          content: `Born in 2012 as KARUṆĀ, then krn.cc ™, Let's Hero is a story of freedom.`
+        },
+        {
+          property: 'og:description',
+          content: `Born in 2012 as KARUṆĀ, then krn.cc ™, Let's Hero is a story of freedom.`
+        }
+      ]
+    }
   }
 ]
 
