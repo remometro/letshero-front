@@ -119,7 +119,7 @@ export default {
     text-align: left;
     color: $color-white;
     overflow-y: scroll;
-    z-index: 1;
+    z-index: 999;
 
     &__link {
       font-size: 2rem;
@@ -162,7 +162,7 @@ export default {
   opacity: 0.2;
 
   &--menu {
-    z-index: 0;
+    z-index: -1;
   }
 }
 
