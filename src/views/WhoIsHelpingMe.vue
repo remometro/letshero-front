@@ -3,8 +3,8 @@
     <div class="lh-container">
       <h2 class="helped-me__title">Who has helped me</h2>
       <div class="helped-me__table">
-        <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries">
-          <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }" @click="openTab(i)">
+        <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
+          <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }">
             <div class="helped-me__table__item__top">
               <div class="helped-me__table__item__top__left">
                 <span class="helped-me__table__item__img"></span>
