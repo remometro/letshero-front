@@ -21,7 +21,7 @@
       <LH-Dropdown ref="typeOpen" label="What do you identify with?" :disabled="notEditMode" :options="getOptionsGender" @selected="setGender" :placeholder="getGender()" />
       <div class="lh--input--text settings__form__email">
         <label for="settings__form__user__email">What's your whatsapp number?</label>
-        <input type="tel" pattern="+^[0-9-+\s()]*$" :disabled="notEditMode" :value="me.user.whatsapp" required>
+        <input type="tel" pattern="+^[0-9-+\s()]*$" v-mask="'+##############'" :disabled="notEditMode" :value="me.user.whatsapp" required>
       </div>
       <button class="lh--button settings__form__submit" @click.prevent="toggleEditMode">
         {{ !notEditMode ? "Save" : "Edit" }}

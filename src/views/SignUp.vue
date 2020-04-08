@@ -20,7 +20,7 @@
       <LH-Dropdown ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
       <div class="lh--input--text signup__form__email">
         <label for="signup__form__user__email">What's your whatsapp number?</label>
-        <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="+55123456789" required>
+        <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="+55123456789" v-mask="'+##############'" required>
       </div>
       <button class="lh--button signup__form__submit">
         Sign up
