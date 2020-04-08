@@ -13,7 +13,8 @@ export default new Vuex.Store({
     allBookingsData: [],
     liveStreaming: {},
     instagram: [],
-    sessionToken: ''
+    sessionToken: '',
+    baseUrl: process.env.VUE_APP_URL || 'https://letshero.com'
   },
   mutations: {
     performLogin(state, payload) {
