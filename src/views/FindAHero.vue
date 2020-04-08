@@ -37,6 +37,10 @@
         <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
         <textarea class="lh--input--textarea" type="text" required maxlength="256" rows="5" v-model="formWhy" />
       </div>
+      <div class="lh--input--text find-a-hero__form__reward">
+        <label for="find-a-hero__form__reward__label">Is there a video link explaining your need? (Youtube and Vimeo links only)</label>
+        <input type="text" maxlength="128" v-model="formLink" />
+      </div>
       <button class="lh--button find-a-hero__form__submit">
         Find a Hero
       </button>
@@ -63,6 +67,7 @@ export default {
       formWhy: null,
       formPosition: null,
       formPlace: null,
+      formLink: null,
       currentLocation: { lat: 0, lng: 0 },
       markers: [{
         position: { lat: 0, lng: 0 }

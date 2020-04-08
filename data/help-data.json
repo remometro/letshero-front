@@ -23,6 +23,7 @@
       "subCategoryId": "",
       "customTitle": "",
       "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
@@ -70,6 +71,7 @@
       "subCategoryId": "",
       "customTitle": "",
       "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "1"
     },
     "location": {
@@ -117,6 +119,7 @@
       "subCategoryId": "",
       "customTitle": "",
       "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "2"
     },
     "location": {
@@ -164,6 +167,7 @@
       "subCategoryId": "",
       "customTitle": "",
       "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
@@ -211,6 +215,7 @@
       "subCategoryId": "",
       "customTitle": "",
       "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
