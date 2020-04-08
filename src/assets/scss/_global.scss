@@ -31,6 +31,9 @@ h1 {
 // }
 
 .lh {
+  &--badge {
+    margin: 0 .5rem;
+  }
   &--btn {
     &--plus {
       background: url(~@/assets/imgs/plus.svg) center center no-repeat;

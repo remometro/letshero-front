@@ -4,7 +4,7 @@
       <div class="help__table">
         <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 3, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 1 }">
           <span class="list__table__item__img"></span>
-          <h2 class="help__table__item__header">{{help.user.name}} needs help with {{help.category.mainCategory}}</h2>
+          <h2 class="help__table__item__header">{{help.user.name}}<img class="lh--badge" :src="help.user.verified && require('../assets/imgs/badge.svg')" /> needs help with {{help.category.mainCategory}}</h2>
           <p class="help__table__item__description">{{help.category.customDescription}}</p>
 
           <p class="help__table__item__reward">{{getRewardText(help.user.gender, help.reward)}}</p>
@@ -149,6 +149,13 @@ export default {
       border-radius: 8px;
       display: flex;
       flex-direction: column;
+
+      &__header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
 
       &__cta {
         &--back {

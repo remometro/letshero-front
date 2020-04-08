@@ -8,7 +8,8 @@
       "name": "IrmaDulce",
       "paypal": "juan@email.com",
       "gender": "3",
-      "whatsapp":"+5511944666162"
+      "whatsapp":"+5511944666162",
+      "verified": true
     },
     "stats": {
       "views": 124,
@@ -64,7 +65,8 @@
       "name": "Juan",
       "paypal": "juan@email.com",
       "gender": "1",
-      "whatsapp":"+5511944666162"
+      "whatsapp":"+5511944666162",
+      "verified": false
     },
     "category": {
       "mainCategory": "Companion",
@@ -113,7 +115,8 @@
       "name": "Diego",
       "paypal": "juan@email.com",
       "gender": "1",
-      "whatsapp":"+5511944666162"
+      "whatsapp":"+5511944666162",
+      "verified": true
     },
     "category": {
       "mainCategory": "Shelter",
@@ -162,7 +165,8 @@
       "name": "Angelo",
       "paypal": "juan@email.com",
       "gender": "1",
-      "whatsapp":"+5511944666162"
+      "whatsapp":"+5511944666162",
+      "verified": false
     },
     "category": {
       "mainCategory": "Food",
@@ -211,7 +215,8 @@
       "name": "Yve",
       "paypal": "juan@email.com",
       "gender": "2",
-      "whatsapp":"+5511944666162"
+      "whatsapp":"+5511944666162",
+      "verified": true
     },
     "category": {
       "mainCategory": "Food",
