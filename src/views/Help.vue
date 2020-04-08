@@ -16,7 +16,7 @@
 
           <a v-if="alreadyHelping()" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.user.name}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.mainCategory)}:%20https://staging.letshero.com/help/829831`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.gender)}}</a>
 
-          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help.id}&quantity=1$return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help.id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
 
           <Social-Share />
 
