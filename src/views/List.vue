@@ -13,7 +13,7 @@
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.location.placeName}}</div>
-              <div class="list__table__item__distance">(2km away)</div>
+              <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K") + "KM Away": "Distance Unknown"}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
               </div>
               <router-link :to="'/help/' + item.id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</router-link>
@@ -41,7 +41,8 @@ export default {
   },
   data() {
     return {
-      tabOpened: null
+      tabOpened: null,
+      currentLocation: null
     }
   },
   computed: {
@@ -51,6 +52,9 @@ export default {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     }
+  },
+  mounted() {
+    this.mylocation()
   },
   methods: {
     treatment(gender) {
@@ -92,6 +96,34 @@ export default {
     },
     getRewardText(gender, reward) {
       return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
+    },
+    mylocation: function() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.currentLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      })
+    },
+    distance(lat1, lon1, lat2, lon2, unit) {
+      if ((lat1 === lat2) && (lon1 === lon2)) {
+        return 0
+      } else {
+        var radlat1 = Math.PI * lat1 / 180
+        var radlat2 = Math.PI * lat2 / 180
+        var theta = lon1 - lon2
+        var radtheta = Math.PI * theta / 180
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+        if (dist > 1) {
+          dist = 1
+        }
+        dist = Math.acos(dist)
+        dist = dist * 180 / Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit === "K") { dist = dist * 1.609344 }
+        if (unit === "N") { dist = dist * 0.8684 }
+        return dist.toLocaleString("en-US", { maximumFractionDigits: 0 })
+      }
     }
   }
 }
