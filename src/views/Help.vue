@@ -12,9 +12,9 @@
           <a v-if="!alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help {{treatmentTo(help.user.gender)}}</a>
           <router-link v-else :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
 
-          <a href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.gender)}}</a>
 
-          <a v-if="help.reward.active && help.reward.value < 0" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
 
           <Social-Share />
 
