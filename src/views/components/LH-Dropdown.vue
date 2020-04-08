@@ -3,7 +3,7 @@
     <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}">
       <div class="lh--input--select--field">
         <label for="find-a-hero__form__what__label">{{label}}</label>
-        <button class="lh-dropdown__select-button" @click.stop="!disabled && toggleSelect($event)">
+        <button class="lh-dropdown__select-button" :disabled="disabled" @click.stop="!disabled && toggleSelect($event)">
           <input type="text" readonly tabindex="-1" :disabled="disabled" required v-model="selectValue" @click="!disabled && toggleSelect" @keypress.enter="!disabled && toggleSelect" :placeholder="placeholder"/>
           <div class="lh-dropdown__options" :class="{isOpen: isOpen}" >
             <button tabindex="0" class="lh-dropdown__options__option" :key="option.value" v-for="option in options" @click.stop="setValue($event, option.value, option.label)" >
