@@ -146,7 +146,24 @@
         "active": true,
         "value": -100,
         "currency": "BRL"
-      }
+      },
+      "who_is_helping": [
+        {
+          "id": "129i310293109",
+          "name": "Juan",
+          "hasHelped": 1
+        },
+        {
+          "id": "129i310293109",
+          "name": "Lucas",
+          "hasHelped": -1
+        },
+        {
+          "id": "129i310293109",
+          "name": "João",
+          "hasHelped": 0
+        }
+      ]
     }
   ]
 }
