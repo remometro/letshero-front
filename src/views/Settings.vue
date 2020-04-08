@@ -1,5 +1,5 @@
 <template>
-  <main class="settings">
+  <main class="settings" v-if="isLoggedIn">
     <form action="" class="settings__form">
       <div class="lh--input--text settings__form__user">
         <label for="settings__form__user__input">Heroname</label>
@@ -29,15 +29,20 @@
       <router-link to="/login" class="lh--link--black settings__form__existing">Delete hero?</router-link>
     </form>
   </main>
+  <main class="not-logged" v-else>
+    <Login />
+  </main>
 </template>
 
 <script>
 import LHDropdown from "./components/LH-Dropdown"
 import userData from "../../data/profile-data.json"
+import Login from "./Login"
 export default {
   name: "Settings",
   components: {
-    LHDropdown
+    LHDropdown,
+    Login
   },
   data() {
     return {
@@ -48,6 +53,9 @@ export default {
   computed: {
     me() {
       return userData
+    },
+    isLoggedIn() {
+      return !!this.$store.state.isLoggedIn
     },
     getOptionsGender() {
       return [
