@@ -50,6 +50,8 @@ export default {
 .lh-dropdown {
   position: relative;
   width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
 }
 .lh-dropdown__options {
   display: none;
