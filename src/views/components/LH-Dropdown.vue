@@ -1,5 +1,5 @@
 <template>
-  <div class="lh-dropdown" v-on-clickaway="closeSelect">
+  <div class="lh-dropdown" v-on-clickaway="closeSelect" @keydown.esc="closeSelect">
     <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}">
       <div class="lh--input--select--field">
         <label for="find-a-hero__form__what__label">{{label}}</label>
