@@ -118,7 +118,7 @@ export default {
     justify-items: flex-start;
     text-align: left;
     color: $color-white;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 999;
     padding-bottom: 3rem;
     box-sizing: border-box;
@@ -145,7 +145,7 @@ export default {
         left: 0;
         width: 100vw;
         background-color: $color-black;
-        overflow-y: scroll;
+        overflow-y: auto;
         max-height: calc(100vh - 100px);
       }
     }
