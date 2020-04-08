@@ -146,7 +146,7 @@ export default {
         width: 100vw;
         background-color: $color-black;
         overflow-y: auto;
-        max-height: calc(100vh - 100px);
+        max-height: 100vh;
       }
     }
   }
