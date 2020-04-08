@@ -1,7 +1,7 @@
 <template>
   <main ref="lh-map" class="map" v-if="isLoggedIn">
     <gmap-map
-        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{disableDefaultUI:true}"
+        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy' }"
         map-type-id="terrain"
         :style="'width: 100%; height:' + mapHeight + 'px;' "
         ref="lh-map__container"
@@ -45,7 +45,6 @@ export default {
       let markers = this.helps.map((help) => {
         return { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help.id, urgency: help.category.urgency }
       })
-      console.log(markers)
       return markers
     }
   },
@@ -53,6 +52,7 @@ export default {
     if (this.isLoggedIn) {
       this.setHeight()
     }
+    this.$parent.$refs.hp__footer.style.display = "none"
     this.geolocation()
   },
   updated() {

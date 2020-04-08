@@ -25,7 +25,7 @@
           </div>
     <router-view/>
     .bg
-    .hp__footer
+    .hp__footer(ref="hp__footer")
       router-link.hp__footer__manifesto(to="/manifesto")="Read our manifesto."
       small.hp__footer__copy="© Copyright 2012-{{new Date().getUTCFullYear()}}"
       small="Irmãos Reale Desenvolvimento de Softwares Ltda."
