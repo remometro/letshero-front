@@ -120,6 +120,8 @@ export default {
     color: $color-white;
     overflow-y: scroll;
     z-index: 999;
+    padding-bottom: 3rem;
+    box-sizing: border-box;
 
     &__link {
       font-size: 2rem;
@@ -139,10 +141,12 @@ export default {
         display: flex;
         flex-basis: 100%;
         position: absolute;
-        top: 80px;
+        top: 100px;
         left: 0;
         width: 100vw;
         background-color: $color-black;
+        overflow-y: scroll;
+        max-height: calc(100vh - 100px);
       }
     }
   }
