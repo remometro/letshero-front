@@ -1,27 +1,28 @@
 <template>
   <main class="settings" v-if="isLoggedIn">
     <form action="" class="settings__form">
-      <div class="lh--input--text settings__form__user">
-        <label for="settings__form__user__input">Heroname</label>
-        <input type="text" :disabled="notEditMode" :value="me.user.name"/>
-
-      </div>
-      <div class="lh--input--text settings__form__pass">
-        <label for="settings__form__user__input">Password</label>
-        <input type="password" :disabled="notEditMode" placeholder="*****" />
-      </div>
-      <div class="lh--input--text settings__form__email">
-        <label for="settings__form__user__email">Email</label>
-        <input type="email" required :value="me.user.email" :disabled="notEditMode"/>
-      </div>
-      <div class="lh--input--text settings__form__paypal">
-        <label for="settings__form__user__email">Payments Email</label>
-        <input type="email" required :value="me.user.paypal" :disabled="notEditMode"/>
-      </div>
-      <LH-Dropdown ref="typeOpen" label="What do you identify with?" :disabled="notEditMode" :options="getOptionsGender" @selected="setGender" :placeholder="getGender()" />
-      <div class="lh--input--text settings__form__email">
-        <label for="settings__form__user__email">What's your whatsapp number?</label>
-        <input type="tel" pattern="+^[0-9-+\s()]*$" v-mask="'+##############'" :disabled="notEditMode" :value="me.user.whatsapp" required>
+      <div class="settings__form__fields" :class="{ isLocked: notEditMode }">
+        <div class="lh--input--text settings__form__user">
+          <label for="settings__form__user__input">Heroname</label>
+          <input type="text" :disabled="notEditMode" :value="me.user.name"/>
+        </div>
+        <div class="lh--input--text settings__form__pass">
+          <label for="settings__form__user__input">Password</label>
+          <input type="password" :disabled="notEditMode" placeholder="*****" />
+        </div>
+        <div class="lh--input--text settings__form__email">
+          <label for="settings__form__user__email">Email</label>
+          <input type="email" required :value="me.user.email" :disabled="notEditMode"/>
+        </div>
+        <div class="lh--input--text settings__form__paypal">
+          <label for="settings__form__user__email">Payments Email</label>
+          <input type="email" required :value="me.user.paypal" :disabled="notEditMode"/>
+        </div>
+        <LH-Dropdown ref="typeOpen" label="What do you identify with?" :disabled="notEditMode" :options="getOptionsGender" @selected="setGender" :placeholder="getGender()" />
+        <div class="lh--input--text settings__form__email">
+          <label for="settings__form__user__email">What's your whatsapp number?</label>
+          <input type="tel" pattern="+^[0-9-+\s()]*$" v-mask="'+##############'" :disabled="notEditMode" :value="me.user.whatsapp" required>
+        </div>
       </div>
       <button class="lh--button settings__form__submit" @click.prevent="toggleEditMode">
         {{ !notEditMode ? "Save" : "Edit" }}
@@ -99,6 +100,22 @@ export default {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
+    &__fields {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__fields.isLocked {
+      background-color: lightgray;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 8px;
+
+    }
 
     &__existing {
       margin: 1rem;

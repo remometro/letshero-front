@@ -2,8 +2,8 @@
   <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="list__table">
-        <div class="list__table__item" :key="item.id" v-for="(item, i) in entries">
-          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }" @click="openTab(i)">
+        <div class="list__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
+          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }">
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
