@@ -18,11 +18,11 @@ export default new Vuex.Store({
   },
   mutations: {
     performLogin(state, payload) {
-      // state.userId = payload.user._id
-      // localStorage.setItem('tkn', payload.token)
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
-      // console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
-      // this.dispatch('fetchUserData')
+      state.userId = payload.user._id
+      localStorage.setItem('tkn', payload.token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
+      console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
+      this.dispatch('fetchUserData')
       state.isLoggedIn = true
     },
     performLogOut(state) {
@@ -60,20 +60,34 @@ export default new Vuex.Store({
         axios.defaults.headers.common['Authorization'] = ''
       }
     },
+    signUp(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/register`
+      console.log('signing up..')
+
+      axios.post(url, payload, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('signed up!', res)
+            this.dispatch('logIn', { username: res.data.username, password: payload.password })
+          }
+        })
+    },
     logIn(context, payload) {
-      // let url = `${window.serverURL}/api-v1/login`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/login`
       console.log('logging in..')
-      this.commit('performLogin')
-      // axios.post(url, payload, { headers: {
-      //   'Content-Type': 'application/json'
-      // },
-      // withCredentials: true })
-      //   .then(res => {
-      //     if (res.statusText === 'OK') {
-      //       console.log('logged', res)
-      //       //this.commit('performLogin', res.data)
-      //     }
-      //   })
+      axios.post(url, payload, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('logged', res)
+            this.commit('performLogin', res.data)
+          }
+        })
     },
     logOut() {
       this.commit('performLogOut')
