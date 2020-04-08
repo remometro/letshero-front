@@ -10,6 +10,7 @@ import Help from "../views/Help.vue"
 import WhoImHelping from "../views/WhoImHelping.vue"
 import WhoIsHelpingMe from "../views/WhoIsHelpingMe.vue"
 import Manifesto from "../views/Manifesto.vue"
+import Settings from "../views/Settings.vue"
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,11 @@ const routes = [
     path: '/who-is-helping-me',
     name: 'WhoIsHelpingMe',
     component: WhoIsHelpingMe
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
   },
   {
     path: '/manifesto',

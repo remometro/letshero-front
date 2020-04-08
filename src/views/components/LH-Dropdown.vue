@@ -3,7 +3,7 @@
     <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}">
       <div class="lh--input--select--field">
         <label for="find-a-hero__form__what__label">{{label}}</label>
-        <input type="text" required v-model="selectValue" readonly @click="toggleSelect()"/>
+        <input type="text" :disabled="disabled" required v-model="selectValue" readonly @click="!disabled && toggleSelect()" :placeholder="placeholder"/>
       </div>
     </div>
     <div class="lh-dropdown__options" :class="{isOpen: isOpen}" >
@@ -26,7 +26,9 @@ export default {
   },
   props: {
     options: Array,
-    label: String
+    label: String,
+    placeholder: String,
+    disabled: Boolean
   },
   methods: {
     setValue(value, label) {
@@ -47,6 +49,7 @@ export default {
 <style lang="scss">
 .lh-dropdown {
   position: relative;
+  width: 100%;
 }
 .lh-dropdown__options {
   display: none;

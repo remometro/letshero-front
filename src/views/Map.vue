@@ -52,7 +52,7 @@ export default {
     if (this.isLoggedIn) {
       this.setHeight()
     }
-    this.$parent.$refs.hp__footer.style.display = "none"
+    // this.$parent.$refs.hp__footer.style.display = "none"
     this.geolocation()
   },
   updated() {
