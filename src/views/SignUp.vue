@@ -3,20 +3,24 @@
     <form action="" class="signup__form">
       <div class="lh--input--text signup__form__user">
         <label for="signup__form__user__input">Heroname</label>
-        <input type="text" />
+        <input type="text" required />
       </div>
       <div class="lh--input--text signup__form__pass">
         <label for="signup__form__user__input">Password</label>
-        <input type="password" />
+        <input type="password" required />
       </div>
       <div class="lh--input--text signup__form__email">
         <label for="signup__form__user__email">Email</label>
-        <input type="email" />
+        <input type="email" required />
+      </div>
+      <div class="lh--input--text signup__form__email">
+        <label for="signup__form__user__email">Payments email</label>
+        <input type="email" required />
       </div>
       <LH-Dropdown ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
       <div class="lh--input--text signup__form__email">
-        <label for="signup__form__user__email">Your whatsapp (with country code)</label>
-        <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="Telephone Number" required>
+        <label for="signup__form__user__email">What's your whatsapp number?</label>
+        <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="+55123456789" required>
       </div>
       <button class="lh--button signup__form__submit">
         Sign up
