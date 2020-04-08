@@ -13,7 +13,7 @@
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.location.placeName}}</div>
-              <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K") + "KM Away": "Distance Unknown"}})</div>
+              <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
               </div>
               <router-link :to="'/help/' + item.id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</router-link>
@@ -47,7 +47,13 @@ export default {
   },
   computed: {
     entries() {
-      return data
+      return data.sort((a, b) => {
+        if (this.currentLocation) {
+          let distanceA = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(a.location.lat), Number(a.location.lng), "K")
+          let distanceB = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(b.location.lat), Number(b.location.lng), "K")
+          return distanceA - distanceB
+        }
+      })
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
@@ -55,6 +61,10 @@ export default {
   },
   mounted() {
     this.mylocation()
+    console.log(this.entries)
+  },
+  updated() {
+    console.log("updated", this.entries)
   },
   methods: {
     treatment(gender) {
@@ -122,7 +132,7 @@ export default {
         dist = dist * 60 * 1.1515
         if (unit === "K") { dist = dist * 1.609344 }
         if (unit === "N") { dist = dist * 0.8684 }
-        return dist.toLocaleString("en-US", { maximumFractionDigits: 0 })
+        return dist
       }
     }
   }
