@@ -34,7 +34,24 @@
       "active": true,
       "value": -100,
       "currency": "BRL"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "69876",
@@ -64,7 +81,24 @@
       "active": true,
       "value": 20,
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "09687963128409238",
@@ -94,7 +128,24 @@
       "active": true,
       "value": 0,
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "8787",
@@ -124,7 +175,24 @@
       "active": false,
       "value": "200",
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "98989",
@@ -154,6 +222,23 @@
       "active": true,
       "value": "200",
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   }
 ]

@@ -9,9 +9,12 @@
 
           <p class="help__table__item__reward">{{getRewardText(help.user.gender, help.reward)}}</p>
 
-          <a href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help</a>
+          <a v-if="!alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help {{treatmentTo(help.user.gender)}}</a>
+          <router-link v-else :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
 
-          <a v-if="help.reward.active && help.reward.value < 0" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate</a>
+          <a href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.gender)}}</a>
+
+          <a v-if="help.reward.active && help.reward.value < 0" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
 
           <Social-Share />
 
@@ -29,6 +32,7 @@
 
 <script>
 import data from "../../data/help-data.json"
+import userData from "../../data/profile-data.json"
 import Subtitles from "./components/Subtitles"
 import Login from "./Login"
 import SocialShare from "./components/LH-SocialShare"
@@ -54,6 +58,9 @@ export default {
       return this.entries.filter((el) => {
         return el.id === this.$route.params.id
       })[0]
+    },
+    me() {
+      return userData
     }
   },
   methods: {
@@ -86,6 +93,27 @@ export default {
         break
       }
       return treatment
+    },
+    treatmentTo(gender) {
+      let treatment = "Its"
+      switch (gender) {
+      case "1":
+        treatment = "Him"
+        break
+      case "2":
+        treatment = "Her"
+        break
+      case "3":
+        treatment = "It"
+        break
+      }
+      return treatment
+    },
+    alreadyHelping() {
+      let amI = this.help.who_is_helping.findIndex(el => {
+        return el.id === this.me.user.id
+      })
+      return amI > -1
     },
     openTab(i) {
       if (i === this.tabOpened) {
