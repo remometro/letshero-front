@@ -118,6 +118,8 @@ export default {
     justify-items: flex-start;
     text-align: left;
     color: $color-white;
+    overflow-y: scroll;
+    z-index: 1;
 
     &__link {
       font-size: 2rem;
