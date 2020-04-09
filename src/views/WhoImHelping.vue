@@ -4,16 +4,16 @@
       <h2 class="helped-me__title">Who I'm helping</h2>
       <div class="helped-me__table">
         <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
-          <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }">
+          <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="helped-me__table__item__top">
               <div class="helped-me__table__item__top__left">
                 <span class="helped-me__table__item__img"></span>
-                <span class="helped-me__table__item__title">{{item.user.name}} needs {{item.category.mainCategory}}</span>
+                <span class="helped-me__table__item__title">{{item.user.username}} needs {{item.category.main_category}}</span>
               </div>
               <button class="helped-me__table__item__expand" :class="{itemOpened: i === tabOpened}"></button>
             </div>
             <div class="helped-me__table__item__bottom" :class="{itemOpened: i === tabOpened}">
-              <router-link :to="'/help/' + item.id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
+              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
             </div>
           </div>
         </div>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import data from "../../data/profile-data.json"
 import Subtitles from "./components/Subtitles"
 import Login from "./Login"
 export default {
@@ -43,7 +42,7 @@ export default {
   },
   computed: {
     entries() {
-      return data.im_helping
+      return this.$store.state.userData.im_helping
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
