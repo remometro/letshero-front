@@ -324,49 +324,26 @@ export default new Vuex.Store({
         })
         .catch((err) => this.commit('listError', err))
     },
-    fetchLiveStreamingData() {
-      // let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`
-      // let apiKey = `AIzaSyAXGRFq8s2EKP4g_LFIk7zuZf9MHivJ9DI`
-      // let url = `https://www.googleapis.com/youtube/v3/search?eventType=live&part=snippet&channelId=${ytId}&type=video&key=${apiKey}`
-      // console.log('fetching live streaming data...')
-      // axios.get(url)
-      //   .then(res => {
-      //     if (res.status === 200) {
-      //       console.log('fetched  live streams data', res.data)
-      //       if (res.data !== this.state.liveStreaming) {
-      //         this.commit('consolidateLiveStreamingData', res.data)
-      //       }
-      //     }
-      //   })
-      // let twitchID = `86av2s62mqsu19zptacf7ly00t4l0f`
-      // let url = `https://api.twitch.tv/helix/streams?user_login=dhruid`
-      // console.log('fetching live streaming data...')
-      // axios.get(url, { headers: { 'Client-ID': twitchID } })
-      //   .then(res => {
-      //     if (res.status === 200) {
-      //       console.log('fetched  live streams data', res.data)
-      //       if (res.data !== this.state.liveStreaming) {
-      //         this.commit('consolidateLiveStreamingData', res.data)
-      //       }
-      //     }
-      //   })
-    },
-    fetchInstagramData() {
-      // let url = `https://www.instagram.com/dhruidmusic/?__a=1`
-      // console.log('fetching instagram data...')
-      // axios.get(url)
-      //   .then(res => {
-      //     if (res.status === 200) {
-      //       let images = res.data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 9).map(el => {
-      //         let url = `https://instagram.com/dhruidmusic/p/${el.node.shortcode}`
-      //         let image = el.node.thumbnail_src
-      //         let text = el.node.edge_media_to_caption.edges[0].node.text
-      //         return { 'image': image, 'text': text.length > 160 ? text.substring(0, 160) + '...' : text, 'link': url }
-      //       })
-      //       console.log('fetched  instagram data', images)
-      //       this.commit('consolidateInstagramData', images)
-      //     }
-      //   })
+    evaluateHelp(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/evaluate-help`
+      console.log('evaluating help...', payload)
+      axios.post(url, payload, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('help evaluated!')
+            this.dispatch('fetchUserData')
+            this.dispatch('fetchAllHelpData')
+          } else {
+            console.log('evaluating a help request error!')
+            this.commit('errorEvaluatingHelp', res)
+          }
+        })
+        .catch(err => {
+          this.commit('errorEvaluatingHelp', err)
+        })
     }
   },
   modules: {
