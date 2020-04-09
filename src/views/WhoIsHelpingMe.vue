@@ -23,7 +23,7 @@
                   <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">Undo</button>
                 </div>
               </div>
-              <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">Finish this help</button>
+              <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">Mark as completed</button>
             </div>
           </div>
         </div>
