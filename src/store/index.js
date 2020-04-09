@@ -174,7 +174,7 @@ export default new Vuex.Store({
         })
     },
     editBooking(context, payload) {
-      let url = `${window.serverURL}/api-v1/bookings`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
       console.log('editing booking...', payload)
       let { id, ...newload } = payload
       let data = { payload: newload, id: payload.id }
@@ -191,7 +191,7 @@ export default new Vuex.Store({
         })
     },
     deleteBooking(context, payload) {
-      let url = `${window.serverURL}/api-v1/bookings`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
       console.log('removing booking...', payload)
       let data = { id: payload }
       axios.delete(url, {
@@ -209,7 +209,7 @@ export default new Vuex.Store({
         })
     },
     fetchUserData() {
-      let url = `${window.serverURL}/api-v1/userdata`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/userdata`
       let data = { id: this.state.userId }
       console.log('fetching user data...')
       axios.post(url, data, { headers: {
@@ -225,7 +225,7 @@ export default new Vuex.Store({
         })
     },
     fetchHelpData() {
-      let url = `${window.serverURL}/api-v1/bookings`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
       console.log('fetching bookings data...')
       axios.get(url, { withCredentials: true })
         .then(res => {
@@ -236,7 +236,7 @@ export default new Vuex.Store({
         })
     },
     fetchAllHelpData() {
-      let url = `${window.serverURL}/api-v1/all-helps`
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/all-helps`
       console.log('fetching ALL helps data...')
       axios.get(url, { withCredentials: true })
         .then(res => {
