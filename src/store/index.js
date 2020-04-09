@@ -37,9 +37,9 @@ export default new Vuex.Store({
     performLogin(state, payload) {
       state.loginError = false
       state.userId = payload._id
-      Vue.$cookies.set('jwt', payload.token)
-      // localStorage.setItem('tkn', payload.token)
-      axios.defaults.headers.common['Authorization'] = `JWT ${payload.token}`
+      // Vue.$cookies.set('Bearer', payload.token)
+      localStorage.setItem('letshero-tkn', payload.token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
       // console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
       this.dispatch('fetchUserData')
       state.isLogging = false
@@ -88,11 +88,13 @@ export default new Vuex.Store({
       state.isLoggedIn = false
       state.userId = ''
       state.userData = ''
-      Vue.$cookies.remove("connect.sid")
-      Vue.$cookies.remove("jwt")
-      Vue.$cookies.remove()
-      document.cookie = 'jwt' + '=' + ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
-      document.cookie = 'jwt' + '=' + ';path=' + '/' + ';domain=' + window.location.hostname + ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
+      axios.defaults.headers.common['Authorization'] = ''
+      localStorage.setItem('letshero-tkn', '')
+      // Vue.$cookies.remove("connect.sid")
+      // Vue.$cookies.remove("Bearer")
+      // Vue.$cookies.remove()
+      // document.cookie = 'Bearer' + '=' + ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
+      // document.cookie = 'Bearer' + '=' + ';path=' + '/' + ';domain=' + window.location.hostname + ';expires=Thu, 01-Jan-1970 00:00:01 GMT'
     },
     fetchingHelp(state) {
       state.fetchingHelp = true
@@ -128,14 +130,14 @@ export default new Vuex.Store({
   },
   actions: {
     checkLogin(context) {
-      // let token = localStorage.getItem('tkn')
+      let token = localStorage.getItem('letshero-tkn')
       this.dispatch('fetchUserData')
-      // if (token) {
-      //   axios.defaults.headers.common['Authorization'] = `JWT ${token}`
-      //   this.dispatch('fetchUserData')
-      // } else {
-      //   axios.defaults.headers.common['Authorization'] = ''
-      // }
+      if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        this.dispatch('fetchUserData')
+      } else {
+        axios.defaults.headers.common['Authorization'] = ''
+      }
     },
     signUp(context, payload) {
       this.commit("isSigningUp")
@@ -182,7 +184,7 @@ export default new Vuex.Store({
     },
     logOut() {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/logout`
-      this.commit('performLogOut')
+      // this.commit('performLogOut')
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
