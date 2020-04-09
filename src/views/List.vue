@@ -7,7 +7,7 @@
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.name}}<img class="lh--badge" :src="item.user.verified && require('../assets/imgs/badge-small.svg')" /> needs {{item.category.mainCategory}}</span>
+                <span class="list__table__item__title">{{item.user.name}}<img class="lh--badge" v-if ="item.user.verified" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.mainCategory}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
@@ -174,6 +174,7 @@ export default {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        width: 100%
       }
       &__top {
         display: flex;

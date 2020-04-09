@@ -24,9 +24,9 @@ export default new Vuex.Store({
   mutations: {
     performLogin(state, payload) {
       state.loginError = false
-      state.userId = payload.user._id
+      state.userId = payload._id
       localStorage.setItem('tkn', payload.token)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
+      axios.defaults.headers.common['Authorization'] = `JWT ${payload.token}`
       console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
       this.dispatch('fetchUserData')
       state.isLogging = false
@@ -73,7 +73,7 @@ export default new Vuex.Store({
     checkLogin(context) {
       let token = localStorage.getItem('tkn')
       if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        axios.defaults.headers.common['Authorization'] = `JWT ${token}`
         this.dispatch('fetchUserData')
       } else {
         axios.defaults.headers.common['Authorization'] = ''
@@ -119,15 +119,14 @@ export default new Vuex.Store({
         .catch(err => this.commit('loginError', err))
     },
     logOut() {
-      this.commit('performLogOut')
-      // let url = `${window.serverURL}/api-v1/logout`
-      // axios.get(url, { withCredentials: true })
-      //   .then(res => {
-      //     if (res.statusText === 'OK') {
-      //       console.log('logged out')
-      //       this.commit('performLogOut')
-      //     }
-      //   })
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/logout`
+      axios.get(url, { withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('logged out')
+            this.commit('performLogOut')
+          }
+        })
     },
     addBooking(context, payload) {
       let url = `${window.serverURL}/api-v1/bookings`
