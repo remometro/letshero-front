@@ -2,21 +2,21 @@
   <main class="help" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="help__table">
-        <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 3, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 1 }">
+        <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 1, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 3 }">
           <span class="list__table__item__img"></span>
-          <h2 class="help__table__item__header">{{help.user.name}}<img class="lh--badge" :src="help.user.verified && require('../assets/imgs/badge.svg')" /> needs help with {{help.category.mainCategory}}</h2>
-          <p class="help__table__item__description">{{help.category.customDescription}}</p>
+          <h2 class="help__table__item__header">{{help.user.username}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> needs help with {{help.category.main_category}}</h2>
+          <p class="help__table__item__description">{{help.category.custom_description}}</p>
 
           <p class="help__table__item__reward">{{getRewardText(help.user.gender, help.reward)}}</p>
 
           <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.gender)}} video</a>
 
-          <a v-if="!alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="!alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help {{treatmentTo(help.user.data.gender)}}</a>
           <router-link v-else :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
 
-          <a v-if="alreadyHelping()" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.user.name}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.mainCategory)}:%20https://staging.letshero.com/help/829831`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="alreadyHelping()" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.user.name}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.mainCategory)}:%20https://staging.letshero.com/help/829831`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.data.gender)}}</a>
 
-          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help.id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.gender)}}</a>
+          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help.id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.data.gender)}}</a>
 
           <Social-Share />
 
@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import data from "../../data/help-data.json"
-import userData from "../../data/profile-data.json"
 import Subtitles from "./components/Subtitles"
 import Login from "./Login"
 import SocialShare from "./components/LH-SocialShare"
@@ -51,31 +49,31 @@ export default {
   },
   computed: {
     entries() {
-      return data
+      return this.$store.state.allHelpsData
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     },
     help() {
       return this.entries.filter((el) => {
-        return el.id === this.$route.params.id
+        return el._id === this.$route.params.id
       })[0]
     },
     me() {
-      return userData
+      return this.$store.state.userData
     }
   },
   methods: {
     treatment(gender) {
       let treatment = "It"
       switch (gender) {
-      case "1":
+      case 1:
         treatment = "He"
         break
-      case "2":
+      case 2:
         treatment = "She"
         break
-      case "3":
+      case 3:
         treatment = "It"
         break
       }
@@ -84,28 +82,28 @@ export default {
     treatmentOf(gender) {
       let treatment = "Its"
       switch (gender) {
-      case "1":
+      case 1:
         treatment = "His"
         break
-      case "2":
+      case 2:
         treatment = "Her"
         break
-      case "3":
+      case 3:
         treatment = "Its"
         break
       }
       return treatment
     },
     treatmentTo(gender) {
-      let treatment = "Its"
+      let treatment = "It"
       switch (gender) {
-      case "1":
+      case 1:
         treatment = "Him"
         break
-      case "2":
+      case 2:
         treatment = "Her"
         break
-      case "3":
+      case 3:
         treatment = "It"
         break
       }

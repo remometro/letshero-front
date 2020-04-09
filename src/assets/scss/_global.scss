@@ -185,9 +185,14 @@ h1 {
     font-size: 12px;
     border-radius: 8px;
     box-shadow: -8px 8px 1px $color-black;
-    margin: 1rem;
+    margin: 1rem auto;
+    max-width: 300px;
     &--warning {
       background-color: $color-red;
+      color: $color-white;
+    }
+    &--success {
+      background-color: $color-green;
       color: $color-white;
     }
   }

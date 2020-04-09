@@ -1,10 +1,9 @@
 <template>
-  <main class="find-a-hero">
-    <form action="" class="find-a-hero__form">
-
+  <main class="find-a-hero" v-if="isLoggedIn">
+    <form action="" class="find-a-hero__form" @submit="addHelp" v-if="!foundAHero">
       <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
       <LH-Dropdown ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
-      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 4 && formReward !== 2">
+      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
         <input type="number" min="1" step="1" v-model="formAmount" />
       </div>
@@ -42,24 +41,32 @@
         <input type="text" maxlength="128" v-model="formLink" />
       </div>
       <button class="lh--button find-a-hero__form__submit">
-        Find a Hero
+        {{ !isFinding ? "Find a Hero" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isFinding" />
       </button>
+      <div class="lh--alert lh--alert--warning" v-if="findError">{{findErrorMessage}}</div>
     </form>
+    <div class="lh--alert lh--alert--success" v-else>Your hero is on the way, now you just have to wait!</div>
     <router-link class="lh--link lh--link--small lh--link--black" to="/list">Or be someone's hero.</router-link>
-
+  </main>
+   <main class="not-logged" v-else>
+    <Login />
   </main>
 </template>
 
 <script>
 import LHDropdown from "./components/LH-Dropdown"
+import Login from "./Login"
 export default {
   name: "FindAHero",
   components: {
-    LHDropdown
+    LHDropdown,
+    Login
   },
   data() {
     return {
       formType: null,
+      formTypeString: null,
+      formTypeUrgency: null,
       formReward: null,
       formAmount: null,
       formRewardOther: null,
@@ -80,27 +87,27 @@ export default {
       return [
         {
           "label": "Food",
-          "value": 1
+          "value": { "name": "Food", "type": 1, "urgency": 1 }
         },
         {
           "label": "Shelter",
-          "value": 2
+          "value": { "name": "Shelter", "type": 2, "urgency": 1 }
         },
         {
           "label": "Medical Care",
-          "value": 3
+          "value": { "name": "Medical Care", "type": 3, "urgency": 1 }
         },
         {
           "label": "Psychological Care",
-          "value": 4
+          "value": { "name": "Psychological Care", "type": 4, "urgency": 1 }
         },
         {
           "label": "Companion",
-          "value": 5
+          "value": { "name": "Companion", "type": 5, "urgency": 3 }
         },
         {
           "label": "Other",
-          "value": 6
+          "value": { "name": "Other", "type": 6, "urgency": 2 }
         }
       ]
     },
@@ -127,11 +134,28 @@ export default {
           "value": 5
         }
       ]
+    },
+    findError() {
+      return this.$store.state.errorFindingAHero
+    },
+    findErrorMessage() {
+      return this.$store.state.errorFindingAHeroMessage
+    },
+    isFinding() {
+      return this.$store.state.isFindingAHero
+    },
+    foundAHero() {
+      return this.$store.state.foundAHero
+    },
+    isLoggedIn() {
+      return !!this.$store.state.isLoggedIn
     }
   },
   methods: {
     setType(value) {
-      this.formType = value
+      this.formType = value.type
+      this.formTypeString = value.name
+      this.formTypeUrgency = value.urgency
     },
     setReward(value) {
       this.formReward = value
@@ -161,9 +185,33 @@ export default {
     recenterMap(center) {
       this.currentLocation.lat = center.lat()
       this.currentLocation.lng = center.lng()
+    },
+    addHelp(e) {
+      e.preventDefault()
+      let payload = {
+        category: {
+          main_category: this.formTypeString,
+          main_category_id: this.formType,
+          custom_description: this.formWhy,
+          custom_link: this.formLink,
+          urgency: this.formTypeUrgency
+        },
+        location: {
+          lat: this.formPosition && this.formPosition.lat,
+          lng: this.formPosition && this.formPosition.lng,
+          place_name: this.formPlace
+        },
+        reward: {
+          value: this.formAmount,
+          type: this.formReward,
+          other_reward: this.formRewardOther
+        }
+      }
+      this.$store.dispatch("addHelp", payload)
     }
   },
   mounted: function() {
+    this.$store.commit("resetFoundAHero")
     this.geolocation()
   }
 }

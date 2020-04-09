@@ -12,10 +12,14 @@ export default new Vuex.Store({
     loginErrorMessage: 'Something went wrong! Please try again later.',
     signupErrorMessage: 'Something went wrong! Please try again later.',
     signupError: false,
+    isFindingAHero: false,
+    foundAHero: false,
+    errorFindingAHero: false,
+    errorFindingAHeroMessage: 'Something went wrong! Please try again later.',
     userId: '',
     userData: {},
     bookingsData: [],
-    allBookingsData: [],
+    allHelpsData: [],
     liveStreaming: {},
     instagram: [],
     sessionToken: '',
@@ -34,6 +38,22 @@ export default new Vuex.Store({
     },
     isLogging(state) {
       state.isLogging = true
+    },
+    isFindingAHero(state) {
+      state.isFindingAHero = true
+    },
+    foundAHero(state) {
+      state.foundAHero = true
+      state.isFindingAHero = false
+    },
+    resetFoundAHero(state) {
+      state.foundAHero = false
+      state.isFindingAHero = false
+    },
+    errorFindingAHero(state, payload) {
+      state.isFindingAHero = false
+      state.errorFindingAHero = true
+      state.errorFindingAHeroMessage = payload.message ? state.errorFindingAHeroMessage = payload.message : state.errorFindingAHeroMessage = 'Something went wrong! Please try again later.'
     },
     loginError(state, payload) {
       state.isLogging = false
@@ -59,8 +79,8 @@ export default new Vuex.Store({
     consolidateBookingsData(state, payload) {
       state.bookingsData = payload
     },
-    consolidateAllBookingsData(state, payload) {
-      state.allBookingsData = payload
+    consolidateAllHelpsData(state, payload) {
+      state.allHelpsData = payload
     },
     consolidateLiveStreamingData(state, payload) {
       state.liveStreaming = payload
@@ -128,20 +148,29 @@ export default new Vuex.Store({
           }
         })
     },
-    addBooking(context, payload) {
-      let url = `${window.serverURL}/api-v1/bookings`
-      console.log('adding booking...', payload)
+    addHelp(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/help`
+      this.commit('isFindingAHero')
+      console.log('adding help...', payload)
       let data = { payload: { ...payload }, id: this.state.userId }
+      if (!this.state.userId) { return }
       axios.post(url, data, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
-            console.log('booking added')
+            console.log('help added')
+            this.commit('foundAHero')
             this.dispatch('fetchUserData')
-            this.dispatch('fetchAllBookingsData')
+            this.dispatch('fetchAllHelpData')
+          } else {
+            console.log('adding a help request error!')
+            this.commit('errorFindingAHero', res)
           }
+        })
+        .catch(err => {
+          this.commit('errorFindingAHero', err)
         })
     },
     editBooking(context, payload) {
@@ -191,10 +220,11 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('user data fetched', res)
             this.commit('consolidateUserData', res.data)
+            this.dispatch('fetchAllHelpData')
           }
         })
     },
-    fetchBookingsData() {
+    fetchHelpData() {
       let url = `${window.serverURL}/api-v1/bookings`
       console.log('fetching bookings data...')
       axios.get(url, { withCredentials: true })
@@ -205,14 +235,14 @@ export default new Vuex.Store({
           }
         })
     },
-    fetchAllBookingsData() {
-      let url = `${window.serverURL}/api-v1/allbookings`
-      console.log('fetching ALL bookings data...')
+    fetchAllHelpData() {
+      let url = `${window.serverURL}/api-v1/all-helps`
+      console.log('fetching ALL helps data...')
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
-            console.log('fetched  ALL bookings data.')
-            this.commit('consolidateAllBookingsData', res.data)
+            console.log('fetched  ALL helps data.')
+            this.commit('consolidateAllHelpsData', res.data)
           }
         })
     },

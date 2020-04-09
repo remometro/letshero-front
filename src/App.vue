@@ -8,6 +8,7 @@
         .lh-container
           <div id="nav-logged" class="nav__links"  v-if="isLogged">
             <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/find-a-hero">Find a hero</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/who-im-helping">Who I'm Helping</router-link>

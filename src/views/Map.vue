@@ -28,7 +28,6 @@
 <script>
 import LogIn from "./Login"
 import Subtitles from "./components/Subtitles"
-import data from "../../data/help-data.json"
 export default {
   components: {
     LogIn,
@@ -39,7 +38,7 @@ export default {
       return !!this.$store.state.isLoggedIn
     },
     helps() {
-      return data
+      return this.$store.state.allHelpsData
     },
     storedMarkers() {
       let markers = this.helps.map((help) => {
@@ -93,13 +92,13 @@ export default {
     loadMarker(m) {
       let marker = require('../assets/imgs/heart-green.svg')
       switch (m.urgency) {
-      case "1":
+      case 3:
         marker = require('../assets/imgs/heart-green.svg')
         break
-      case "2":
+      case 2:
         marker = require('../assets/imgs/heart-yellow.svg')
         break
-      case "3":
+      case 1:
         marker = require('../assets/imgs/heart-red.svg')
         break
       }

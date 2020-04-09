@@ -76,10 +76,6 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    .lh--spinner-btn {
-      width: 20px;
-    }
-
     &__new, &__forgot {
       margin: 1rem;
       &:link {
@@ -88,5 +84,9 @@ export default {
       }
     }
   }
+}
+
+.lh--spinner-btn {
+  width: 20px;
 }
 </style>

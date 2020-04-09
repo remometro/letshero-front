@@ -2,21 +2,21 @@
   <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="list__table">
-        <div class="list__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
-          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 3, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 1 }">
+        <div class="list__table__item" :key="item._id" v-for="(item, i) in allData" @click="openTab(i)">
+          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.name}}<img class="lh--badge" v-if ="item.user.verified" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.mainCategory}}</span>
+                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
-              <div class="list__table__item__location">In {{item.location.placeName}}</div>
+              <div class="list__table__item__location">In {{item.location.place_name}}</div>
               <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
-              <div class="list__table__item__reward">{{getRewardText(item.user.gender, item.reward)}}
+              <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
               </div>
-              <router-link :to="'/help/' + item.id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.gender)}} hero</router-link>
+              <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.data.gender)}} hero</router-link>
             </div>
           </div>
         </div>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import data from "../../data/help-data.json"
 import Subtitles from "./components/Subtitles"
 import Login from "./Login"
 export default {
@@ -42,41 +41,37 @@ export default {
   data() {
     return {
       tabOpened: null,
-      currentLocation: null
+      currentLocation: null,
+      allData: this.entries
     }
   },
   computed: {
     entries() {
-      return data.sort((a, b) => {
-        if (this.currentLocation) {
-          let distanceA = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(a.location.lat), Number(a.location.lng), "K")
-          let distanceB = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(b.location.lat), Number(b.location.lng), "K")
-          return distanceA - distanceB
-        }
-      })
+      this.sortData()
+      return this.$store.state.allHelpsData
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     }
   },
   mounted() {
+    this.sortData()
     this.mylocation()
-    console.log(this.entries)
   },
   updated() {
-    console.log("updated", this.entries)
+
   },
   methods: {
     treatment(gender) {
       let treatment = "It"
       switch (gender) {
-      case "1":
+      case 1:
         treatment = "He"
         break
-      case "2":
+      case 2:
         treatment = "She"
         break
-      case "3":
+      case 3:
         treatment = "It"
         break
       }
@@ -85,13 +80,13 @@ export default {
     treatmentOf(gender) {
       let treatment = "Its"
       switch (gender) {
-      case "1":
+      case 1:
         treatment = "His"
         break
-      case "2":
+      case 2:
         treatment = "Her"
         break
-      case "3":
+      case 3:
         treatment = "Its"
         break
       }
@@ -105,7 +100,25 @@ export default {
       }
     },
     getRewardText(gender, reward) {
-      return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
+      let text = ''
+      switch (reward.type) {
+      case 1:
+        text = `${this.treatment(gender)} offers up to ${reward.value} USD in reward.`
+        break
+      case 2:
+        text = `${this.treatment(gender)} offers ${reward.other_reward} in reward.`
+        break
+      case 3:
+        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance or some other help.`
+        break
+      case 4:
+        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance.`
+        break
+      case 5:
+        text = `${this.treatment(gender)} only needs help, no cash involved.`
+        break
+      }
+      return text
     },
     mylocation: function() {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -134,6 +147,15 @@ export default {
         if (unit === "N") { dist = dist * 0.8684 }
         return dist
       }
+    },
+    sortData() {
+      this.allData = this.$store.state.allHelpsData.sort((a, b) => {
+        if (this.currentLocation) {
+          let distanceA = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(a.location.lat), Number(a.location.lng), "K")
+          let distanceB = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(b.location.lat), Number(b.location.lng), "K")
+          return distanceA - distanceB
+        }
+      })
     }
   }
 }
