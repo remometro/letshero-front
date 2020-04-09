@@ -22,6 +22,7 @@ export default new Vuex.Store({
     errorFindingAHero: false,
     errorFindingAHeroMessage: 'Something went wrong! Please try again later.',
     fetchingHelp: false,
+    loadingList: false,
     userId: '',
     userData: {},
     helpData: {},
@@ -94,6 +95,13 @@ export default new Vuex.Store({
     },
     fetchedHelp(state) {
       state.fetchingHelp = false
+    },
+    loadingList(state, payload) {
+      state.loadingList = payload
+    },
+    listError(state, payload) {
+      state.listError = true
+      state.listErrorMessage = payload.message
     },
     consolidateUserData(state, payload) {
       state.userId = payload._id
@@ -300,13 +308,19 @@ export default new Vuex.Store({
     fetchAllHelpData() {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/all-helps`
       console.log('fetching ALL helps data...')
+      this.commit('loadingList', true)
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
             console.log('fetched  ALL helps data.')
+            this.commit('loadingList', false)
             this.commit('consolidateAllHelpsData', res.data)
+          } else {
+            this.commit('loadingList', false)
+            this.commit('listError', res)
           }
         })
+        .catch((err) => this.commit('listError', err))
     },
     fetchLiveStreamingData() {
       // let ytId = `UCyhZSljGzQ5da_u-n2uR--Q`

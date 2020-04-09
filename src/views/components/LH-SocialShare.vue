@@ -2,19 +2,19 @@
   <div class="lh-socialshare">
     <p class="lh-socialshare__title">Share with</p>
     <div class="lh-container lh-socialshare__item--container">
-      <a href="#" class="lh-socialshare__item">
+      <!-- <a :href="" class="lh-socialshare__item">
         <img src="@/assets/imgs/linkedin.svg" alt="" class="lh-socialshare__item__img">
-      </a>
-      <a href="#" class="lh-socialshare__item">
+      </a> -->
+      <a rel="noreferrer noopener" target="_blank" :href="`http://www.facebook.com/sharer.php?u=${encodeURIComponent(link)}%[title]=${encodeURIComponent(title)}`" class="lh-socialshare__item">
         <img src="@/assets/imgs/facebook.svg" alt="" class="lh-socialshare__item__img">
       </a>
-      <a href="#" class="lh-socialshare__item">
+      <!-- <a href="#" class="lh-socialshare__item">
         <img src="@/assets/imgs/instagram.svg" alt="" class="lh-socialshare__item__img">
-      </a>
-       <a href="#" class="lh-socialshare__item">
+      </a> -->
+       <a rel="noreferrer noopener" target="_blank" :href="`https://wa.me/?text=${encodeURIComponent(title)}%20${encodeURIComponent(link)}`" class="lh-socialshare__item">
         <img src="@/assets/imgs/whatsapp.svg" alt="" class="lh-socialshare__item__img">
       </a>
-       <a href="#" class="lh-socialshare__item">
+       <a rel="noreferrer noopener" target="_blank" :href="`http://twitter.com/share?text=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`" class="lh-socialshare__item">
         <img src="@/assets/imgs/twitter.svg" alt="" class="lh-socialshare__item__img">
       </a>
     </div>
@@ -31,7 +31,9 @@ export default {
   },
   props: {
     options: Array,
-    label: String
+    label: String,
+    link: String,
+    title: String
   },
   methods: {
     setValue(value, label) {

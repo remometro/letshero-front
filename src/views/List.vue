@@ -2,7 +2,7 @@
   <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="list__table">
-        <div class="list__table__item" :key="item._id" v-for="(item, i) in allData" @click="openTab(i)">
+        <div class="list__table__item" :key="item._id" v-for="(item, i) in entries" @click="openTab(i)">
           <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
@@ -41,25 +41,25 @@ export default {
   data() {
     return {
       tabOpened: null,
-      currentLocation: null,
-      allData: this.entries
+      currentLocation: null
     }
   },
   computed: {
     entries() {
-      this.sortData()
-      return this.$store.state.allHelpsData
+      return this.sortData(this.$store.state.allHelpsData)
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    loading() {
+      return this.$store.state.loadingList
     }
   },
   mounted() {
-    this.sortData()
+    this.$store.dispatch("fetchAllHelpData")
     this.mylocation()
   },
   updated() {
-
   },
   methods: {
     treatment(gender) {
@@ -148,8 +148,8 @@ export default {
         return dist
       }
     },
-    sortData() {
-      this.allData = this.$store.state.allHelpsData.sort((a, b) => {
+    sortData(data) {
+      return data.sort((a, b) => {
         if (this.currentLocation) {
           let distanceA = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(a.location.lat), Number(a.location.lng), "K")
           let distanceB = this.distance(Number(this.currentLocation.lat), Number(this.currentLocation.lng), Number(b.location.lat), Number(b.location.lng), "K")
