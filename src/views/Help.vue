@@ -7,9 +7,9 @@
           <h2 class="help__table__item__header">{{help.user.username}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> needs help with {{help.category.main_category}}</h2>
           <p class="help__table__item__description">{{help.category.custom_description}}</p>
 
-          <p class="help__table__item__reward">{{getRewardText(help.user.gender, help.reward)}}</p>
+          <p class="help__table__item__reward">{{getRewardText(help.user.data.gender, help.reward)}}</p>
 
-          <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.gender)}} video</a>
+          <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.data.gender)}} video</a>
 
           <a v-if="!alreadyHelping()" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Help {{treatmentTo(help.user.data.gender)}}</a>
           <router-link v-else :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
@@ -123,7 +123,25 @@ export default {
       }
     },
     getRewardText(gender, reward) {
-      return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
+      let text = ''
+      switch (reward.type) {
+      case 1:
+        text = `${this.treatment(gender)} offers up to ${reward.value} USD in reward.`
+        break
+      case 2:
+        text = `${this.treatment(gender)} offers ${reward.other_reward} in reward.`
+        break
+      case 3:
+        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance or some other help.`
+        break
+      case 4:
+        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance.`
+        break
+      case 5:
+        text = `${this.treatment(gender)} only needs help, no cash involved.`
+        break
+      }
+      return text
     }
   }
 }

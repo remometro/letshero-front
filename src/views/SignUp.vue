@@ -27,8 +27,9 @@
         <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="+55123456789" v-mask="'+##############'" v-model="formWhatsapp" required>
       </div>
       <button class="lh--button signup__form__submit" @click="signUp">
-        Sign up
+        {{ !isSigningUp ? "Sign Up" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isSigningUp" />
       </button>
+      <div class="lh--alert lh--alert--warning" v-if="signupError">{{signupErrorMessage}}</div>
       <router-link to="/login" class="lh--link--black signup__form__existing">Existing hero?</router-link>
     </form>
     <div class="signup__islogged" v-else>
@@ -78,6 +79,18 @@ export default {
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    isSigningUp() {
+      return this.$store.state.isSigningUp
+    },
+    hasSignedUp() {
+      return this.$store.state.hasSignedUp
+    },
+    signupError() {
+      return this.$store.state.signupError
+    },
+    signupErrorMessage() {
+      return this.$store.state.signupErrorMessage
     }
   },
   methods: {
@@ -97,7 +110,7 @@ export default {
 .signup {
   height: 100vh;
   padding: 2rem;
-
+  overflow: scroll;
   &__islogged {
     color: $color-black;
   }

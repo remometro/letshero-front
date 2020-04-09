@@ -12,6 +12,8 @@ export default new Vuex.Store({
     loginErrorMessage: 'Something went wrong! Please try again later.',
     signupErrorMessage: 'Something went wrong! Please try again later.',
     signupError: false,
+    isSigningUp: false,
+    hasSignedUp: false,
     isFindingAHero: false,
     foundAHero: false,
     errorFindingAHero: false,
@@ -60,7 +62,15 @@ export default new Vuex.Store({
       state.loginError = true
       payload.message ? state.loginErrorMessage = payload.message : state.loginErrorMessage = 'Something went wrong! Please try again later.'
     },
+    isSigningUp(state) {
+      state.isSigningUp = true
+    },
+    hasSignedUp(state) {
+      state.isSigningUp = false
+      state.hasSignedUp = true
+    },
     signupError(state, payload) {
+      state.isSigningUp = false
       state.signupError = true
       payload.message ? state.signupErrorMessage = payload.message : state.signupErrorMessage = 'Something went wrong! Please try again later.'
     },
@@ -100,7 +110,7 @@ export default new Vuex.Store({
       }
     },
     signUp(context, payload) {
-      this.commit("isLogging")
+      this.commit("isSigningUp")
       let url = `${process.env.VUE_APP_SERVER}/api-v1/register`
       console.log('signing up..')
 
@@ -111,13 +121,17 @@ export default new Vuex.Store({
         .then(res => {
           if (res.statusText === 'OK') {
             console.log('signed up!', res)
+            this.dispatch('hasSignedUp')
             this.dispatch('logIn', { username: res.data.username, password: payload.password })
           } else {
             console.log('signup error!')
             this.commit('signupError', res)
           }
         })
-        .catch(err => this.commit('signupError', err))
+        .catch(err => {
+          console.log("signup error!")
+          this.commit('signupError', err)
+        })
     },
     logIn(context, payload) {
       this.commit("isLogging")
