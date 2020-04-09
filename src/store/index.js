@@ -23,6 +23,7 @@ export default new Vuex.Store({
     errorFindingAHeroMessage: 'Something went wrong! Please try again later.',
     fetchingHelp: false,
     loadingList: false,
+    assumingHelp: false,
     userId: '',
     userData: {},
     helpData: {},
@@ -244,6 +245,7 @@ export default new Vuex.Store({
             this.commit('assumingHelp', false)
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
+            this.dispatch("fetchHelp", payload.help_id)
           } else {
             this.commit('assumingHelp', false)
             console.log('adding a help request error!')
