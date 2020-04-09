@@ -7,6 +7,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
+    isLogging: false,
+    loginError: false,
+    loginErrorMessage: 'Something went wrong! Please try again later.',
+    signupErrorMessage: 'Something went wrong! Please try again later.',
+    signupError: false,
     userId: '',
     userData: {},
     bookingsData: [],
@@ -18,12 +23,26 @@ export default new Vuex.Store({
   },
   mutations: {
     performLogin(state, payload) {
+      state.loginError = false
       state.userId = payload.user._id
       localStorage.setItem('tkn', payload.token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
       console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
       this.dispatch('fetchUserData')
+      state.isLogging = false
       state.isLoggedIn = true
+    },
+    isLogging(state) {
+      state.isLogging = true
+    },
+    loginError(state, payload) {
+      state.isLogging = false
+      state.loginError = true
+      payload.message ? state.loginErrorMessage = payload.message : state.loginErrorMessage = 'Something went wrong! Please try again later.'
+    },
+    signupError(state, payload) {
+      state.signupError = true
+      payload.message ? state.signupErrorMessage = payload.message : state.signupErrorMessage = 'Something went wrong! Please try again later.'
     },
     performLogOut(state) {
       state.isLoggedIn = false
@@ -61,6 +80,7 @@ export default new Vuex.Store({
       }
     },
     signUp(context, payload) {
+      this.commit("isLogging")
       let url = `${process.env.VUE_APP_SERVER}/api-v1/register`
       console.log('signing up..')
 
@@ -72,10 +92,15 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('signed up!', res)
             this.dispatch('logIn', { username: res.data.username, password: payload.password })
+          } else {
+            console.log('signup error!')
+            this.commit('signupError', res)
           }
         })
+        .catch(err => this.commit('signupError', err))
     },
     logIn(context, payload) {
+      this.commit("isLogging")
       let url = `${process.env.VUE_APP_SERVER}/api-v1/login`
       console.log('logging in..')
       axios.post(url, payload, { headers: {
@@ -86,8 +111,12 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('logged', res)
             this.commit('performLogin', res.data)
+          } else {
+            console.log('login error!')
+            this.commit('loginError', res)
           }
         })
+        .catch(err => this.commit('loginError', err))
     },
     logOut() {
       this.commit('performLogOut')

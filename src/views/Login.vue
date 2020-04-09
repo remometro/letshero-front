@@ -10,11 +10,11 @@
         <input type="password" v-model="password" />
       </div>
       <button class="lh--button login__form__submit" @click="login">
-        Log In
+        {{ !isLogging ? "Log In" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isLogging" />
       </button>
       <router-link to="/signup"  class="lh--link--black login__form__new">New hero?</router-link>
       <router-link to="/forgot" class="lh--link--black login__form__forgot">Forgot?</router-link>
-      <div class="lh--alert lh--alert--warning">Invalid username or password</div>
+      <div class="lh--alert lh--alert--warning" v-if="loginError">{{loginErrorMessage}}</div>
     </form>
 
     <div class="login__islogged" v-else>
@@ -40,11 +40,20 @@ export default {
   computed: {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    loginError() {
+      return this.$store.state.loginError
+    },
+    loginErrorMessage() {
+      return this.$store.state.loginErrorMessage
+    },
+    isLogging() {
+      return this.$store.state.isLogging
     }
   },
   methods: {
     login(e) {
-      let payload = { username: this.uname, password: this.pwd }
+      let payload = { username: this.username, password: this.password }
       e.preventDefault()
       this.$store.dispatch('logIn', payload)
     },
@@ -66,6 +75,10 @@ export default {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
+    .lh--spinner-btn {
+      width: 20px;
+    }
 
     &__new, &__forgot {
       margin: 1rem;
