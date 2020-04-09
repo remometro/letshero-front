@@ -11,12 +11,12 @@
 
           <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.data.gender)}} video</a>
 
-          <button v-if="!alreadyHelping() && (help.user._id !== me._id)" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="helpSomeone">Help {{treatmentTo(help.user.data.gender)}}</button>
-          <router-link v-if="alreadyHelping() && (help.user._id !== me._id)" :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
+          <button v-if="!alreadyHelping && (help.user._id !== me._id)" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="helpSomeone">{{!assumingHelp ? `Help ${treatmentTo(help.user.data.gender)}` : "" }}<img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-if="assumingHelp" /></button>
+          <router-link v-if="alreadyHelping && (help.user._id !== me._id)" :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
 
-          <a v-if="alreadyHelping()" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.user.name}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.mainCategory)}:%20https://staging.letshero.com/help/829831`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.data.gender)}}</a>
+          <a v-if="alreadyHelping" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.data.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.username}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.mainCategory)}:%20https://staging.letshero.com/help/829831`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.data.gender)}}</a>
 
-          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping()" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help.id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.data.gender)}}</a>
+          <a v-if="help.reward.active && help.reward.value < 0 && alreadyHelping" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.data.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help._id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.data.gender)}}</a>
 
           <Social-Share />
 
@@ -38,6 +38,7 @@ import Subtitles from "./components/Subtitles"
 import Login from "./Login"
 import SocialShare from "./components/LH-SocialShare"
 export default {
+  name: "Help",
   components: {
     Subtitles,
     Login,
@@ -64,6 +65,15 @@ export default {
     },
     loadingHelp() {
       return this.$store.state.fetchingHelp
+    },
+    assumingHelp() {
+      return this.$store.state.assumingHelp
+    },
+    alreadyHelping() {
+      let amI = this.help.who_is_helping.findIndex(el => {
+        return el.user === this.me._id
+      })
+      return amI > -1
     }
   },
   methods: {
@@ -119,12 +129,6 @@ export default {
         }
       }
       return treatment
-    },
-    alreadyHelping() {
-      let amI = this.help.who_is_helping.findIndex(el => {
-        return el.id === this.me.user.data.id
-      })
-      return amI > -1
     },
     openTab(i) {
       if (i === this.tabOpened) {

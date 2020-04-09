@@ -43,6 +43,9 @@ export default new Vuex.Store({
       state.isLogging = false
       state.isLoggedIn = true
     },
+    assumingHelp(state, payload) {
+      state.assumingHelp = payload
+    },
     isLogging(state) {
       state.isLogging = true
     },
@@ -219,7 +222,7 @@ export default new Vuex.Store({
     },
     helpSomeone(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/assume-help`
-      this.commit('isAssumingHelp')
+      this.commit('assumingHelp', true)
       console.log('assuming help...', payload)
       let data = { payload: { ...payload }, uid: this.state.userId }
       if (!this.state.userId) { return }
@@ -230,16 +233,17 @@ export default new Vuex.Store({
         .then(res => {
           if (res.statusText === 'OK') {
             console.log('help assumed')
-            this.commit('helpAssumed')
+            this.commit('assumingHelp', false)
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
           } else {
+            this.commit('assumingHelp', false)
             console.log('adding a help request error!')
-            this.commit('errorAssumingHelp', res)
           }
         })
         .catch(err => {
-          this.commit('errorAssumingHelp', err)
+          this.commit('assumingHelp', false)
+          console.log(err)
         })
     },
     editBooking(context, payload) {
