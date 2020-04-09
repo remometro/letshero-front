@@ -4,7 +4,7 @@
       <h2 class="helped-me__title">Who I'm helping</h2>
       <div class="helped-me__table">
         <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
-          <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
+          <div class="helped-me__table__item" v-if="!item.stats.completed" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="helped-me__table__item__top">
               <div class="helped-me__table__item__top__left">
                 <span class="helped-me__table__item__img"></span>

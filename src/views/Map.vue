@@ -42,7 +42,7 @@ export default {
     },
     storedMarkers() {
       let markers = this.helps.map((help) => {
-        return { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help._id, urgency: help.category.urgency }
+        return !help.stats.completed && { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help._id, urgency: help.category.urgency }
       })
       return markers
     }

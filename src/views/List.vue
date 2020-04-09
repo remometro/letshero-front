@@ -46,7 +46,9 @@ export default {
   },
   computed: {
     entries() {
-      return this.sortData(this.$store.state.allHelpsData)
+      return this.sortData(this.$store.state.allHelpsData.filter((el) => {
+        return el.stats.completed === false
+      }))
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn

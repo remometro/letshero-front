@@ -256,6 +256,26 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    completeHelp(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/complete-help`
+      console.log('completing help...', payload)
+      axios.post(url, payload, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('help completed')
+            this.dispatch('fetchUserData')
+            this.dispatch('fetchAllHelpData')
+          } else {
+            console.log('completed help request error!')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     editBooking(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
       console.log('editing booking...', payload)
