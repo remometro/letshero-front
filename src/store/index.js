@@ -21,9 +21,10 @@ export default new Vuex.Store({
     foundAHero: false,
     errorFindingAHero: false,
     errorFindingAHeroMessage: 'Something went wrong! Please try again later.',
+    fetchingHelp: false,
     userId: '',
     userData: {},
-    bookingsData: [],
+    helpData: {},
     allHelpsData: [],
     liveStreaming: {},
     instagram: [],
@@ -85,13 +86,20 @@ export default new Vuex.Store({
       Vue.$cookies.remove("connect.sid")
       Vue.$cookies.remove("jwt")
     },
+    fetchingHelp(state) {
+      state.fetchingHelp = true
+    },
+    fetchedHelp(state) {
+      state.fetchingHelp = false
+    },
     consolidateUserData(state, payload) {
       state.userId = payload._id
       state.isLoggedIn = true
       state.userData = payload
     },
-    consolidateBookingsData(state, payload) {
-      state.bookingsData = payload
+    consolidateHelpData(state, payload) {
+      state.fetchingHelp = false
+      state.helpData = payload
     },
     consolidateAllHelpsData(state, payload) {
       state.allHelpsData = payload
@@ -192,6 +200,23 @@ export default new Vuex.Store({
           this.commit('errorFindingAHero', err)
         })
     },
+    fetchHelp(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/help/${payload}`
+      this.commit('fetchingHelp')
+      console.log('fetching help data...')
+      axios.get(url, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('user data fetched', res)
+            this.commit('consolidateHelpData', res.data)
+            this.commit('fetchedHelp')
+            this.dispatch('fetchAllHelpData')
+          }
+        })
+    },
     helpSomeone(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/assume-help`
       this.commit('isAssumingHelp')
@@ -265,17 +290,6 @@ export default new Vuex.Store({
             console.log('user data fetched', res)
             this.commit('consolidateUserData', res.data)
             this.dispatch('fetchAllHelpData')
-          }
-        })
-    },
-    fetchHelpData() {
-      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
-      console.log('fetching bookings data...')
-      axios.get(url, { withCredentials: true })
-        .then(res => {
-          if (res.statusText === 'OK') {
-            console.log('fetched bookings data.')
-            this.commit('consolidateBookingsData', res.data)
           }
         })
     },
