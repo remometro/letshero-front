@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/logout',
     name: 'logout',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Logout.vue')
   },
   {
     path: '/find-a-hero',

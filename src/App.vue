@@ -15,7 +15,7 @@
             <router-link class="nav__links__link" @click.native="toggleNav" to="/who-is-helping-me">Who Is Helping me</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
-            <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
+            <a  href="#" class="nav__links__link" @click="logout">Logout</a>
             .bg.bg--menu
           </div>
           <div id="nav-unlogged" class="nav__links" v-else>

@@ -90,6 +90,7 @@ export default new Vuex.Store({
       state.userData = ''
       Vue.$cookies.remove("connect.sid")
       Vue.$cookies.remove("jwt")
+      Vue.$cookies.remove()
     },
     fetchingHelp(state) {
       state.fetchingHelp = true
@@ -179,6 +180,7 @@ export default new Vuex.Store({
     },
     logOut() {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/logout`
+      this.commit('performLogOut')
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
