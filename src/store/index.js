@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
+
+Vue.use(VueCookies)
 
 Vue.use(Vuex)
 
@@ -31,9 +34,10 @@ export default new Vuex.Store({
     performLogin(state, payload) {
       state.loginError = false
       state.userId = payload._id
-      localStorage.setItem('tkn', payload.token)
+      Vue.$cookies.set('jwt', payload.token)
+      // localStorage.setItem('tkn', payload.token)
       axios.defaults.headers.common['Authorization'] = `JWT ${payload.token}`
-      console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
+      // console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
       this.dispatch('fetchUserData')
       state.isLogging = false
       state.isLoggedIn = true
@@ -78,8 +82,8 @@ export default new Vuex.Store({
       state.isLoggedIn = false
       state.userId = ''
       state.userData = ''
-      localStorage.removeItem('tkn')
-      axios.defaults.headers.common['Authorization'] = ''
+      Vue.$cookies.remove("connect.sid")
+      Vue.$cookies.remove("jwt")
     },
     consolidateUserData(state, payload) {
       state.userId = payload._id
@@ -101,13 +105,14 @@ export default new Vuex.Store({
   },
   actions: {
     checkLogin(context) {
-      let token = localStorage.getItem('tkn')
-      if (token) {
-        axios.defaults.headers.common['Authorization'] = `JWT ${token}`
-        this.dispatch('fetchUserData')
-      } else {
-        axios.defaults.headers.common['Authorization'] = ''
-      }
+      // let token = localStorage.getItem('tkn')
+      this.dispatch('fetchUserData')
+      // if (token) {
+      //   axios.defaults.headers.common['Authorization'] = `JWT ${token}`
+      //   this.dispatch('fetchUserData')
+      // } else {
+      //   axios.defaults.headers.common['Authorization'] = ''
+      // }
     },
     signUp(context, payload) {
       this.commit("isSigningUp")
@@ -185,6 +190,31 @@ export default new Vuex.Store({
         })
         .catch(err => {
           this.commit('errorFindingAHero', err)
+        })
+    },
+    helpSomeone(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/assume-help`
+      this.commit('isAssumingHelp')
+      console.log('assuming help...', payload)
+      let data = { payload: { ...payload }, uid: this.state.userId }
+      if (!this.state.userId) { return }
+      axios.post(url, data, { headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('help assumed')
+            this.commit('helpAssumed')
+            this.dispatch('fetchUserData')
+            this.dispatch('fetchAllHelpData')
+          } else {
+            console.log('adding a help request error!')
+            this.commit('errorAssumingHelp', res)
+          }
+        })
+        .catch(err => {
+          this.commit('errorAssumingHelp', err)
         })
     },
     editBooking(context, payload) {
