@@ -21,32 +21,14 @@ export default {
     }
   },
   computed: {
-    bookingsData() {
-      return this.$store.state.bookingsData
-    },
-    liveStreaming() {
-      return this.$store.state.liveStreaming
-    },
-    instagramData() {
-      return this.$store.state.instagram
-    }
+
   },
   mounted() {
-    this.$store.dispatch("fetchBookingsData")
-    this.$store.dispatch("fetchLiveStreamingData")
-    this.$store.dispatch("fetchInstagramData")
-    console.log("insta", this.instagramData)
     setInterval(() => {
-      this.$store.dispatch("fetchLiveStreamingData")
+      this.$store.dispatch("fetchAllHelpData")
     }, 5000)
   },
   methods: {
-    parsedDate(date) {
-      let month = date.substr(5, 2)
-      let day = date.substr(8, 2)
-      let parsed = `${day}/${month}`
-      return parsed
-    }
   }
 }
 </script>

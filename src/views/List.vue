@@ -60,6 +60,9 @@ export default {
   mounted() {
     this.$store.dispatch("fetchAllHelpData")
     this.mylocation()
+    setInterval(() => {
+      this.$store.dispatch("fetchAllHelpData")
+    }, 5000)
   },
   updated() {
   },

@@ -53,6 +53,9 @@ export default {
     }
     // this.$parent.$refs.hp__footer.style.display = "none"
     this.geolocation()
+    setInterval(() => {
+      this.$store.dispatch("fetchAllHelpData")
+    }, 5000)
   },
   updated() {
     if (this.isLoggedIn) {
