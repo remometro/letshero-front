@@ -169,10 +169,6 @@ export default {
       border-radius: 8px;
       cursor: pointer;
 
-      &__cta {
-        font-size: 12px;
-      }
-
       &__top {
         display: flex;
         align-items: center;
