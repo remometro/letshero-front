@@ -1,24 +1,29 @@
 <template>
   <div class="lh-dropdown" v-on-clickaway="closeSelect" @keydown.esc="closeSelect">
     <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}">
-      <div class="lh--input--select--field">
+      <validation-provider :name="fieldName" class="lh--input--select--field" :rules="rules" v-slot="{ errors }">
         <label for="find-a-hero__form__what__label">{{label}}</label>
         <button class="lh-dropdown__select-button" :disabled="disabled" @click.stop="!disabled && toggleSelect($event)">
           <input type="text" readonly tabindex="-1" :disabled="disabled" required v-model="selectValue" @click="!disabled && toggleSelect" @keypress.enter="!disabled && toggleSelect" :placeholder="placeholder"/>
+          <span class="lh--error--message">{{ errors[0] }}</span>
           <div class="lh-dropdown__options" :class="{isOpen: isOpen}" >
             <button tabindex="0" class="lh-dropdown__options__option" :key="option.value" v-for="option in options" @click.stop="setValue($event, option.value, option.label)" >
               <span class="lh-dropdown__options__option__label">{{option.label}}</span>
             </button>
           </div>
         </button>
-      </div>
+      </validation-provider>
     </div>
   </div>
 </template>
 
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
+import { ValidationProvider } from 'vee-validate'
 export default {
+  components: {
+    ValidationProvider
+  },
   mixins: [ clickaway ],
   data() {
     return {
@@ -30,7 +35,9 @@ export default {
     options: Array,
     label: String,
     placeholder: String,
-    disabled: Boolean
+    disabled: Boolean,
+    rules: String,
+    fieldName: String
   },
   methods: {
     setValue($event, value, label) {
@@ -75,6 +82,8 @@ export default {
     border: none;
     background: none;
     padding: 0;
+    text-align: left;
+    font-family: $font-main;
   }
 }
 .lh-dropdown__options {

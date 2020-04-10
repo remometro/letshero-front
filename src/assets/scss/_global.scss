@@ -196,6 +196,12 @@ h1 {
       color: $color-white;
     }
   }
+  &--error {
+    &--message {
+      color: $color-red;
+      font-size: 10px;
+    }
+  }
 }
 
 .text {

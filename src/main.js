@@ -5,8 +5,26 @@ import router from './router'
 import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
+import { ValidationProvider, extend } from 'vee-validate'
+import * as rules from 'vee-validate/dist/rules'
 
 Vue.use(VueTheMask)
+
+Object.keys(rules).forEach(rule => {
+  extend(rule, rules[rule])
+})
+
+extend('required', {
+  message: (field) => "Please fill " + field + " ."
+})
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target
+  },
+  message: 'Passwords don\'t match'
+})
 
 let gMapsAPIKEY = process.env.NODE_ENV === "development" ? 'AIzaSyClxqoc_vuBbW4BcgARukp-t86uTVvSz0U' : 'AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw'
 
@@ -56,5 +74,8 @@ setServerURL()
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  components: {
+    ValidationProvider
+  }
 }).$mount('#app')

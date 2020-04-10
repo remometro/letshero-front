@@ -1,27 +1,34 @@
 <template>
   <main class="signup">
     <form action="" class="signup__form" @submit="signUp" v-if="!isLoggedIn">
-      <div class="lh--input--text signup__form__user">
+
+      <validation-provider class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12" v-slot="{ errors }">
         <label for="signup__form__user__input">Heroname</label>
-        <input type="text" required v-model="formUser" />
-      </div>
-      <div class="lh--input--text signup__form__pass">
-        <label for="signup__form__user__input">Password</label>
-        <input type="password" required v-model="formPass" />
-      </div>
-      <div class="lh--input--text signup__form__pass">
-        <label for="signup__form__user__input">Confirm password</label>
-        <input type="password" required v-model="formPassVer" />
-      </div>
-      <div class="lh--input--text signup__form__email">
+        <input type="text" v-model="formUser" name="heroname" data-vv-as="Hero Name" />
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
+      <validation-observer class="lh--input--observer">
+        <validation-provider name="password" class="lh--input--text signup__form__pass" rules="required|min:6" v-slot="{ errors }">
+          <label for="signup__form__user__input">Password</label>
+          <input type="password" required v-model="formPass" />
+          <span class="lh--error--message">{{ errors[0] }}</span>
+        </validation-provider>
+        <validation-provider name="confirmpass" class="lh--input--text signup__form__pass" rules="required|min:6|password:@password" v-slot="{ errors }">
+          <label for="signup__form__user__input">Confirm password</label>
+          <input type="password" required v-model="formPassVer" />
+          <span class="lh--error--message">{{ errors[0] }}</span>
+        </validation-provider>
+      </validation-observer>
+      <validation-provider name="email" class="lh--input--text signup__form__pass" rules="required|email" v-slot="{ errors }">
         <label for="signup__form__user__email">Email</label>
         <input type="email" required v-model="formEmail" />
-      </div>
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
       <div class="lh--input--text signup__form__paypal">
         <label for="signup__form__user__paypal">Paypal email (to receive donations you must setup a PayPal merchant account with this email)</label>
         <input type="email" required v-model="formPaypal" />
       </div>
-      <LH-Dropdown ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
+      <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
       <div class="lh--input--text signup__form__whatsapp">
         <label for="signup__form__user__whatsapp">What's your whatsapp number?</label>
         <input type="tel" pattern="+^[0-9-+\s()]*$" placeholder="+55123456789" v-mask="'+##############'" v-model="formWhatsapp" required>
@@ -44,10 +51,13 @@
 
 <script>
 import LHDropdown from "./components/LH-Dropdown"
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 export default {
   name: "SignUp",
   components: {
-    LHDropdown
+    LHDropdown,
+    ValidationProvider,
+    ValidationObserver
   },
   data() {
     return {
@@ -107,10 +117,16 @@ export default {
 </script>
 
 <style lang="scss">
+.lh--input--observer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .signup {
   height: 100vh;
   padding: 2rem;
-  overflow: scroll;
+  overflow-y: auto;
   &__islogged {
     color: $color-black;
   }
