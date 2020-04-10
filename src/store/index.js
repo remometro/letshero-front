@@ -70,7 +70,11 @@ export default new Vuex.Store({
     loginError(state, payload) {
       state.isLogging = false
       state.loginError = true
-      payload.message ? state.loginErrorMessage = payload.message : state.loginErrorMessage = 'Something went wrong! Please try again later.'
+      if (payload.status === 400 || payload.status === 401) {
+        state.loginErrorMessage = "Invalid username or password"
+      } else {
+        payload.message ? state.loginErrorMessage = payload.message : state.loginErrorMessage = 'Something went wrong! Please try again later.'
+      }
     },
     isSigningUp(state) {
       state.isSigningUp = true
@@ -180,7 +184,10 @@ export default new Vuex.Store({
             this.commit('loginError', res)
           }
         })
-        .catch(err => this.commit('loginError', err))
+        .catch(err => {
+          this.commit('loginError', err.response)
+          console.log("login error!", err.response)
+        })
     },
     logOut() {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/logout`
