@@ -3,6 +3,7 @@ import './assets/scss/main.scss'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import axios from 'axios'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
 import { ValidationProvider, extend } from 'vee-validate'
@@ -24,6 +25,26 @@ extend('password', {
     return value === target
   },
   message: 'Passwords don\'t match'
+})
+
+const isUniqueUser = (value) => {
+  return axios.post(`${process.env.VUE_APP_SERVER}/api-v1/check-user`, { candidate: value }).then((response) => {
+    // Notice that we return an object containing both a valid property and a data property.
+    return {
+      valid: response.data.valid,
+      data: {
+        message: "User not availableS"
+      }
+    }
+  })
+}
+
+extend('checkusername', {
+  validate: isUniqueUser,
+  getMessage: (field, params, data) => {
+    return `User not available`
+  },
+  message: 'Heroname is not available'
 })
 
 let gMapsAPIKEY = process.env.NODE_ENV === "development" ? 'AIzaSyClxqoc_vuBbW4BcgARukp-t86uTVvSz0U' : 'AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw'

@@ -2,9 +2,9 @@
   <main class="signup">
     <ValidationObserver v-slot="{ invalid }" v-if="!isLoggedIn">
       <form action="" class="signup__form" @submit="signUp($event, invalid)">
-        <validation-provider class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12" v-slot="{ errors }">
+        <validation-provider class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12|checkusername" v-slot="{ errors }">
           <label for="signup__form__user__input">Heroname</label>
-          <input type="text" v-model="formUser" name="heroname" data-vv-as="Hero Name" />
+          <input type="text" v-model="formUser" name="heroname" data-vv-as="Hero Name" @change="checkUsername" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <validation-observer class="lh--input--observer">
@@ -92,6 +92,9 @@ export default {
         }
       ]
     },
+    isUsernameValid() {
+      return this.$store.state.validCandidate
+    },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     },
@@ -123,6 +126,10 @@ export default {
         this.generalError = "Form has errors! Please fix them and try again."
         console.log("form with errors!")
       }
+    },
+    checkUsername() {
+      let payload = { candidate: this.formUser }
+      this.$store.dispatch("checkUsername", payload)
     }
   }
 }

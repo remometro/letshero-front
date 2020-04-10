@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     login(e) {
-      let payload = { username: this.username, password: this.password }
+      let payload = { username: this.username.toLowerCase(), password: this.password }
       e.preventDefault()
       this.$store.dispatch('logIn', payload)
     },
