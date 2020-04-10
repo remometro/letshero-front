@@ -16,7 +16,7 @@
               <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
               </div>
-              <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Be {{treatmentOf(item.user.data.gender)}} hero</router-link>
+              <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
             </div>
           </div>
         </div>
@@ -45,9 +45,12 @@ export default {
     }
   },
   computed: {
+    me() {
+      return this.$store.state.userData
+    },
     entries() {
       return this.sortData(this.$store.state.allHelpsData.filter((el) => {
-        return el.stats.completed === false
+        return el.stats.completed === false && el.user._id !== this.me._id && el.who_is_helping.findIndex(user => user.user._id === this.me._id) === -1
       }))
     },
     isLoggedIn() {

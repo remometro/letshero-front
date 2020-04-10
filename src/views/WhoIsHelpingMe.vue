@@ -23,6 +23,7 @@
                   <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">Undo</button>
                 </div>
               </div>
+              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
               <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">Mark as completed</button>
             </div>
           </div>
@@ -167,6 +168,10 @@ export default {
       padding: .5rem;
       border-radius: 8px;
       cursor: pointer;
+
+      &__cta {
+        font-size: 12px;
+      }
 
       &__top {
         display: flex;

@@ -175,6 +175,7 @@ h1 {
     max-width: 150px;
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
     &--white {
       color: $color-white;
       border-color: $color-white;

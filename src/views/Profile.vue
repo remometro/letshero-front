@@ -4,19 +4,19 @@
       <div class="profile__data">
         <h2 class="profile__data__welcome">
           <span class="profile__data__welcome__thin">
-              {{profile.user.name}}, you're a
+              {{profile.username}}, you're a
           </span><br/>
-          {{profile.title.name}}
+          {{profile.stats.title}}
         </h2>
         <div class="profile__data__awards">
           <div class="profile__data__awards__points profile__data__awards--content"><img src="@/assets/imgs/points.svg" alt="" class="profile__data__awards__img"/>{{profile.stats.points}}</div>
           <div class="profile__data__awards__medals profile__data__awards--content"><img src="@/assets/imgs/medals.svg" alt="" class="profile__data__awards__img"/>{{profile.stats.medals}}</div>
           <div class="profile__data__awards__trophees profile__data__awards--content"><img src="@/assets/imgs/trophees.svg" alt="" class="profile__data__awards__img"/>{{profile.stats.trophees}}</div>
         </div>
-        <div class="profile__data__graphs">
+        <!-- <div class="profile__data__graphs">
           <img src="@/assets/imgs/dummy-graphic.svg" alt="" class="profile__data__graphs__dummygraph">
           <img src="@/assets/imgs/dummy-graphic.svg" alt="" class="profile__data__graphs__dummygraph">
-        </div>
+        </div> -->
       </div>
     </div>
   </main>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import data from "../../data/profile-data.json"
 import Login from "./Login"
 export default {
   components: {
@@ -39,7 +38,7 @@ export default {
   },
   computed: {
     profile() {
-      return data
+      return this.$store.state.userData
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
