@@ -93,7 +93,9 @@ export default new Vuex.Store({
     performLogOut(state) {
       state.isLoggedIn = false
       state.userId = ''
-      state.userData = ''
+      state.userData = {}
+      state.allHelpsData = []
+      state.paginatedAllHelpsData = []
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.setItem('letshero-tkn', '')
       // Vue.$cookies.remove("connect.sid")
