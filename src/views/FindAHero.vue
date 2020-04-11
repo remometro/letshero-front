@@ -4,7 +4,7 @@
     <form action="" class="find-a-hero__form" @submit="addHelp($event, invalid)" v-if="!foundAHero">
       <LH-Dropdown rules="required" fieldName="necessity" ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
       <LH-Dropdown rules="required" fieldName="reward" ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
-      <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
+      <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required|min_value:1' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
         <input type="number" v-model="formAmount" />
         <span class="lh--error--message">{{ errors[0] }}</span>
