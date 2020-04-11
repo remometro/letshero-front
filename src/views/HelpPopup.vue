@@ -198,8 +198,13 @@ export default {
   color: $color-white;
   z-index: 10;
   overflow-y: scroll;
-  max-height: 100vh;
+  max-height: calc(100vh - 200px);
   padding-bottom: 100px;
+  &::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
   &__table {
     padding: 2rem 0;
     max-width: 80%;
