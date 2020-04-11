@@ -8,6 +8,9 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
 import * as VeeValidate from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
+import VueTelInput from 'vue-tel-input'
+
+Vue.use(VueTelInput)
 
 Vue.use(VueTheMask)
 Vue.use(VeeValidate)

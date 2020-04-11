@@ -32,7 +32,7 @@
         <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
         <validation-provider name="whatsapp number" class="lh--input--text signup__form__whatsapp" rules="required" v-slot="{ errors }">
           <label for="signup__form__user__whatsapp">What's your whatsapp number?</label>
-          <input type="tel" placeholder="+55123456789" v-mask="'+##############'" v-model="formWhatsapp" />
+          <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'e164'}" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <button class="lh--button signup__form__submit" @click="signUp($event, invalid)">
@@ -71,6 +71,7 @@ export default {
       formPassVer: null,
       formPaypal: null,
       formWhatsapp: null,
+      formWhatsappRaw: null,
       hasErrors: false,
       generalError: ''
     }
@@ -119,7 +120,7 @@ export default {
       e.preventDefault()
       if (!invalid) {
         this.hasErrors = false
-        let payload = { username: this.formUser.toLowerCase(), password: this.formPass, password_verify: this.formPassVer, email: this.formEmail, whatsapp: this.formWhatsapp, paypal: this.formPaypal, gender: this.formGender }
+        let payload = { username: this.formUser.toLowerCase(), password: this.formPass, password_verify: this.formPassVer, email: this.formEmail, whatsapp: this.formWhatsappRaw, paypal: this.formPaypal, gender: this.formGender }
         this.$store.dispatch('signUp', payload)
       } else {
         this.hasErrors = true
@@ -130,12 +131,18 @@ export default {
     checkUsername() {
       let payload = { candidate: this.formUser }
       this.$store.dispatch("checkUsername", payload)
+    },
+    setPhone(e) {
+      this.formWhatsappRaw = this.$refs.tel.phoneObject.number.e164
     }
   }
 }
 </script>
 
 <style lang="scss">
+.vue-tel-input {
+  border: none !important;
+}
 .lh--input--observer {
   width: 100%;
   display: flex;
