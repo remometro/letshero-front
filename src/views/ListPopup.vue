@@ -203,6 +203,12 @@ export default {
   z-index: 9;
   overflow-y: scroll;
   max-height: calc(100vh - 200px);
+
+  &::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
   &__table {
     padding: 2rem 0;
     max-width: 80%;
