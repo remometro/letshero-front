@@ -61,7 +61,7 @@ export default {
     position: Object
   },
   mounted() {
-    this.scroll()
+    this.mylocation()
   },
   updated() {
   },
