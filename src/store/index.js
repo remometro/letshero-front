@@ -72,7 +72,7 @@ export default new Vuex.Store({
     loginError(state, payload) {
       state.isLogging = false
       state.loginError = true
-      if (payload.status === 400 || payload.status === 401) {
+      if (payload && (payload.status === 400 || payload.status === 401)) {
         state.loginErrorMessage = "Invalid username or password"
       } else {
         payload.message ? state.loginErrorMessage = payload.message : state.loginErrorMessage = 'Something went wrong! Please try again later.'
