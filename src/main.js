@@ -8,9 +8,6 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
 import { extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
-import infiniteScroll from 'vue-infinite-scroll'
-
-Vue.use(infiniteScroll)
 Vue.use(VueTheMask)
 
 Object.keys(rules).forEach(rule => {
@@ -83,6 +80,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
-  directives: { infiniteScroll }
+  render: h => h(App)
 }).$mount('#app')
