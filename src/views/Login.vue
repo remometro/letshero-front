@@ -13,7 +13,7 @@
         {{ !isLogging ? "Log In" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isLogging" />
       </button>
       <router-link to="/signup"  class="lh--link--black login__form__new">New hero?</router-link>
-      <router-link to="/forgot" class="lh--link--black login__form__forgot">Forgot?</router-link>
+      <!-- <router-link to="/forgot" class="lh--link--black login__form__forgot">Forgot?</router-link> -->
       <div class="lh--alert lh--alert--warning" v-if="loginError">{{loginErrorMessage}}</div>
     </form>
 

@@ -1,20 +1,23 @@
 <template>
   <main class="find-a-hero" v-if="isLoggedIn">
-    <form action="" class="find-a-hero__form" @submit="addHelp" v-if="!foundAHero">
-      <LH-Dropdown ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
-      <LH-Dropdown ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
-      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
+    <ValidationObserver v-slot="{ invalid }" ref="observer">
+    <form action="" class="find-a-hero__form" @submit="addHelp($event, invalid)" v-if="!foundAHero">
+      <LH-Dropdown rules="required" fieldName="necessity" ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
+      <LH-Dropdown rules="required" fieldName="reward" ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
+      <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
         <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
-        <input type="number" min="1" step="1" v-model="formAmount" />
-      </div>
-      <div class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2">
+        <input type="number" v-model="formAmount" />
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
+      <validation-provider name="reward description" :rules="formReward && formReward === 2 ? 'required|max:32' : ''" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2" v-slot="{ errors }">
         <label for="find-a-hero__form__reward__label">What do you offer?</label>
-        <input type="text" maxlength="32" v-model="formRewardOther" />
-      </div>
-      <div class="lh--input--text find-a-hero__form__where">
+        <input type="text" v-model="formRewardOther" />
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
+      <validation-provider class="lh--input--text find-a-hero__form__where" rules="required" name="location" v-slot="{ errors }" ref="location">
         <label for="find-a-hero__form__where__label">Where are you at the moment?</label>
-        <!--<input type="text" required v-model="formWhere" @change="getPlaces" /> -->
-        <GmapAutocomplete @place_changed="setPlace" />
+        <input type="hidden" v-model="formPlace" />
+        <GmapAutocomplete @blur="validateLocation" @place_changed="setPlace" />
         <gmap-map
         v-if="formPlace"
         :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="17" :options="{disableDefaultUI:true}"
@@ -30,23 +33,29 @@
         :draggable="true"
         @click="formPosition=m.position"
         ></gmap-marker>
-    </gmap-map>
-      </div>
-      <div class="lh--input--text find-a-hero__form__why">
+        </gmap-map>
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
+
+      <validation-provider name="description" rules="required" v-slot="{ errors }" class="lh--input--text find-a-hero__form__why">
         <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
-        <textarea class="lh--input--textarea" type="text" required maxlength="256" rows="5" v-model="formWhy" />
-      </div>
-      <div class="lh--input--text find-a-hero__form__reward">
+        <textarea class="lh--input--textarea" type="text" maxlength="256" rows="5" v-model="formWhy" />
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
+      <validation-provider name="video link" rules="isvideo" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward">
         <label for="find-a-hero__form__reward__label">Is there a video link explaining your need? (Youtube and Vimeo links only)</label>
         <input type="text" maxlength="128" v-model="formLink" />
-      </div>
+        <span class="lh--error--message">{{ errors[0] }}</span>
+      </validation-provider>
       <button class="lh--button find-a-hero__form__submit">
         {{ !isFinding ? "Find a Hero" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isFinding" />
       </button>
       <div class="lh--alert lh--alert--warning" v-if="findError">{{findErrorMessage}}</div>
+      <div class="lh--alert lh--alert--warning" v-if="findError || hasErrors"><span class="error-message" v-if="findError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !findError">{{generalError}}</span></div>
     </form>
     <div class="lh--alert lh--alert--success" v-else>Your hero is on the way, now you just have to wait!</div>
     <router-link class="lh--link lh--link--small lh--link--black" to="/list">Or be someone's hero.</router-link>
+    </ValidationObserver>
   </main>
    <main class="not-logged" v-else>
     <Login />
@@ -56,11 +65,14 @@
 <script>
 import LHDropdown from "./components/LH-Dropdown"
 import Login from "./Login"
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 export default {
   name: "FindAHero",
   components: {
     LHDropdown,
-    Login
+    Login,
+    ValidationProvider,
+    ValidationObserver
   },
   data() {
     return {
@@ -79,7 +91,8 @@ export default {
       markers: [{
         position: { lat: 0, lng: 0 }
       }],
-      place: null
+      place: null,
+      hasErrors: false
     }
   },
   computed: {
@@ -159,6 +172,8 @@ export default {
     },
     setReward(value) {
       this.formReward = value.value
+      this.formRewardOther = null
+      this.formAmount = null
     },
     setPlace(place) {
       this.place = place
@@ -186,28 +201,40 @@ export default {
       this.currentLocation.lat = center.lat()
       this.currentLocation.lng = center.lng()
     },
-    addHelp(e) {
+    async addHelp(e, invalid) {
+      const isValid = await this.$refs.observer.validate()
       e.preventDefault()
-      let payload = {
-        category: {
-          main_category: this.formTypeString,
-          main_category_id: this.formType,
-          custom_description: this.formWhy,
-          custom_link: this.formLink,
-          urgency: this.formTypeUrgency
-        },
-        location: {
-          lat: this.formPosition && this.formPosition.lat,
-          lng: this.formPosition && this.formPosition.lng,
-          place_name: this.formPlace
-        },
-        reward: {
-          value: this.formAmount,
-          type: this.formReward,
-          other_reward: this.formRewardOther
+      if (isValid && this.formPlace && this.place) {
+        this.hasErrors = false
+        let payload = {
+          category: {
+            main_category: this.formTypeString,
+            main_category_id: this.formType,
+            custom_description: this.formWhy,
+            custom_link: this.formLink,
+            urgency: this.formTypeUrgency
+          },
+          location: {
+            lat: this.formPosition && this.formPosition.lat,
+            lng: this.formPosition && this.formPosition.lng,
+            place_name: this.formPlace
+          },
+          reward: {
+            value: this.formAmount,
+            type: this.formReward,
+            other_reward: this.formRewardOther
+          }
         }
+        this.$store.dispatch("addHelp", payload)
+      } else {
+        this.hasErrors = true
+        this.generalError = "Form has errors! Please fix them and try again."
+        console.log("form with errors!")
       }
-      this.$store.dispatch("addHelp", payload)
+    },
+    validateLocation(place) {
+      this.formPlace = place.formatted_address
+      this.$refs.location.validate()
     }
   },
   mounted: function() {

@@ -6,25 +6,44 @@ import store from './store'
 import axios from 'axios'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
-import { extend } from 'vee-validate'
+import * as VeeValidate from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
 
 Vue.use(VueTheMask)
+Vue.use(VeeValidate)
 
 Object.keys(rules).forEach(rule => {
-  extend(rule, rules[rule])
+  VeeValidate.extend(rule, rules[rule])
 })
 
-extend('required', {
+VeeValidate.extend('required', {
   message: (field) => "Please fill " + field + " ."
 })
 
-extend('password', {
+VeeValidate.extend('password', {
   params: ['target'],
   validate(value, { target }) {
     return value === target
   },
   message: 'Passwords don\'t match'
+})
+
+VeeValidate.extend('isvideo', {
+  params: ['target'],
+  validate(value) {
+    if (value !== undefined || value !== '') {
+      var regExp = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm
+      var match = value.match(regExp)
+      if (match) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  },
+  message: 'This is not a valid youtube link.'
 })
 
 const isUniqueUser = (value) => {
@@ -39,7 +58,7 @@ const isUniqueUser = (value) => {
   })
 }
 
-extend('checkusername', {
+VeeValidate.extend('checkusername', {
   validate: isUniqueUser,
   getMessage: (field, params, data) => {
     return `User not available`
