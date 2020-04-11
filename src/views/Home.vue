@@ -24,9 +24,7 @@ export default {
 
   },
   mounted() {
-    setInterval(() => {
-      this.$store.dispatch("fetchAllHelpData")
-    }, 5000)
+    this.$store.dispatch("fetchAllHelpData")
   },
   methods: {
   }
