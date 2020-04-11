@@ -1,13 +1,15 @@
 <template>
   <main ref="lh-map" class="map" v-if="isLoggedIn">
+    <HelpPopup v-if="helpPopupShown" :popupId="selectedId" :popupShown="helpPopupShown" @closepopup="closeHelp" />
+    <ListPopup v-if="listPopupShown" :position="listLocation" @openhelp="openHelp" @closelist="closeList" />
     <gmap-map
         :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy' }"
         map-type-id="terrain"
         :style="'width: 100%; height:' + mapHeight + 'px;' "
-        ref="lh-map__container"
+        ref="mapRef"
         @zoom_changed="loadMore"
         >
-        <GmapCluster :zoomOnClick="true" :styles="[{
+        <GmapCluster @click="clickedCluster" ref="mapCluster" :zoomOnClick="true" :styles="[{
           textColor: 'white',
           fontFamily: 'Bungee, sans-serif;',
           textSize: '12',
@@ -22,7 +24,7 @@
         :clickable="true"
         :draggable="false"
         help-id=""
-        @click="center=m.position && openHelp(m)"
+        @click="openHelp(m)"
         :icon="{ url: loadMarker(m) }"
         ></gmap-marker>
         </GmapCluster>
@@ -38,13 +40,18 @@
 <script>
 import LogIn from "./Login"
 import Subtitles from "./components/Subtitles"
+import HelpPopup from "./HelpPopup"
+import ListPopup from "./ListPopup"
 import GmapCluster from 'vue2-google-maps/dist/components/cluster' // replace src with dist if you have Babel issues
+import { gmapApi } from 'vue2-google-maps'
 import _ from "lodash"
 export default {
   components: {
     LogIn,
     Subtitles,
-    GmapCluster
+    GmapCluster,
+    HelpPopup,
+    ListPopup
   },
   computed: {
     isLoggedIn() {
@@ -55,9 +62,12 @@ export default {
     },
     storedMarkers() {
       let markers = this.helps.map((help) => {
-        return !help.stats.completed && { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help._id, urgency: help.category.urgency }
+        return !help.stats.completed && { position: { lat: Number(help.location.lat), lng: Number(help.location.lng) }, id: help._id, urgency: help.category.urgency, main_id: help.category.main_category_id }
       })
       return markers
+    },
+    google() {
+      return gmapApi
     }
   },
   mounted() {
@@ -78,7 +88,11 @@ export default {
       currentLocation: { lat: 0, lng: 0 },
       markers: [{
         position: { lat: 0, lng: 0 }
-      }]
+      }],
+      selectedId: null,
+      helpPopupShown: false,
+      listPopupShown: false,
+      listLocation: {}
     }
   },
   methods: {
@@ -96,30 +110,57 @@ export default {
       })
     },
     recenterMap(center) {
-      this.currentLocation.lat = center.lat()
-      this.currentLocation.lng = center.lng()
+      this.currentLocation.lat = center.lat
+      this.currentLocation.lng = center.lng
     },
     openHelp(m) {
-      this.$router.push('/help/' + m.id)
+      this.recenterMap(m.position)
+      this.selectedId = m.id
+      this.helpPopupShown = true
+    },
+    closeHelp() {
+      this.helpPopupShown = false
     },
     loadMarker(m) {
       let marker = require('../assets/imgs/heart-green.svg')
-      switch (m.urgency) {
-      case 3:
-        marker = require('../assets/imgs/heart-green.svg')
+      switch (m.main_id) {
+      case 1:
+        marker = require('../assets/imgs/heart-red-food.svg')
         break
       case 2:
-        marker = require('../assets/imgs/heart-yellow.svg')
+        marker = require('../assets/imgs/heart-red-shelter.svg')
         break
-      case 1:
-        marker = require('../assets/imgs/heart-red.svg')
+      case 3:
+        marker = require('../assets/imgs/heart-red-psi.svg')
+        break
+      case 4:
+        marker = require('../assets/imgs/heart-red-doc.svg')
+        break
+      case 5:
+        marker = require('../assets/imgs/heart-green-companion.svg')
+        break
+      case 6:
+        marker = require('../assets/imgs/heart-yellow-other.svg')
         break
       }
       return marker
     },
     loadMore: _.debounce(function() {
       this.$store.dispatch("fetchAllHelpData", { page: this.$store.state.currentListPage + 1 })
-    }, 800)
+    }, 800),
+    clickedCluster(e) {
+      let markers = e.getMarkers()
+      let allEqual = markers.length > 0 && markers.every((val, i, arr) => {
+        return val.position.lat() === arr[0].position.lat() && val.position.lng() === arr[0].position.lng()
+      })
+      if (allEqual) {
+        this.listLocation = { lat: markers[0].position.lat(), lng: markers[0].position.lng() }
+        this.listPopupShown = true
+      }
+    },
+    closeList() {
+      this.listPopupShown = false
+    }
   }
 }
 </script>
