@@ -87,27 +87,27 @@ export default {
       return [
         {
           "label": "Food",
-          "value": { "name": "Food", "type": 1, "urgency": 1 }
+          "value": { "name": "Food", "value": 1, "urgency": 1 }
         },
         {
           "label": "Shelter",
-          "value": { "name": "Shelter", "type": 2, "urgency": 1 }
+          "value": { "name": "Shelter", "value": 2, "urgency": 1 }
         },
         {
           "label": "Medical Care",
-          "value": { "name": "Medical Care", "type": 3, "urgency": 1 }
+          "value": { "name": "Medical Care", "value": 3, "urgency": 1 }
         },
         {
           "label": "Psychological Care",
-          "value": { "name": "Psychological Care", "type": 4, "urgency": 1 }
+          "value": { "name": "Psychological Care", "value": 4, "urgency": 1 }
         },
         {
           "label": "Companion",
-          "value": { "name": "Companion", "type": 5, "urgency": 3 }
+          "value": { "name": "Companion", "value": 5, "urgency": 3 }
         },
         {
           "label": "Other",
-          "value": { "name": "Other", "type": 6, "urgency": 2 }
+          "value": { "name": "Other", "value": 6, "urgency": 2 }
         }
       ]
     },
@@ -115,23 +115,23 @@ export default {
       return [
         {
           "label": "I offer some cash",
-          "value": 1
+          "value": { "value": 1 }
         },
         {
           "label": "I offer some other help",
-          "value": 2
+          "value": { "value": 2 }
         },
         {
           "label": "I need some cash or help",
-          "value": 3
+          "value": { "value": 3 }
         },
         {
           "label": "I need some cash only",
-          "value": 4
+          "value": { "value": 4 }
         },
         {
           "label": "I need some help only",
-          "value": 5
+          "value": { "value": 5 }
         }
       ]
     },
@@ -153,12 +153,12 @@ export default {
   },
   methods: {
     setType(value) {
-      this.formType = value.type
+      this.formType = value.value
       this.formTypeString = value.name
       this.formTypeUrgency = value.urgency
     },
     setReward(value) {
-      this.formReward = value
+      this.formReward = value.value
     },
     setPlace(place) {
       this.place = place

@@ -6,9 +6,11 @@ import store from './store'
 import axios from 'axios'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
-import { ValidationProvider, extend } from 'vee-validate'
+import { extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
+import infiniteScroll from 'vue-infinite-scroll'
 
+Vue.use(infiniteScroll)
 Vue.use(VueTheMask)
 
 Object.keys(rules).forEach(rule => {
@@ -76,27 +78,11 @@ Vue.use(VueGoogleMaps, {
 
 Vue.config.productionTip = false
 
-let serverURL = ''
-
-function setServerURL() {
-  if (process.env.NODE_ENV === 'development') {
-    serverURL = 'http://localhost:3000'
-  } else {
-    serverURL = 'https://dhruid.com'
-  }
-
-  window.serverURL = serverURL
-}
-
-setServerURL()
-
 // axios.defaults.withCredentials = true
 
 new Vue({
   router,
   store,
   render: h => h(App),
-  components: {
-    ValidationProvider
-  }
+  directives: { infiniteScroll }
 }).$mount('#app')

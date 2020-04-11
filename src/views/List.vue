@@ -1,7 +1,7 @@
 <template>
   <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
-      <div class="list__table">
+      <div class="list__table" ref="list__table">
         <div class="list__table__item" :key="item._id" v-for="(item, i) in entries" @click="openTab(i)">
           <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="list__table__item__top">
@@ -33,6 +33,7 @@
 <script>
 import Subtitles from "./components/Subtitles"
 import Login from "./Login"
+import _ from "lodash"
 export default {
   components: {
     Subtitles,
@@ -41,7 +42,9 @@ export default {
   data() {
     return {
       tabOpened: null,
-      currentLocation: null
+      currentLocation: null,
+      busy: null,
+      page: null
     }
   },
   computed: {
@@ -49,9 +52,7 @@ export default {
       return this.$store.state.userData
     },
     entries() {
-      return this.sortData(this.$store.state.allHelpsData.filter((el) => {
-        return el.stats.completed === false && el.user._id !== this.me._id && el.who_is_helping.findIndex(user => user.user._id === this.me._id) === -1
-      }))
+      return this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData)
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
@@ -63,9 +64,7 @@ export default {
   mounted() {
     this.$store.dispatch("fetchAllHelpData")
     this.mylocation()
-    setInterval(() => {
-      this.$store.dispatch("fetchAllHelpData")
-    }, 5000)
+    this.scroll()
   },
   updated() {
   },
@@ -164,6 +163,15 @@ export default {
           return distanceA - distanceB
         }
       })
+    },
+    scroll() {
+      window.onscroll = _.debounce(() => {
+        let bottomOfWindow = (document.documentElement.scrollTop + window.innerHeight + 10) >= document.documentElement.offsetHeight
+
+        if (bottomOfWindow) {
+          this.$store.dispatch("fetchAllHelpData", { page: this.$store.state.currentListPage + 1 })
+        }
+      }, 800)
     }
   }
 }

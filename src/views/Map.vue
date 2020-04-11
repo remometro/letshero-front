@@ -5,6 +5,7 @@
         map-type-id="terrain"
         :style="'width: 100%; height:' + mapHeight + 'px;' "
         ref="lh-map__container"
+        @zoom_changed="loadMore"
         >
         <gmap-marker
         :key="index"
@@ -13,7 +14,7 @@
         :clickable="true"
         :draggable="false"
         help-id=""
-        @click="openHelp(m)"
+        @click="center=m.position && openHelp(m)"
         :icon="{ url: loadMarker(m) }"
         ></gmap-marker>
     </gmap-map>
@@ -28,6 +29,7 @@
 <script>
 import LogIn from "./Login"
 import Subtitles from "./components/Subtitles"
+import _ from "lodash"
 export default {
   components: {
     LogIn,
@@ -38,7 +40,7 @@ export default {
       return !!this.$store.state.isLoggedIn
     },
     helps() {
-      return this.$store.state.allHelpsData
+      return this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData)
     },
     storedMarkers() {
       let markers = this.helps.map((help) => {
@@ -53,9 +55,6 @@ export default {
     }
     // this.$parent.$refs.hp__footer.style.display = "none"
     this.geolocation()
-    setInterval(() => {
-      this.$store.dispatch("fetchAllHelpData")
-    }, 5000)
   },
   updated() {
     if (this.isLoggedIn) {
@@ -106,7 +105,10 @@ export default {
         break
       }
       return marker
-    }
+    },
+    loadMore: _.debounce(function() {
+      this.$store.dispatch("fetchAllHelpData", { page: this.$store.state.currentListPage + 1 })
+    }, 800)
   }
 }
 </script>

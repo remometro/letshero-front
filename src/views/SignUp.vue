@@ -80,15 +80,15 @@ export default {
       return [
         {
           "label": "Male",
-          "value": 1
+          "value": { "value": 1 }
         },
         {
           "label": "Female",
-          "value": 2
+          "value": { "value": 2 }
         },
         {
           "label": "Other",
-          "value": 3
+          "value": { "value": 3 }
         }
       ]
     },
@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     setGender(value) {
-      this.formGender = value
+      this.formGender = value.value
     },
     signUp(e, invalid) {
       e.preventDefault()
