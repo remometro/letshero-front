@@ -7,6 +7,14 @@
         ref="lh-map__container"
         @zoom_changed="loadMore"
         >
+        <GmapCluster :zoomOnClick="true" :styles="[{
+          textColor: 'white',
+          fontFamily: 'Bungee, sans-serif;',
+          textSize: '12',
+          url: require('../assets/imgs/heart-medium-blue.svg'),
+          height: 50,
+          width: 50
+        }]">
         <gmap-marker
         :key="index"
         v-for="(m, index) in storedMarkers"
@@ -17,6 +25,7 @@
         @click="center=m.position && openHelp(m)"
         :icon="{ url: loadMarker(m) }"
         ></gmap-marker>
+        </GmapCluster>
     </gmap-map>
     <!-- <iframe @load="setHeight" ref="map__iframe" width="100%" height="auto" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=10&center=40.7128%2C-74.0060&key=AIzaSyDi_EQFS5kLRRj08KLH0w844aehqKNXOyw" allowfullscreen></iframe> -->
     <Subtitles />
@@ -29,11 +38,13 @@
 <script>
 import LogIn from "./Login"
 import Subtitles from "./components/Subtitles"
+import GmapCluster from 'vue2-google-maps/dist/components/cluster' // replace src with dist if you have Babel issues
 import _ from "lodash"
 export default {
   components: {
     LogIn,
-    Subtitles
+    Subtitles,
+    GmapCluster
   },
   computed: {
     isLoggedIn() {

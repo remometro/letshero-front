@@ -8,6 +8,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTheMask from 'vue-the-mask'
 import { extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
+
 Vue.use(VueTheMask)
 
 Object.keys(rules).forEach(rule => {
