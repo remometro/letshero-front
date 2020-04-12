@@ -7,7 +7,7 @@
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
+                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
