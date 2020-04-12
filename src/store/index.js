@@ -36,7 +36,9 @@ export default new Vuex.Store({
     currentListPage: 1,
     isEditing: false,
     editError: false,
-    editErrorMessage: 'Something went wrong! Please try again later.'
+    editErrorMessage: 'Something went wrong! Please try again later.',
+    verifyError: false,
+    verifySuccess: false
   },
   mutations: {
     performLogin(state, payload) {
@@ -155,6 +157,14 @@ export default new Vuex.Store({
     },
     increaseListPage(state) {
       state.currentListPage++
+    },
+    verifySuccess(state) {
+      state.verifyError = false
+      state.verifySuccess = true
+    },
+    verifyError(state) {
+      state.verifyError = true
+      state.verifySuccess = false
     }
   },
   actions: {
@@ -429,6 +439,27 @@ export default new Vuex.Store({
         })
         .catch(err => {
           this.commit('errorEvaluatingHelp', err)
+        })
+    },
+    verifyEmail(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/verify`
+      console.log('verifying email...')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${payload}`
+      axios.get(url, { withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('verified')
+            this.commit('verifySuccess')
+            this.dispatch('fetchUserData')
+          } else {
+            console.log('verification error')
+            this.commit('verifyError')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          console.log('verification error')
+          this.commit('verifyError')
         })
     }
   },

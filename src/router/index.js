@@ -11,6 +11,7 @@ import WhoImHelping from "../views/WhoImHelping.vue"
 import WhoIsHelpingMe from "../views/WhoIsHelpingMe.vue"
 import Manifesto from "../views/Manifesto.vue"
 import Settings from "../views/Settings.vue"
+import Verify from "../views/Verify.vue"
 
 Vue.use(VueRouter)
 
@@ -79,6 +80,11 @@ const routes = [
     path: '/manifesto',
     name: 'Manifesto',
     component: Manifesto
+  },
+  {
+    path: '/verify/:token',
+    name: 'Verify',
+    component: Verify
   }
 ]
 

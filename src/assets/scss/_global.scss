@@ -197,6 +197,10 @@ h1 {
       background-color: $color-green;
       color: $color-white;
     }
+    &--hold {
+      background-color: $color-yellow;
+      color: $color-black;
+    }
   }
   &--error {
     &--message {
