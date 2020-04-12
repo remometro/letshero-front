@@ -4,7 +4,7 @@
       <validation-provider :name="fieldName" class="lh--input--select--field" :rules="rules" v-slot="{ errors }">
         <label for="find-a-hero__form__what__label">{{label}}</label>
         <button class="lh-dropdown__select-button" :disabled="disabled" @click.stop="!disabled && toggleSelect($event)">
-          <input type="text" readonly tabindex="-1" :disabled="disabled" required v-model="selectValue" @click="!disabled && toggleSelect" @keypress.enter="!disabled && toggleSelect" :placeholder="placeholder"/>
+          <input type="text" readonly tabindex="-1" :disabled="disabled" v-model="selectValue" @click="!disabled && toggleSelect" @keypress.enter="!disabled && toggleSelect" :placeholder="placeholder"/>
           <span class="lh--error--message">{{ errors[0] }}</span>
           <div class="lh-dropdown__options" :class="{isOpen: isOpen}" >
             <button tabindex="0" class="lh-dropdown__options__option" :key="option.value.value" v-for="option in options" @click.stop="setValue($event, option.value, option.label)" >

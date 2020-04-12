@@ -2,7 +2,7 @@
   <main class="signup">
     <ValidationObserver v-slot="{ invalid }" v-if="!isLoggedIn">
       <form action="" class="signup__form" @submit="signUp($event, invalid)">
-        <validation-provider class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12|checkusername" v-slot="{ errors }">
+        <validation-provider name="heroname" class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12|checkusername" v-slot="{ errors }">
           <label for="signup__form__user__input">Heroname</label>
           <input type="text" v-model="formUser" name="heroname" data-vv-as="Hero Name" @change="checkUsername" />
           <span class="lh--error--message">{{ errors[0] }}</span>
@@ -32,7 +32,7 @@
         <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
         <validation-provider name="whatsapp number" class="lh--input--text signup__form__whatsapp" rules="required" v-slot="{ errors }">
           <label for="signup__form__user__whatsapp">What's your whatsapp number?</label>
-          <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'e164'}" />
+          <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'national'}" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <button class="lh--button signup__form__submit" @click="signUp($event, invalid)">

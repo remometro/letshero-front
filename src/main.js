@@ -51,9 +51,10 @@ VeeValidate.extend('isvideo', {
 
 const isUniqueUser = (value) => {
   return axios.post(`${process.env.VUE_APP_SERVER}/api-v1/check-user`, { candidate: value }).then((response) => {
+    console.log(store)
     // Notice that we return an object containing both a valid property and a data property.
     return {
-      valid: response.data.valid,
+      valid: (response.data.valid || store.state.userData.username === value),
       data: {
         message: "User not availableS"
       }

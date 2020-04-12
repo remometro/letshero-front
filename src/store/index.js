@@ -33,7 +33,10 @@ export default new Vuex.Store({
     sessionToken: '',
     baseUrl: process.env.VUE_APP_URL || 'https://letshero.com',
     paginatedAllHelpsData: [],
-    currentListPage: 1
+    currentListPage: 1,
+    isEditing: false,
+    editError: false,
+    editErrorMessage: 'Something went wrong! Please try again later.'
   },
   mutations: {
     performLogin(state, payload) {
@@ -89,6 +92,18 @@ export default new Vuex.Store({
       state.isSigningUp = false
       state.signupError = true
       payload.message ? state.signupErrorMessage = payload.message : state.signupErrorMessage = 'Something went wrong! Please try again later.'
+    },
+    isEditing(state) {
+      state.isEditing = true
+    },
+    editError(state, payload) {
+      state.isEditing = false
+      state.editError = true
+      payload.message ? state.editErrorMessage = payload.message : state.editErrorMessage = 'Something went wrong! Please try again later.'
+    },
+    hasEdited(state) {
+      state.isEditing = false
+      state.editError = false
     },
     performLogOut(state) {
       state.isLoggedIn = false
@@ -299,21 +314,29 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    editBooking(context, payload) {
-      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
-      console.log('editing booking...', payload)
-      let { id, ...newload } = payload
-      let data = { payload: newload, id: payload.id }
+    editProfile(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/profile`
+      console.log('editing profile...', payload)
+      this.commit('isEditing')
+      let data = { payload: { ...payload }, id: this.state.userId }
       axios.put(url, data, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.statusText === 'OK') {
-            console.log('booking updated')
+            console.log('profile updated')
+            this.commit("hasEdited")
             this.dispatch('fetchUserData')
-            this.dispatch('fetchAllBookingsData')
+            this.dispatch('fetchAllHelpsData')
+          } else {
+            this.commit('editError', res)
+            console.log('update profile request error!')
           }
+        })
+        .catch(err => {
+          this.commit('editError', err)
+          console.log(err)
         })
     },
     deleteBooking(context, payload) {
