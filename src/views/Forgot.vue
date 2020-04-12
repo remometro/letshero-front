@@ -9,7 +9,7 @@
         <button class="lh--button forgot__form__submit" @click="askReset">
           {{ !isAskingReset ? "Reset Password" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isAskingReset" />
         </button>
-        <div class="lh--alert lh--alert--hold" v-if="emailSent">If your user exists, an email has been sent to reset your password. Check your inbox.</div>
+        <div class="lh--alert lh--alert--hold" v-if="askedReset">If your user exists, an email has been sent to reset your password. Check your inbox.</div>
       </form>
     </validation-observer>
   </main>

@@ -1,7 +1,7 @@
 <template>
   <main class="reset">
     <ValidationObserver ref="observer" >
-    <form action="" class="reset__form" @submit="clickEdit" ref="reset__form">
+    <form action="" class="reset__form" @submit="clickEdit" ref="reset__form" v-if="!hasEdited">
       <div class="reset__form__fields">
         <validation-observer class="lh--input--observer">
           <validation-provider name="password" class="lh--input--text reset__form__pass" rules="min:6" v-slot="{ errors }">
@@ -18,9 +18,13 @@
       </div>
       <div class="lh--alert lh--alert--warning" v-if="editError || hasErrors"><span class="error-message" v-if="editError && !hasErrors">{{editErrorMessage}}</span><span class="error-message" v-if="hasErrors && !editError">{{generalError}}</span></div>
       <button class="lh--button reset__form__submit">
-        {{ !isEditing && (!notEditMode ? "Save" : "Edit") }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isEditing" />
+        {{ !isEditing ? "Update" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isEditing" />
       </button>
     </form>
+    <div class="lh--alert lh--alert--success" v-if="hasEdited">Congratulations, your password's been changed!</div>
+    <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Now, be someone's hero</router-link>
+    <router-link :to="'/find-a-hero/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Find a hero</router-link>
+    <a href="#" class="lh--link--black verify__content__logout" @click.native="logout">Or log out</a>
     </ValidationObserver>
   </main>
 </template>
@@ -55,6 +59,9 @@ export default {
     },
     isEditing() {
       return this.$store.state.isEditing
+    },
+    hasEdited() {
+      return this.$store.state.hasEdited
     }
   },
   methods: {
@@ -86,16 +93,8 @@ export default {
         this.hasErrors = false
         let payload = { token: this.$route.params.token, username: this.formUser && this.formUser.toLowerCase(), new_password: this.formPass, new_password_ver: this.formPassVer, data: { email: this.formEmail, whatsapp: this.formWhatsappRaw, paypal: this.formPaypal, gender: this.formGender } }
         this.$store.dispatch('editProfile', payload)
-        this.toggleEditMode()
-        this.formUser = null
-        this.formEmail = null
-        this.formOldPass = null
         this.formPass = null
         this.formPassVer = null
-        this.formPaypal = null
-        this.formWhatsapp = null
-        this.formWhatsappRaw = null
-        this.formGender = null
       } else {
         this.hasErrors = true
         this.generalError = "Form has errors! Please fix them and try again."

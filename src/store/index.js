@@ -38,6 +38,7 @@ export default new Vuex.Store({
     editError: false,
     editErrorMessage: 'Something went wrong! Please try again later.',
     verifyError: false,
+    hasEdited: false,
     verifySuccess: false,
     isAskingReset: false,
     askedReset: false,
@@ -109,6 +110,7 @@ export default new Vuex.Store({
     hasEdited(state) {
       state.isEditing = false
       state.editError = false
+      state.hasEdited = true
     },
     performLogOut(state) {
       state.isLoggedIn = false
@@ -341,7 +343,7 @@ export default new Vuex.Store({
     },
     editProfile(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/profile`
-      console.log('editing profile...', payload)
+      console.log('editing profile...')
       this.commit('isEditing')
       if (payload.token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
@@ -356,7 +358,7 @@ export default new Vuex.Store({
             console.log('profile updated')
             this.commit("hasEdited")
             if (payload.token) {
-
+              this.commit('performLogin', { _id: res.data._id, token: payload.token })
             }
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpsData')

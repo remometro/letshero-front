@@ -12,6 +12,8 @@ import WhoIsHelpingMe from "../views/WhoIsHelpingMe.vue"
 import Manifesto from "../views/Manifesto.vue"
 import Settings from "../views/Settings.vue"
 import Verify from "../views/Verify.vue"
+import Forgot from "../views/Forgot.vue"
+import Reset from "../views/Reset.vue"
 
 Vue.use(VueRouter)
 
@@ -85,6 +87,16 @@ const routes = [
     path: '/verify/:token',
     name: 'Verify',
     component: Verify
+  },
+  {
+    path: '/forgot',
+    name: 'Forgot',
+    component: Forgot
+  },
+  {
+    path: '/reset/:token',
+    name: 'Reset',
+    component: Reset
   }
 ]
 

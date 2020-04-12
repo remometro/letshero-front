@@ -11,6 +11,7 @@
         <a href="#" class="lh--link--black verify__content__logout" @click.native="logout">Or log out</a>
       </div>
     </div>
+
   </main>
 </template>
 
