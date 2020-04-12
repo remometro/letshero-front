@@ -451,7 +451,7 @@ export default new Vuex.Store({
             console.log('verified')
             this.commit('verifySuccess')
             this.dispatch('fetchUserData')
-            this.commit('performLogin', { token: payload })
+            this.commit('performLogin', { _id: res.data._id, token: payload })
           } else {
             console.log('verification error')
             this.commit('verifyError')
