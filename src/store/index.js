@@ -450,8 +450,8 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('verified')
             this.commit('verifySuccess')
-            this.dispatch('fetchUserData')
             this.commit('performLogin', { _id: res.data._id, token: payload })
+            this.dispatch('fetchUserData')
           } else {
             console.log('verification error')
             this.commit('verifyError')
