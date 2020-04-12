@@ -4,7 +4,7 @@
       <div class="help__table" v-if="!loadingHelp">
         <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 1, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 3 }" >
           <span class="list__table__item__img"></span>
-          <h2 class="help__table__item__header">{{(help.user._id !== me._id) ? help.user.username : "You"}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> need{{(help.user._id !== me._id) ? "s" : ""}} help with {{help.category.main_category}}</h2>
+          <h2 class="help__table__item__header">{{(help.user._id !== me._id) ? help.user.username : "You"}}<img class="lh--badge" v-if="help.user.data.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> need{{(help.user._id !== me._id) ? "s" : ""}} help with {{help.category.main_category}}</h2>
           <p class="help__table__item__description">{{help.category.custom_description}}</p>
 
           <p class="help__table__item__reward">{{getRewardText(help.user.data.gender, help.reward)}}</p>
