@@ -41,7 +41,7 @@
           <vue-tel-input :key="notEditMode ? '1' : '0'" :disabled="notEditMode" type="tel" :placeholder="me.data.whatsapp" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'national'}" />
         </div>
       </div>
-      <div class="lh--alert lh--alert--warning" v-if="editError || hasErrors"><span class="error-message" v-if="editError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !editError">{{generalError}}</span></div>
+      <div class="lh--alert lh--alert--warning" v-if="editError || hasErrors"><span class="error-message" v-if="editError && !hasErrors">{{editErrorMessage}}</span><span class="error-message" v-if="hasErrors && !editError">{{generalError}}</span></div>
       <button class="lh--button settings__form__submit">
         {{ !isEditing && (!notEditMode ? "Save" : "Edit") }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isEditing" />
       </button>

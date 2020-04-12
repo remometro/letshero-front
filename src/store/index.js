@@ -38,7 +38,10 @@ export default new Vuex.Store({
     editError: false,
     editErrorMessage: 'Something went wrong! Please try again later.',
     verifyError: false,
-    verifySuccess: false
+    verifySuccess: false,
+    isAskingReset: false,
+    askedReset: false,
+    askingResetError: false
   },
   mutations: {
     performLogin(state, payload) {
@@ -165,6 +168,18 @@ export default new Vuex.Store({
     verifyError(state) {
       state.verifyError = true
       state.verifySuccess = false
+    },
+    askedReset(state) {
+      state.isAskingReset = false
+      state.askedReset = true
+    },
+    askingResetError(state) {
+      state.isAskingReset = false
+      state.askingResetError = true
+    },
+    isAskingReset(state) {
+      state.isAskingReset = true
+      state.askingResetError = false
     }
   },
   actions: {
@@ -328,6 +343,9 @@ export default new Vuex.Store({
       let url = `${process.env.VUE_APP_SERVER}/api-v1/profile`
       console.log('editing profile...', payload)
       this.commit('isEditing')
+      if (payload.token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
+      }
       let data = { payload: { ...payload }, id: this.state.userId }
       axios.put(url, data, { headers: {
         'Content-Type': 'application/json'
@@ -337,6 +355,9 @@ export default new Vuex.Store({
           if (res.statusText === 'OK') {
             console.log('profile updated')
             this.commit("hasEdited")
+            if (payload.token) {
+
+            }
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpsData')
           } else {
@@ -460,6 +481,29 @@ export default new Vuex.Store({
           console.log(err)
           console.log('verification error')
           this.commit('verifyError')
+        })
+    },
+    askReset(context, payload) {
+      let url = `${process.env.VUE_APP_SERVER}/api-v1/reset`
+      console.log('asking password reset...', payload)
+      this.commit('isAskingReset')
+      let data = { email: payload.email }
+      axios.post(url, data, { headers: {
+        'Content-Type': 'application/json'
+      } })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('password reset sent!')
+            this.commit("askedReset")
+          } else {
+            this.commit('askingResetError')
+            console.log('asking reset error!')
+          }
+        })
+        .catch(err => {
+          this.commit('askingResetError')
+          console.log('asking reset error!')
+          console.log(err)
         })
     }
   },
