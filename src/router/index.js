@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
+import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import FindAHero from '../views/FindAHero.vue'
 import Map from "../views/Map.vue"
@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: ComingSoon
+    component: Home
   },
   {
     path: '/signup',
