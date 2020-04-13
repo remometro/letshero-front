@@ -23,14 +23,17 @@ h1 {
   font-size: 48px;
 }
 
-a {
-  color: $color-black;
-  &:visited {
-    color: $color-black;
-  }
-}
+// a {
+//   color: $color-black;
+//   &:visited {
+//     color: $color-black;
+//   }
+// }
 
 .lh {
+  &--badge {
+    margin: 0 .5rem;
+  }
   &--btn {
     &--plus {
       background: url(~@/assets/imgs/plus.svg) center center no-repeat;
@@ -39,12 +42,37 @@ a {
       border: none;
     }
   }
+  &--link {
+    display: block;
+    margin: 1rem 0;
+    &--black {
+      color: $color-black;
+      &:link, &:visited {
+        color: $color-black;
+      }
+    }
+
+    &--white {
+      color: $color-white;
+      &:link, &:visited {
+        color: $color-white;
+      }
+    }
+    
+
+    &--small {
+      font-size: 12px;
+    }
+
+    
+  }
   &--input {
     &--text {
       font-family: $font-main;
       color: $color-black;
       display: flex;
       flex-direction: column;
+      width: 100%;
       max-width: 300px;
       justify-content: flex-start;
       align-items: flex-start;
@@ -62,9 +90,21 @@ a {
         border-bottom: 2px solid $color-black;
         font-family: $font-main;
         color: $color-black;
-        background: none;
+        background: none !important;
+        width: 100%;
       }
-
+    }
+    &--textarea {
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border: none;
+      border-bottom: 2px solid $color-black;
+      font-family: $font-main;
+      color: $color-black;
+      background: none;
     }
     &--select {
       font-family: $font-main;
@@ -75,9 +115,18 @@ a {
       justify-content: flex-start;
       align-items: flex-start;
       text-align: left;
-      margin: 1rem;
+      margin: 1rem 0;
       position: relative;
       background: transparent;
+      width: 100%;
+      //min-width: 300px;
+
+      &--field {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;    
+      }
 
       &:after {
         content: "";
@@ -89,6 +138,11 @@ a {
 
       }
       
+      &.isOpen {
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
 
       label {
         font-size: 12px;
@@ -100,7 +154,12 @@ a {
         border-bottom: 2px solid $color-black;
         font-family: $font-main;
         color: $color-black;
+        width: 100%;
+        cursor: pointer;
         background: none;
+        &:focus {
+          outline: none;
+        }
       }
 
     }
@@ -111,21 +170,42 @@ a {
     color: $color-black;
     font-family: $font-main;
     padding: .5rem 2rem;
-    margin: 1rem;
+    margin: 1rem auto;
+    text-decoration: none;
+    max-width: 150px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 12px;
     &--white {
       color: $color-white;
       border-color: $color-white;
-    } 
+    }
   }
   &--alert {
     padding: 2rem;
     font-size: 12px;
     border-radius: 8px;
     box-shadow: -8px 8px 1px $color-black;
-    margin: 1rem;
+    margin: 1rem auto;
+    max-width: 300px;
     &--warning {
       background-color: $color-red;
       color: $color-white;
+    }
+    &--success {
+      background-color: $color-green;
+      color: $color-white;
+    }
+    &--hold {
+      background-color: $color-yellow;
+      color: $color-black;
+    }
+  }
+  &--error {
+    &--message {
+      color: $color-red;
+      font-size: 10px;
     }
   }
 }

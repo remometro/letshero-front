@@ -8,11 +8,14 @@
         .lh-container
           <div id="nav-logged" class="nav__links"  v-if="isLogged">
             <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/find-a-hero">Find a hero</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-im-helping">Who I'm Helping</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-is-helping-me">Who Is Helping me</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
             <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
-            <router-link class="nav__links__link" @click.native="logout" to="/logout">Logout</router-link>
+            <a  href="#" class="nav__links__link" @click="logout">Logout</a>
             .bg.bg--menu
           </div>
           <div id="nav-unlogged" class="nav__links" v-else>
@@ -23,7 +26,8 @@
           </div>
     <router-view/>
     .bg
-    .hp__footer
+    .hp__footer(ref="hp__footer")
+      router-link.hp__footer__manifesto(to="/manifesto")="Read our manifesto."
       small.hp__footer__copy="© Copyright 2012-{{new Date().getUTCFullYear()}}"
       small="Irmãos Reale Desenvolvimento de Softwares Ltda."
   </div>
@@ -115,6 +119,10 @@ export default {
     justify-items: flex-start;
     text-align: left;
     color: $color-white;
+    overflow-y: auto;
+    z-index: 999;
+    padding-bottom: 3rem;
+    box-sizing: border-box;
 
     &__link {
       font-size: 2rem;
@@ -134,10 +142,12 @@ export default {
         display: flex;
         flex-basis: 100%;
         position: absolute;
-        top: 80px;
+        top: 100px;
         left: 0;
         width: 100vw;
         background-color: $color-black;
+        overflow-y: auto;
+        max-height: 100vh;
       }
     }
   }
@@ -157,7 +167,7 @@ export default {
   opacity: 0.2;
 
   &--menu {
-    z-index: 0;
+    z-index: -1;
   }
 }
 
@@ -187,6 +197,11 @@ export default {
     height: 100px;
     position: relative;
     bottom: 0;
+
+    &__manifesto {
+      color: $color-white;
+      font-size: 10px;
+    }
 
     &__copy {
       max-width: 80%;

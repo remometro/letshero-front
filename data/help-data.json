@@ -7,7 +7,16 @@
       "id": "129i310293109",
       "name": "IrmaDulce",
       "paypal": "juan@email.com",
-      "gender": "3"
+      "gender": "3",
+      "whatsapp":"+5511944666162",
+      "verified": true
+    },
+    "stats": {
+      "views": 124,
+      "completed": false,
+      "clickedMessage": 123,
+      "clickedDonate": 423,
+      "amountRaised": 20
     },
     "category": {
       "mainCategory": "Other",
@@ -15,19 +24,37 @@
       "subCategory": "",
       "subCategoryId": "",
       "customTitle": "",
-      "custom description": "",
+      "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "23",
+      "lng": "-10",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
       "active": true,
-      "value": "200",
-      "currency": "USD"
-    }
+      "value": -100,
+      "currency": "BRL"
+    },
+    "who_is_helping": [
+      {
+        "id": "129i3102931092",
+        "name": "Juan",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "69876",
@@ -37,7 +64,9 @@
       "id": "129i310293109",
       "name": "Juan",
       "paypal": "juan@email.com",
-      "gender": "1"
+      "gender": "1",
+      "whatsapp":"+5511944666162",
+      "verified": false
     },
     "category": {
       "mainCategory": "Companion",
@@ -45,19 +74,37 @@
       "subCategory": "",
       "subCategoryId": "",
       "customTitle": "",
-      "custom description": "",
+      "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "1"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "50",
+      "lng": "30",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
       "active": true,
-      "value": "200",
+      "value": 20,
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "09687963128409238",
@@ -67,7 +114,9 @@
       "id": "129i310293109",
       "name": "Diego",
       "paypal": "juan@email.com",
-      "gender": "1"
+      "gender": "1",
+      "whatsapp":"+5511944666162",
+      "verified": true
     },
     "category": {
       "mainCategory": "Shelter",
@@ -75,19 +124,37 @@
       "subCategory": "",
       "subCategoryId": "",
       "customTitle": "",
-      "custom description": "",
+      "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "2"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "10",
+      "lng": "15",
       "placeName": "Sao Paulo, Brazil"
     },
     "reward": {
       "active": true,
-      "value": "200",
+      "value": 0,
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "8787",
@@ -97,7 +164,9 @@
       "id": "129i310293109",
       "name": "Angelo",
       "paypal": "juan@email.com",
-      "gender": "1"
+      "gender": "1",
+      "whatsapp":"+5511944666162",
+      "verified": false
     },
     "category": {
       "mainCategory": "Food",
@@ -105,19 +174,37 @@
       "subCategory": "",
       "subCategoryId": "",
       "customTitle": "",
-      "custom description": "",
+      "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "25",
+      "lng": "30",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
-      "active": true,
+      "active": false,
       "value": "200",
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   },
   {
     "id": "98989",
@@ -127,7 +214,9 @@
       "id": "129i310293109",
       "name": "Yve",
       "paypal": "juan@email.com",
-      "gender": "2"
+      "gender": "2",
+      "whatsapp":"+5511944666162",
+      "verified": true
     },
     "category": {
       "mainCategory": "Food",
@@ -135,18 +224,36 @@
       "subCategory": "",
       "subCategoryId": "",
       "customTitle": "",
-      "custom description": "",
+      "customDescription": "Lorem ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur ipsum dolor sit amet consectetur",
+      "customLink": "https://youtube.com",
       "urgency": "3"
     },
     "location": {
-      "lat": "",
-      "lon": "",
+      "lat": "35",
+      "lng": "10",
       "placeName": "Salvador, Brazil"
     },
     "reward": {
       "active": true,
       "value": "200",
       "currency": "USD"
-    }
+    },
+    "who_is_helping": [
+      {
+        "id": "129i310293109",
+        "name": "Diego",
+        "hasHelped": 1
+      },
+      {
+        "id": "129i310293109",
+        "name": "Lucas",
+        "hasHelped": -1
+      },
+      {
+        "id": "129i310293109",
+        "name": "João",
+        "hasHelped": 0
+      }
+    ]
   }
 ]

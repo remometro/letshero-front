@@ -2,12 +2,13 @@
   <main class="list" v-if="isLoggedIn">
     <div class="lh-container">
       <div class="list__table" ref="list__table">
+        <button class="list__table__item__cta lh--button lh--button--black" @click.stop="closeList">Close list</button>
         <div class="list__table__item" :key="item._id" v-for="(item, i) in entries" @click="openTab(i)">
           <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
+                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
@@ -16,28 +17,19 @@
               <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
               </div>
-              <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
+              <button class="list__table__item__cta lh--button lh--button--white" @click.stop="openHelp({ position: position, id: item._id })">Know more</button>
             </div>
           </div>
         </div>
       </div>
-      <button class="list__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="list__find-help--img"></router-link></button>
-      <Subtitles isFixed="true" />
     </div>
-  </main>
-  <main class="not-logged" v-else>
-    <Login />
   </main>
 </template>
 
 <script>
-import Subtitles from "./components/Subtitles"
-import Login from "./Login"
 import _ from "lodash"
 export default {
   components: {
-    Subtitles,
-    Login
   },
   data() {
     return {
@@ -52,7 +44,11 @@ export default {
       return this.$store.state.userData
     },
     entries() {
-      return this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData)
+      let filtered = this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData).filter(el => {
+        return el.location.lat === this.position.lat
+      })
+      console.log(filtered)
+      return filtered
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
@@ -61,10 +57,11 @@ export default {
       return this.$store.state.loadingList
     }
   },
+  props: {
+    position: Object
+  },
   mounted() {
-    this.$store.dispatch("fetchAllHelpData")
     this.mylocation()
-    this.scroll()
   },
   updated() {
   },
@@ -172,6 +169,12 @@ export default {
           this.$store.dispatch("fetchAllHelpData", { page: this.$store.state.currentListPage + 1 })
         }
       }, 800)
+    },
+    openHelp(payload) {
+      this.$emit("openhelp", payload)
+    },
+    closeList() {
+      this.$emit("closelist")
     }
   }
 }
@@ -196,6 +199,16 @@ export default {
   }
 }
 .list {
+  position: fixed;
+  z-index: 9;
+  overflow-y: scroll;
+  max-height: calc(100vh - 200px);
+
+  &::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
   &__table {
     padding: 2rem 0;
     max-width: 80%;

@@ -10,20 +10,21 @@
         <input type="password" v-model="password" />
       </div>
       <button class="lh--button login__form__submit" @click="login">
-        Log In
+        {{ !isLogging ? "Log In" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isLogging" />
       </button>
-      <router-link to="/signup" class="login__form__new">New hero?</router-link>
-      <router-link to="/forgot" class="login__form__forgot">Forgot?</router-link>
-      <div class="lh--alert lh--alert--warning">Invalid username or password</div>
+      <router-link to="/signup"  class="lh--link--black login__form__new">New hero?</router-link>
+      <router-link to="/forgot" class="lh--link--black login__form__forgot">Forgot?</router-link>
+      <div class="lh--alert lh--alert--warning" v-if="loginError">{{loginErrorMessage}}</div>
     </form>
 
     <div class="login__islogged" v-else>
       <h1 class="login__islogged__welcome">
         Welcome hero!
       </h1>
-      <router-link class="login__islogged__logout" to="/logout" @click.native="logout">Log out</router-link>
+      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Now, be someone's hero</router-link>
+      <router-link :to="'/find-a-hero/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Find a hero</router-link>
+      <router-link class="lh--link--black login__islogged__logout" @click.native="logout">Or log out</router-link>
     </div>
-
   </main>
 </template>
 
@@ -40,11 +41,20 @@ export default {
   computed: {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    loginError() {
+      return this.$store.state.loginError
+    },
+    loginErrorMessage() {
+      return this.$store.state.loginErrorMessage
+    },
+    isLogging() {
+      return this.$store.state.isLogging
     }
   },
   methods: {
     login(e) {
-      let payload = { username: this.uname, password: this.pwd }
+      let payload = { username: this.username.toLowerCase(), password: this.password }
       e.preventDefault()
       this.$store.dispatch('logIn', payload)
     },
@@ -75,5 +85,9 @@ export default {
       }
     }
   }
+}
+
+.lh--spinner-btn {
+  width: 20px;
 }
 </style>

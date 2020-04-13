@@ -1,0 +1,277 @@
+<template>
+  <main class="help" v-if="isLoggedIn && popupShown">
+    <div class="lh-container">
+      <div class="help__table" v-if="!loadingHelp">
+        <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 1, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 3 }" >
+          <span class="list__table__item__img"></span>
+          <h2 class="help__table__item__header">{{(help.user._id !== me._id) ? help.user.username : "You"}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> need{{(help.user._id !== me._id) ? "s" : ""}} help with {{help.category.main_category}}</h2>
+          <p class="help__table__item__description">{{help.category.custom_description}}</p>
+
+          <p class="help__table__item__reward">{{getRewardText(help.user.data.gender, help.reward)}}</p>
+
+          <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.data.gender)}} video</a>
+
+          <button v-if="!alreadyHelping && (help.user._id !== me._id)" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="helpSomeone">{{!assumingHelp ? `Help ${treatmentTo(help.user.data.gender)}` : "" }}<img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-if="assumingHelp" /></button>
+          <router-link v-if="alreadyHelping && (help.user._id !== me._id)" :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
+
+          <a v-if="alreadyHelping" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.data.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.username}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.main_category)}:%20${this.$store.state.baseUrl}/help/${help._id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.data.gender)}}</a>
+
+          <a v-if="hasDonation(help.reward) && help.reward.value && alreadyHelping" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.data.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help._id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.data.gender)}}</a>
+
+          <Social-Share :link="`${this.$store.state.baseUrl}/help/${help._id}`" :title="`${help.user.username} needs your help!`" />
+
+          <button class="help__table__item__cta--back lh--button lh--button--white" @click.stop="closePopup">Back to map</button>
+        </div>
+      </div>
+      <img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-else />
+    </div>
+  </main>
+  <main class="not-logged" v-else>
+    <Login />
+  </main>
+</template>
+
+<script>
+import Login from "./Login"
+import SocialShare from "./components/LH-SocialShare"
+export default {
+  name: "Help",
+  components: {
+    Login,
+    SocialShare
+  },
+  data() {
+    return {
+      tabOpened: null
+    }
+  },
+  props: {
+    popupShown: Boolean,
+    popupId: String
+  },
+  mounted() {
+    this.$store.dispatch("fetchHelp", this.popupId)
+  },
+  computed: {
+    isLoggedIn() {
+      return !!this.$store.state.isLoggedIn
+    },
+    help() {
+      return this.$store.state.helpData
+    },
+    me() {
+      return this.$store.state.userData
+    },
+    loadingHelp() {
+      return this.$store.state.fetchingHelp
+    },
+    assumingHelp() {
+      return this.$store.state.assumingHelp
+    },
+    alreadyHelping() {
+      let amI = this.help.who_is_helping.findIndex(el => {
+        return el.user === this.me._id
+      })
+      return amI > -1
+    }
+  },
+  methods: {
+    treatment(gender) {
+      let treatment = "It"
+      if (this.help.user._id === this.me._id) {
+        treatment = "You"
+      } else {
+        switch (gender) {
+        case 1:
+          treatment = "He"
+          break
+        case 2:
+          treatment = "She"
+          break
+        case 3:
+          treatment = "It"
+          break
+        }
+      }
+      return treatment
+    },
+    treatmentOf(gender) {
+      let treatment = "Its"
+      switch (gender) {
+      case 1:
+        treatment = "His"
+        break
+      case 2:
+        treatment = "Her"
+        break
+      case 3:
+        treatment = "Its"
+        break
+      }
+      return treatment
+    },
+    treatmentTo(gender) {
+      let treatment = "It"
+      if (this.help.user._id === this.me._id) {
+        treatment = "You"
+      } else {
+        switch (gender) {
+        case 1:
+          treatment = "Him"
+          break
+        case 2:
+          treatment = "Her"
+          break
+        case 3:
+          treatment = "It"
+          break
+        }
+      }
+      return treatment
+    },
+    openTab(i) {
+      if (i === this.tabOpened) {
+        this.tabOpened = -1
+      } else {
+        this.tabOpened = i
+      }
+    },
+    getRewardText(gender, reward) {
+      let text = ''
+      switch (reward.type) {
+      case 1:
+        text = `${this.treatment(gender)} offer${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in reward.`
+        break
+      case 2:
+        text = `${this.treatment(gender)} offer${(this.help.user._id !== this.me._id) ? "s" : ""} ${reward.other_reward} in reward.`
+        break
+      case 3:
+        text = `${this.treatment(gender)} need${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in assistance or some other help.`
+        break
+      case 4:
+        text = `${this.treatment(gender)} need${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in assistance.`
+        break
+      case 5:
+        text = `${this.treatment(gender)} only need${(this.help.user._id !== this.me._id) ? "s" : ""} help, no cash involved.`
+        break
+      }
+      return text
+    },
+    hasDonation(reward) {
+      let has = false
+      switch (reward.type) {
+      case 1:
+        has = false
+        break
+      case 2:
+        has = false
+        break
+      case 3:
+        has = true
+        break
+      case 4:
+        has = true
+        break
+      case 5:
+        has = false
+        break
+      }
+      return has
+    },
+    helpSomeone() {
+      let payload = { help_id: this.help._id }
+      this.$store.dispatch("helpSomeone", payload)
+    },
+    closePopup() {
+      this.$emit("closepopup")
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.help {
+  position: fixed;
+  width: 100%;
+  max-width: 100% !important;
+  background-color: $color-black;
+  color: $color-white;
+  z-index: 10;
+  overflow-y: scroll;
+  max-height: calc(100vh - 200px);
+  padding-bottom: 100px;
+  &::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
+  &__table {
+    padding: 2rem 0;
+    max-width: 80%;
+    margin: 0 auto;
+    &__item {
+      background-color: $color-black;
+      color: $color-white;
+      margin: 1rem 0;
+      padding: .5rem;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+
+      &__header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__cta {
+        &--back {
+          margin: 1rem 0;
+        }
+      }
+
+     &__description {
+       font-size: 12px;
+     }
+    }
+  }
+}
+
+.item {
+  &Urgent {
+    .list__table__item__img {
+      display: block;
+      width: 130px;
+      height: 130px;
+      background: url(../assets/imgs/heart-big-red.svg) center center no-repeat;
+      align-self: center;
+    }
+
+  }
+  &MediumUrgent {
+    .list__table__item__img {
+      display: block;
+      width: 130px;
+      height: 130px;
+      background: url(../assets/imgs/heart-big-yellow.svg) center center no-repeat;
+      align-self: center;
+    }
+  }
+
+  &NonUrgent {
+    .list__table__item__img {
+      display: block;
+      width: 130px;
+      height: 130px;
+      background: url(../assets/imgs/heart-big-green.svg) center center no-repeat;
+      align-self: center;
+    }
+  }
+}
+</style>
+<style lang="scss" scoped>
+.hp__footer {
+  display: none;
+}
+</style>
