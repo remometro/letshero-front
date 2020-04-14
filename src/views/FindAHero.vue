@@ -115,6 +115,10 @@ export default {
           "value": { "name": "Psychological Care", "value": 4, "urgency": 1 }
         },
         {
+          "label": "Legal Advice",
+          "value": { "name": "Legal Advice", "value": 7, "urgency": 2 }
+        },
+        {
           "label": "Companion",
           "value": { "name": "Companion", "value": 5, "urgency": 3 }
         },
