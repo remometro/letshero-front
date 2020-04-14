@@ -42,7 +42,6 @@ export default {
   data() {
     return {
       tabOpened: null,
-      currentLocation: null,
       busy: null,
       page: null
     }
@@ -59,6 +58,9 @@ export default {
     },
     loading() {
       return this.$store.state.loadingList
+    },
+    currentLocation() {
+      return this.$store.state.coords
     }
   },
   mounted() {
@@ -166,7 +168,7 @@ export default {
     },
     scroll() {
       window.onscroll = _.debounce(() => {
-        let bottomOfWindow = (document.documentElement.scrollTop + window.innerHeight + 10) >= document.documentElement.offsetHeight
+        let bottomOfWindow = (document.documentElement.scrollTop + window.innerHeight + 100) >= document.documentElement.offsetHeight
 
         if (bottomOfWindow) {
           this.$store.dispatch("fetchAllHelpData", { page: this.$store.state.currentListPage + 1 })

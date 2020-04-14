@@ -42,7 +42,8 @@ export default new Vuex.Store({
     verifySuccess: false,
     isAskingReset: false,
     askedReset: false,
-    askingResetError: false
+    askingResetError: false,
+    coords: null
   },
   mutations: {
     performLogin(state, payload) {
@@ -407,41 +408,46 @@ export default new Vuex.Store({
         })
     },
     async fetchAllHelpData(context, payload) {
+      let self = this
       let url = `${process.env.VUE_APP_SERVER}/api-v1/all-helps/${(payload && payload.page) || 1}`
 
       let getPosition = function(options) {
-        return new Promise(function(resolve, reject) {
-          navigator.geolocation.getCurrentPosition(resolve, reject, options)
-        })
+        if (!self.state.coords) {
+          return new Promise(function(resolve, reject) {
+            navigator.geolocation.getCurrentPosition(resolve, reject, options)
+          })
+        }
       }
-      getPosition()
-        .then((position) => {
-          let coords = { lat: position.coords.latitude, lng: position.coords.longitude }
-          console.log('fetching ALL helps data... page', (payload && payload.page) || 1, coords)
-          this.commit('loadingList', true)
-          axios.post(url, { location: coords }, { withCredentials: true })
-            .then(res => {
-              if (res.statusText === 'OK') {
-                console.log('fetched  ALL helps data.')
-                this.commit('loadingList', false)
-                if (!payload || (payload && payload.page === 1)) {
-                  this.commit('consolidateAllHelpsData', res.data.docs)
-                } else {
-                  if (res.data.docs.length > 0) {
-                    this.commit('increaseListPage')
-                    this.commit('paginatedAllHelpsData', res.data.docs)
-                  }
-                }
-              } else {
-                this.commit('loadingList', false)
-                this.commit('listError', res)
+      try {
+        var position = await getPosition()
+      } catch (err) {
+        console.log(err)
+        self.state.coords = { lat: 0, lng: 0 }
+      }
+      console.log(position)
+
+      if (position) { self.state.coords = { lat: position.coords.latitude, lng: position.coords.longitude } }
+      console.log('fetching ALL helps data... page', (payload && payload.page) || 1, self.state.coords)
+      self.commit('loadingList', true)
+      axios.post(url, { location: self.state.coords }, { withCredentials: true })
+        .then(res => {
+          if (res.statusText === 'OK') {
+            console.log('fetched  ALL helps data.')
+            self.commit('loadingList', false)
+            if (!payload || (payload && payload.page === 1)) {
+              self.commit('consolidateAllHelpsData', res.data.docs)
+            } else {
+              if (res.data.docs.length > 0) {
+                self.commit('increaseListPage')
+                self.commit('paginatedAllHelpsData', res.data.docs)
               }
-            })
-            .catch((err) => this.commit('listError', err))
+            }
+          } else {
+            self.commit('loadingList', false)
+            self.commit('listError', res)
+          }
         })
-        .catch((err) => {
-          console.error(err.message)
-        })
+        .catch((err) => self.commit('listError', err))
     },
     evaluateHelp(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/evaluate-help`
