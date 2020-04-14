@@ -13,7 +13,7 @@
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
               <div class="list__table__item__location">In {{item.location.place_name}}</div>
-              <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
+              <div class="list__table__item__distance">({{currentLocation && !(currentLocation.lat === 0 && currentLocation.lng === 0) ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
               </div>
               <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
