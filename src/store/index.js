@@ -525,7 +525,7 @@ export default new Vuex.Store({
         })
     },
     checkBrowserLanguage(context) {
-      navigator.language === 'de' ? this.commit('setLanguage', { iso: 'de', title: 'Deutsch' }) : navigator.language === 'nl' ? this.commit('setLanguage', { iso: 'nl', title: 'Dutch' }) : this.commit('setLanguage', { iso: 'en', title: 'English' })
+      navigator.language === 'pt' || navigator.language === 'pt-BR' ? this.commit('setLanguage', { iso: 'pt', title: 'Português' }) : this.commit('setLanguage', { iso: 'en', title: 'English' })
     },
     setLanguage(context, payload) {
       this.commit('setLanguage', payload)
