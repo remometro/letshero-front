@@ -179,5 +179,10 @@
     "not_helped": "não me ajudou",
     "completed": "marque como completo",
     "undo": "desfazer"
+  },
+  "profile": {
+    "youre": "você é",
+    "app": "aprendiz",
+    "fellow": "companheiro"
   }
 }

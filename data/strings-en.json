@@ -179,5 +179,10 @@
     "not_helped": "hasn't helped me",
     "completed": "mark as completed",
     "undo": "undo"
+  },
+  "profile": {
+    "youre": "you are",
+    "app": "apprentice",
+    "fellow": "fellow hero"
   }
 }

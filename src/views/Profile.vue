@@ -4,9 +4,9 @@
       <div class="profile__data">
         <h2 class="profile__data__welcome">
           <span class="profile__data__welcome__thin">
-              {{profile.username}}, you're a
+              {{profile.username}}, {{str.youre}}
           </span><br/>
-          {{profile.stats.title}}
+          {{getTitle(profile.stats.title_id)}}
         </h2>
         <div class="profile__data__awards">
           <div class="profile__data__awards__points profile__data__awards--content"><img src="@/assets/imgs/points.svg" alt="" class="profile__data__awards__img"/>{{profile.stats.points}}</div>
@@ -42,45 +42,23 @@ export default {
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    str() {
+      return this.$store.state.localeStrings.profile
     }
   },
   methods: {
-    treatment(gender) {
-      let treatment = "It"
-      switch (gender) {
-      case "1":
-        treatment = "He"
+    getTitle(id) {
+      let title = ''
+      switch (id) {
+      case 0:
+        title = this.str.app
         break
-      case "2":
-        treatment = "She"
-        break
-      case "3":
-        treatment = "It"
+      case 1:
+        title = this.str.fellow
         break
       }
-      return treatment
-    },
-    treatmentOf(gender) {
-      let treatment = "Its"
-      switch (gender) {
-      case "1":
-        treatment = "His"
-        break
-      case "2":
-        treatment = "Her"
-        break
-      case "3":
-        treatment = "Its"
-        break
-      }
-      return treatment
-    },
-    openTab(i) {
-      if (i === this.tabOpened) {
-        this.tabOpened = -1
-      } else {
-        this.tabOpened = i
-      }
+      return title
     }
   }
 }
