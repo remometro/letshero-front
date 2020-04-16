@@ -8,7 +8,7 @@
             <div class="helped-me__table__item__top">
               <div class="helped-me__table__item__top__left">
                 <span class="helped-me__table__item__img"></span>
-                <span class="helped-me__table__item__title">{{str.i}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.need}} {{category(item)}}</span>
+                <span class="helped-me__table__item__title">{{str.i}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.i_need}} {{category(item)}}</span>
               </div>
               <button class="helped-me__table__item__expand" :class="{itemOpened: i === tabOpened}"></button>
             </div>
