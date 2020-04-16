@@ -168,6 +168,16 @@
     "in": "nas proximidades de",
     "km_away": "KM de distância",
     "ukn_dist": "distância desconhecida",
-    "know_more": "saiba mais"
+    "know_more": "saiba mais",
+    "im_helping": "quem estou ajudando?",
+    "is_helping": "quem está me ajudando?",
+    "i": "eu",
+    "need": "preciso",
+    "has": "",
+    "helped_you": "te ajudou?",
+    "has_helped": "me ajudou",
+    "not_helped": "não me ajudou",
+    "completed": "marque como completo",
+    "undo": "desfazer"
   }
 }

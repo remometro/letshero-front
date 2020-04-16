@@ -168,6 +168,16 @@
     "in": "in",
     "km_away": "KM away",
     "ukn_dist": "unknown distance",
-    "know_more": "know more"
+    "know_more": "know more",
+    "im_helping": "who i'm helping?",
+    "is_helping": "who is helping me?",
+    "i": "I",
+    "need": "need",
+    "has": "has",
+    "helped_you": "helped you?",
+    "has_helped": "has helped me",
+    "not_helped": "hasn't helped me",
+    "completed": "mark as completed",
+    "undo": "undo"
   }
 }

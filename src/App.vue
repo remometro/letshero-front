@@ -17,7 +17,7 @@
             <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">{{ str.settings }}</router-link>
             <a  href="#" class="nav__links__link" @click="logout">{{ str.logout }}</a>
             <div class="nav__links__language">
-              <a  href="#" class="nav__links__link" @click="switchToPT">Portugues</a> /
+              <a  href="#" class="nav__links__link" @click="switchToPT">Português</a> /
               <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
             </div>
             .bg.bg--menu
@@ -28,7 +28,7 @@
             <router-link class="nav__links__link" @click.native="toggleNav" to="/login">{{ str.log }}</router-link>
             .bg.bg--menu
             <div class="nav__links__language">
-              <a  href="#" class="nav__links__link" @click="switchToPT">Portugues</a> /
+              <a  href="#" class="nav__links__link" @click="switchToPT">Português</a> /
               <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
             </div>
           </div>

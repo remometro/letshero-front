@@ -8,7 +8,7 @@
             <div class="helped-me__table__item__top">
               <div class="helped-me__table__item__top__left">
                 <span class="helped-me__table__item__img"></span>
-                <span class="helped-me__table__item__title">I need {{item.category.main_category}}</span>
+                <span class="helped-me__table__item__title">{{str.i}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.need}} {{category(item)}}</span>
               </div>
               <button class="helped-me__table__item__expand" :class="{itemOpened: i === tabOpened}"></button>
             </div>
@@ -20,11 +20,11 @@
                 <div class="helped-me__table__item__is-helping__buttons">
                   <button v-if="helper.hasHelped === 0" class="helped-me__table__item__is-helping__cancel" @click.stop="evaluateHelp(-1, item._id, helper._id )"><img src="../assets/imgs/exit-red.svg" /></button>
                   <button v-if="helper.hasHelped === 0" class="helped-me__table__item__is-helping__confirm" @click.stop="evaluateHelp(1, item._id, helper._id )"><img src="../assets/imgs/check-green.svg" /></button>
-                  <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">Undo</button>
+                  <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">{{str.undo}}}</button>
                 </div>
               </div>
-              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">Know more</router-link>
-              <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">Mark as completed</button>
+              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">{{str.know_more}}</router-link>
+              <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">{{str.completed}}</button>
             </div>
           </div>
         </div>
@@ -59,35 +59,41 @@ export default {
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    str() {
+      return this.$store.state.localeStrings.list
+    },
+    out_str() {
+      return this.$store.state.localeStrings
     }
   },
   methods: {
     treatment(gender) {
-      let treatment = "It"
+      let treatment = this.out_str.help.id
       switch (gender) {
-      case "1":
-        treatment = "He"
+      case 1:
+        treatment = this.out_str.help.he
         break
-      case "2":
-        treatment = "She"
+      case 2:
+        treatment = this.out_str.help.she
         break
-      case "3":
-        treatment = "It"
+      case 3:
+        treatment = this.out_str.help.it
         break
       }
       return treatment
     },
     treatmentOf(gender) {
-      let treatment = "Its"
+      let treatment = this.out_str.help.its
       switch (gender) {
-      case "1":
-        treatment = "His"
+      case 1:
+        treatment = this.out_str.help.his
         break
-      case "2":
-        treatment = "Her"
+      case 2:
+        treatment = this.out_str.help.hers
         break
-      case "3":
-        treatment = "Its"
+      case 3:
+        treatment = this.out_str.help.its
         break
       }
       return treatment
@@ -100,19 +106,37 @@ export default {
       }
     },
     getRewardText(gender, reward) {
-      return reward.active ? reward.value === 0 ? `${this.treatment(gender)} can't afford a reward` : `${this.treatment(gender)} ${reward.value > 0 ? "offers" : "needs"} up to ${(reward.value > 0 ? reward.value : reward.value * -1) + reward.currency} in ${reward.value > 0 ? "reward" : "assistance"}.` : `No money involved in this.`
+      let text = ''
+      switch (reward.type) {
+      case 1:
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
+        break
+      case 2:
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.other_reward} ${this.out_str.help.in_reward}.`
+        break
+      case 3:
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_assistance} ${this.out_str.help.or_some_other}.`
+        break
+      case 4:
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_assistance}.`
+        break
+      case 5:
+        text = `${this.treatment(gender) + " " + this.out_str.help.only} ${this.out_str.help.needs} ${this.out_str.help.help_no_cash}.`
+        break
+      }
+      return text
     },
     getIsHelpingText(helper) {
       let text = ''
       switch (helper.hasHelped) {
       case 0:
-        text = `Has ${helper.user.username} helped you?`
+        text = `${this.str.has} ${helper.user.username} ${this.str.helped_you}`
         break
       case 1:
-        text = helper.user.username + " has helped me"
+        text = helper.user.username + " " + this.str.has_helped
         break
       case -1:
-        text = helper.user.username + " has not helped"
+        text = helper.user.username + " " + this.str.not_helped
       }
       return text
     },
@@ -129,6 +153,11 @@ export default {
         help_id: helpId
       }
       this.$store.dispatch("completeHelp", payload)
+    },
+    category(help) {
+      return this.out_str.find_a_hero.need_options.filter(el => {
+        return el.value.value === help.category.main_category_id
+      })[0].label
     }
   }
 }
