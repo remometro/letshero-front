@@ -1,7 +1,7 @@
 <template>
   <main class="helped-me" v-if="isLoggedIn">
     <div class="lh-container">
-      <h2 class="helped-me__title">Who has helped me</h2>
+      <h2 class="helped-me__title">{{str.is_helping}}</h2>
       <div class="helped-me__table">
         <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
           <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
