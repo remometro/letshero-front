@@ -160,6 +160,14 @@
     "donate": "donate to",
     "needs_your_help": "need your help",
     "back_map": "back to map",
-    "back_list": "back to list"
+    "back_list": "back to list",
+    "usd": "USD"
+  },
+  "list": {
+    "needs": "needs",
+    "in": "in",
+    "km_away": "KM away",
+    "ukn_dist": "unknown distance",
+    "know_more": "know more"
   }
 }

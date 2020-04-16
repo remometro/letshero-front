@@ -153,16 +153,16 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_reward}`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} ${this.str.usd} ${this.str.in_reward}`
         break
       case 2:
         text = `${this.treatment(gender)}${(this.help.user._id !== this.me._id) ? this.str.that_offers : this.str.you_offer} ${reward.other_reward} ${this.str.in_reward}.`
         break
       case 3:
-        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_assistance} ${this.str.or_some_other}.`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} ${this.str.usd} ${this.str.in_assistance} ${this.str.or_some_other}.`
         break
       case 4:
-        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_assistance}.`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} ${this.str.usd} ${this.str.in_assistance}.`
         break
       case 5:
         text = `${this.treatment(gender)} ${this.str.only} ${(this.help.user._id !== this.me._id) ? this.str.needs : this.str.need} ${this.str.help_no_cash}.`

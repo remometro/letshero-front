@@ -145,7 +145,7 @@
     "you_need": "precisa até",
     "that_needs": "precisa até",
     "in_reward": "em recompensa",
-    "in_assistance": "em assistencia",
+    "in_assistance": "em assistência",
     "or_some_other": "ou alguma outra ajuda",
     "only": "apenas",
     "need": "precisa",
@@ -160,6 +160,14 @@
     "donate": "doe para",
     "needs_your_help": "precisa de sua ajuda",
     "back_map": "voltar para o mapa",
-    "back_list": "voltar para a lista"
+    "back_list": "voltar para a lista",
+    "usd": "dólares"
+  },
+  "list": {
+    "needs": "precisa de",
+    "in": "nas proximidades de",
+    "km_away": "KM de distância",
+    "ukn_dist": "distância desconhecida",
+    "know_more": "saiba mais"
   }
 }
