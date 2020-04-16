@@ -2,12 +2,12 @@
   main
     .hp
       .hp__today
-        h1.hp__today__title="Today I..."
+        h1.hp__today__title="{{ strings.title }}"
         .hp__today__cta
           router-link.hp__today__cta__need(to="/find-a-hero")
-            span="Need a hero"
+            span="{{ strings.need }}"
           router-link.hp__today__cta__want(to="/list")
-            span="Want to be a hero"
+            span="{{ strings.want }}"
 
 </template>
 
@@ -21,7 +21,9 @@ export default {
     }
   },
   computed: {
-
+    strings() {
+      return this.$store.state.localeStrings.home
+    }
   },
   mounted() {
     this.$store.dispatch("fetchAllHelpData")

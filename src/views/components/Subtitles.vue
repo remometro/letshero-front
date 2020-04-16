@@ -3,15 +3,15 @@
       <div class="lh-container">
         <div class="lh__subtitle__item">
           <img src="@/assets/imgs/heart-green.svg" alt="" class="lh__subtitle__item__img">
-          <span class="lh__subtitle__item__caption text-green">Non <br/> urgent</span>
+          <span class="lh__subtitle__item__caption text-green">{{str.non}}</span>
         </div>
         <div class="lh__subtitle__item">
           <img src="@/assets/imgs/heart-yellow.svg" alt="" class="lh__subtitle__item__img">
-          <span class="lh__subtitle__item__caption text-yellow">Medium <br/> urgent</span>
+          <span class="lh__subtitle__item__caption text-yellow">{{str.medium}}</span>
         </div>
         <div class="lh__subtitle__item">
           <img src="@/assets/imgs/heart-red.svg" alt="" class="lh__subtitle__item__img">
-          <span class="lh__subtitle__item__caption text-red">Very <br/> urgent</span>
+          <span class="lh__subtitle__item__caption text-red">{{str.very}}</span>
         </div>
       </div>
     </div>
@@ -21,6 +21,11 @@
 export default {
   props: {
     isFixed: null
+  },
+  computed: {
+    str() {
+      return this.$store.state.localeStrings.subtitle
+    }
   }
 }
 </script>

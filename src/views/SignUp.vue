@@ -3,51 +3,51 @@
     <ValidationObserver v-slot="{ invalid }" v-if="!isLoggedIn">
       <form action="" class="signup__form" @submit="signUp($event, invalid)">
         <validation-provider name="heroname" class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12|checkusername" v-slot="{ errors }">
-          <label for="signup__form__user__input">Heroname</label>
-          <input type="text" v-model="formUser" name="heroname" data-vv-as="Hero Name" @change="checkUsername" />
+          <label for="signup__form__user__input">{{ str.name }}</label>
+          <input type="text" v-model="formUser" :name="str.name" @change="checkUsername" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <validation-observer class="lh--input--observer">
           <validation-provider name="password" class="lh--input--text signup__form__pass" rules="required|min:6" v-slot="{ errors }">
-            <label for="signup__form__user__input">Password</label>
+            <label for="signup__form__user__input">{{ str.pass }}</label>
             <input type="password" v-model="formPass" />
             <span class="lh--error--message">{{ errors[0] }}</span>
           </validation-provider>
           <validation-provider name="confirmation pass" class="lh--input--text signup__form__pass" rules="required|min:6|password:@password" v-slot="{ errors }">
-            <label for="signup__form__user__input">Confirm password</label>
+            <label for="signup__form__user__input">{{ str.pass_ver }}</label>
             <input type="password" v-model="formPassVer" />
             <span class="lh--error--message">{{ errors[0] }}</span>
           </validation-provider>
         </validation-observer>
         <validation-provider name="email" class="lh--input--text signup__form__email" rules="required|email" v-slot="{ errors }">
-          <label for="signup__form__user__email">Email</label>
+          <label for="signup__form__user__email">{{ str.email }}</label>
           <input type="email" v-model="formEmail" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <validation-provider name="paypal email" class="lh--input--text signup__form__paypal" rules="email" v-slot="{ errors }">
-          <label for="signup__form__user__paypal">Paypal email (to receive donations you must setup a PayPal merchant account with this email)</label>
+          <label for="signup__form__user__paypal">{{ str.paypal }}</label>
           <input type="email" v-model="formPaypal" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
-        <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" label="What do you identify with?" :options="getOptionsGender" @selected="setGender" />
+        <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" :label="str.gender" :options="str.gender_options" @selected="setGender" />
         <validation-provider name="whatsapp number" class="lh--input--text signup__form__whatsapp" rules="required" v-slot="{ errors }">
-          <label for="signup__form__user__whatsapp">What's your whatsapp number?</label>
+          <label for="signup__form__user__whatsapp">{{ str.whatsapp }}</label>
           <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'national'}" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <button class="lh--button signup__form__submit" @click="signUp($event, invalid)">
-          {{ !isSigningUp ? "Sign Up" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isSigningUp" />
+          {{ !isSigningUp ? str.cta : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isSigningUp" />
         </button>
         <div class="lh--alert lh--alert--warning" v-if="signupError || hasErrors"><span class="error-message" v-if="signupError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !signupError">{{generalError}}</span></div>
-        <router-link to="/login" class="lh--link--black signup__form__existing">Existing hero?</router-link>
+        <router-link to="/login" class="lh--link--black signup__form__existing">{{ str.existing }}</router-link>
       </form>
     </ValidationObserver>
     <div class="signup__islogged" v-else>
       <h1 class="signup__islogged__welcome">
-        Welcome hero!
+        {{ str.welcome }}
       </h1>
-      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">Now, be someone's hero</router-link>
-      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">Or log out</router-link>
+      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">{{ str.now_be }}</router-link>
+      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">{{ str.or_logout }}</router-link>
     </div>
   </main>
 </template>
@@ -77,6 +77,9 @@ export default {
     }
   },
   computed: {
+    str() {
+      return this.$store.state.localeStrings.sign
+    },
     getOptionsGender() {
       return [
         {

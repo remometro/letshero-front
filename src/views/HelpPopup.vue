@@ -4,23 +4,24 @@
       <div class="help__table" v-if="!loadingHelp">
         <div class="help__table__item" :class="{itemUrgent: help.category.urgency == 1, itemMediumUrgent: help.category.urgency == 2, itemNonUrgent: help.category.urgency == 3 }" >
           <span class="list__table__item__img"></span>
-          <h2 class="help__table__item__header">{{(help.user._id !== me._id) ? help.user.username : "You"}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> need{{(help.user._id !== me._id) ? "s" : ""}} help with {{help.category.main_category}}</h2>
+          <h2 class="help__table__item__header">{{(help.user._id !== me._id) ? help.user.username : str.you}}<img class="lh--badge" v-if="help.user.account_type > 0" :src="require('../assets/imgs/badge.svg')" /> {{(help.user._id !== me._id) ? str.needs_help : str.need_help}} {{category}}</h2>
+
           <p class="help__table__item__description">{{help.category.custom_description}}</p>
 
           <p class="help__table__item__reward">{{getRewardText(help.user.data.gender, help.reward)}}</p>
 
-          <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">View {{treatmentOf(help.user.data.gender)}} video</a>
+          <a v-if="help.category.customLink" :href="help.category.customLink" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">{{str.view}} {{treatmentOf(help.user.data.gender)}} {{str.video}}</a>
 
-          <button v-if="!alreadyHelping && (help.user._id !== me._id)" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="helpSomeone">{{!assumingHelp ? `Help ${treatmentTo(help.user.data.gender)}` : "" }}<img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-if="assumingHelp" /></button>
-          <router-link v-if="alreadyHelping && (help.user._id !== me._id)" :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">I'm already helping {{treatmentTo(help.user.gender)}}, see who I'm helping instead.</router-link>
+          <button v-if="!alreadyHelping && (help.user._id !== me._id)" href="#" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="helpSomeone">{{!assumingHelp ? `${str.help} ${treatmentTo(help.user.data.gender)}` : "" }}<img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-if="assumingHelp" /></button>
+          <router-link v-if="alreadyHelping && (help.user._id !== me._id)" :to="'/who-im-helping/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">{{str.im_already}} {{treatmentTo(help.user.gender)}}, {{str.see_who}}</router-link>
 
-          <a v-if="alreadyHelping" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.data.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.username}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.main_category)}:%20${this.$store.state.baseUrl}/help/${help._id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Contact {{treatmentTo(help.user.data.gender)}}</a>
+          <a v-if="alreadyHelping" :href="`https://api.whatsapp.com/send?phone=${encodeURIComponent(help.user.data.whatsapp)}&text=Hello,%20my%20Hero%20name%20is%20${me.username}%20and%20I%20want%20to%20help%20you%20with%20${encodeURIComponent(help.category.main_category)}:%20${this.$store.state.baseUrl}/help/${help._id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">{{str.contact}} {{treatmentTo(help.user.data.gender)}}</a>
 
-          <a v-if="hasDonation(help.reward) && help.reward.value && alreadyHelping" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.data.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help._id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">Donate to {{treatmentTo(help.user.data.gender)}}</a>
+          <a v-if="hasDonation(help.reward) && help.reward.value && alreadyHelping" :href="`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${help.user.data.paypal}&tax=0&currency=USD&item_name=LetsHeroDonation&item_number=${help._id}&quantity=1&return=${this.$store.state.baseUrl}/success/${help.id}`" rel="noreferrer noopener" target="_blank" class="help__table__item__cta--message lh--button lh--button--white" @click.stop="">{{str.donate}} {{treatmentTo(help.user.data.gender)}}</a>
 
-          <Social-Share :link="`${this.$store.state.baseUrl}/help/${help._id}`" :title="`${help.user.username} needs your help!`" />
+          <Social-Share :link="`${this.$store.state.baseUrl}/help/${help._id}`" :title="`${help.user.username} ${str.needs_your_help}`" />
 
-          <button class="help__table__item__cta--back lh--button lh--button--white" @click.stop="closePopup">Back to map</button>
+          <button class="help__table__item__cta--back lh--button lh--button--white" @click.stop="closePopup">{{str.back_map}}</button>
         </div>
       </div>
       <img class="lh--spinner-btn" src="../assets/imgs/spinner-white.svg" v-else />
@@ -56,6 +57,11 @@ export default {
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
     },
+    category() {
+      return this.out_str.find_a_hero.need_options.filter(el => {
+        return el.value.value === this.help.category.main_category_id
+      })[0].label
+    },
     help() {
       return this.$store.state.helpData
     },
@@ -73,57 +79,63 @@ export default {
         return el.user === this.me._id
       })
       return amI > -1
+    },
+    str() {
+      return this.$store.state.localeStrings.help
+    },
+    out_str() {
+      return this.$store.state.localeStrings
     }
   },
   methods: {
     treatment(gender) {
-      let treatment = "It"
+      let treatment = this.str.id
       if (this.help.user._id === this.me._id) {
-        treatment = "You"
+        treatment = this.str.you
       } else {
         switch (gender) {
         case 1:
-          treatment = "He"
+          treatment = this.str.he
           break
         case 2:
-          treatment = "She"
+          treatment = this.str.she
           break
         case 3:
-          treatment = "It"
+          treatment = this.str.it
           break
         }
       }
       return treatment
     },
     treatmentOf(gender) {
-      let treatment = "Its"
+      let treatment = this.str.its
       switch (gender) {
       case 1:
-        treatment = "His"
+        treatment = this.str.his
         break
       case 2:
-        treatment = "Her"
+        treatment = this.str.hers
         break
       case 3:
-        treatment = "Its"
+        treatment = this.str.its
         break
       }
       return treatment
     },
     treatmentTo(gender) {
-      let treatment = "It"
+      let treatment = this.str.it
       if (this.help.user._id === this.me._id) {
-        treatment = "You"
+        treatment = this.str.you
       } else {
         switch (gender) {
         case 1:
-          treatment = "Him"
+          treatment = this.str.him
           break
         case 2:
-          treatment = "Her"
+          treatment = this.str.her
           break
         case 3:
-          treatment = "It"
+          treatment = this.str.it
           break
         }
       }
@@ -140,19 +152,19 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender)} offer${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in reward.`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_reward}`
         break
       case 2:
-        text = `${this.treatment(gender)} offer${(this.help.user._id !== this.me._id) ? "s" : ""} ${reward.other_reward} in reward.`
+        text = `${this.treatment(gender)}${(this.help.user._id !== this.me._id) ? this.str.that_offers : this.str.you_offer} ${reward.other_reward} ${this.str.in_reward}.`
         break
       case 3:
-        text = `${this.treatment(gender)} need${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in assistance or some other help.`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_assistance} ${this.str.or_some_other}.`
         break
       case 4:
-        text = `${this.treatment(gender)} need${(this.help.user._id !== this.me._id) ? "s" : ""} up to ${reward.value} USD in assistance.`
+        text = `${this.treatment(gender)} ${(this.help.user._id !== this.me._id) ? this.str.that_needs : this.str.you_need} ${reward.value} USD ${this.str.in_assistance}.`
         break
       case 5:
-        text = `${this.treatment(gender)} only need${(this.help.user._id !== this.me._id) ? "s" : ""} help, no cash involved.`
+        text = `${this.treatment(gender)} ${this.str.only} ${(this.help.user._id !== this.me._id) ? this.str.needs : this.str.need} ${this.str.help_no_cash}.`
         break
       }
       return text

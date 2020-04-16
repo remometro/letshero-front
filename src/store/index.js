@@ -43,7 +43,12 @@ export default new Vuex.Store({
     isAskingReset: false,
     askedReset: false,
     askingResetError: false,
-    coords: null
+    coords: null,
+    language: { iso: 'en', title: 'English' },
+    availableLangs: [
+      { iso: 'en', title: 'English' },
+      { iso: 'pt', title: 'Português' }],
+    localeStrings: require('../../data/strings-en.json')
   },
   mutations: {
     performLogin(state, payload) {
@@ -183,6 +188,10 @@ export default new Vuex.Store({
     isAskingReset(state) {
       state.isAskingReset = true
       state.askingResetError = false
+    },
+    setLanguage(state, payload) {
+      this.state.language = payload
+      this.state.localeStrings = require(`../../data/strings-${payload.iso}.json`)
     }
   },
   actions: {
@@ -514,6 +523,12 @@ export default new Vuex.Store({
           console.log('asking reset error!')
           console.log(err)
         })
+    },
+    checkBrowserLanguage(context) {
+      navigator.language === 'de' ? this.commit('setLanguage', { iso: 'de', title: 'Deutsch' }) : navigator.language === 'nl' ? this.commit('setLanguage', { iso: 'nl', title: 'Dutch' }) : this.commit('setLanguage', { iso: 'en', title: 'English' })
+    },
+    setLanguage(context, payload) {
+      this.commit('setLanguage', payload)
     }
   },
   modules: {

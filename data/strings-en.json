@@ -1,0 +1,165 @@
+{
+  "menu": {
+    "sign": "Sign Up",
+    "log": "Log In",
+    "home": "Home",
+    "find": "Find a hero",
+    "list": "List",
+    "map": "Map",
+    "im_helping": "Who I'm Helping",
+    "is_helping": "Who is Helping Me",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Today I...",
+    "need": "Need a hero",
+    "want": "Want to be a hero"
+  },
+  "find_a_hero": {
+    "need_label": "What do you need?",
+    "need_options": [
+      {
+        "label": "Food",
+        "value": { "name": "Food", "value": 1, "urgency": 1 }
+      },
+      {
+        "label": "Shelter",
+        "value": { "name": "Shelter", "value": 2, "urgency": 1 }
+      },
+      {
+        "label": "Medical Care",
+        "value": { "name": "Medical Care", "value": 3, "urgency": 1 }
+      },
+      {
+        "label": "Psychological Care",
+        "value": { "name": "Psychological Care", "value": 4, "urgency": 1 }
+      },
+      {
+        "label": "Legal Advice",
+        "value": { "name": "Legal Advice", "value": 7, "urgency": 2 }
+      },
+      {
+        "label": "Companion",
+        "value": { "name": "Companion", "value": 5, "urgency": 3 }
+      },
+      {
+        "label": "Other",
+        "value": { "name": "Other", "value": 6, "urgency": 2 }
+      }
+    ],
+    "offer_label": "Do you offer/need some money?",
+    "offer_options": [
+      {
+        "label": "I offer some cash",
+        "value": { "value": 1 }
+      },
+      {
+        "label": "I offer some other help",
+        "value": { "value": 2 }
+      },
+      {
+        "label": "I need some cash or help",
+        "value": { "value": 3 }
+      },
+      {
+        "label": "I need some cash only",
+        "value": { "value": 4 }
+      },
+      {
+        "label": "I need some help only",
+        "value": { "value": 5 }
+      }
+    ],
+    "offer_amount_label": "If so, how much? (in USD)",
+    "offer_other_label": "What do you offer?",
+    "where_label": "Where are you at the moment?",
+    "where_placeholder": "Enter a location",
+    "description_label": "Please describe in a few words why you need help.",
+    "video_label": "Is there a video link explaining yout need? (YouTube only)",
+    "cta": "Find a hero",
+    "success_message": "Your hero is on the way, now you just have to wait!",
+    "or_be": "Or be someone's hero."
+  },
+  "sign": {
+    "name": "Heroname",
+    "pass": "Password",
+    "pass_ver": "Confirm Password",
+    "email": "Email",
+    "paypal": "Paypal email (to receive direct donations you must have a paypal account with the merchant option enabled",
+    "gender": "What do you identify the most with?",
+    "gender_options": [
+      {
+        "label": "Male",
+        "value": { "value": 1 }
+      },
+      {
+        "label": "Female",
+        "value": { "value": 2 }
+      },
+      {
+        "label": "Other",
+        "value": { "value": 3 }
+      }
+    ],
+    "whatsapp": "What's your WhatsApp number?",
+    "cta": "Sign Up",
+    "existing": "Existing hero?",
+    "welcome": "Welcome hero!",
+    "now_be": "Now, be someone's hero",
+    "or_logout": "Or log out"
+  },
+  "login": {
+    "name": "Heroname",
+    "pass": "Password",
+    "cta": "Log in",
+    "new": "New Hero?",
+    "forgot": "Forgot your password?",
+    "welcome": "Welcome hero!",
+    "now_be": "Now, be someone's hero",
+    "or_logout": "Or log out",
+    "find": "Or find a hero"
+  },
+  "subtitle": {
+    "non": "Non-Urgent",
+    "medium": "Medium Urgent",
+    "very": "Very Urgent"
+  },
+  "help": {
+    "you": "You",
+    "he": "He",
+    "she": "She",
+    "it": "It",
+    "its": "Its",
+    "his": "His",
+    "hers": "Her",
+    "him": "Him",
+    "her": "Her",
+    "need_help": "need help with",
+    "needs_help": "needs help with",
+    "you_offer_up_to": "offer up to",
+    "that_offers": "offers",
+    "you_offer": "offer",
+    "that_offers_up_to": "offers up to",
+    "you_need": "need up to",
+    "that_needs": "needs up to",
+    "in_reward": "in reward",
+    "in_assistance": "in assistance",
+    "or_some_other": "or some other help",
+    "only": "only",
+    "need": "need",
+    "needs": "needs",
+    "help_no_cash": "help, no cash involved",
+    "help": "help",
+    "view": "view",
+    "video": "video",
+    "im_already": "I'm already helping",
+    "see_who": "see who else I'm helping",
+    "contact": "contact",
+    "donate": "donate to",
+    "needs_your_help": "need your help",
+    "back_map": "back to map",
+    "back_list": "back to list"
+  }
+}

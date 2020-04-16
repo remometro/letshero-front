@@ -7,22 +7,30 @@
       .nav__links--wrapper(:class='{"nav-opened": isNavOpen}')
         .lh-container
           <div id="nav-logged" class="nav__links"  v-if="isLogged">
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/find-a-hero">Find a hero</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/map">Map</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/list">List</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-im-helping">Who I'm Helping</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-is-helping-me">Who Is Helping me</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">Profile</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">Settings</router-link>
-            <a  href="#" class="nav__links__link" @click="logout">Logout</a>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/">{{ str.home }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/find-a-hero">{{ str.find }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/map">{{ str.map }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/list">{{ str.list }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-im-helping">{{ str.im_helping }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/who-is-helping-me">{{ str.is_helping }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/profile">{{ str.profile }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/settings">{{ str.settings }}</router-link>
+            <a  href="#" class="nav__links__link" @click="logout">{{ str.logout }}</a>
+            <div class="nav__links__language">
+              <a  href="#" class="nav__links__link" @click="switchToPT">Portugues</a> /
+              <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
+            </div>
             .bg.bg--menu
           </div>
           <div id="nav-unlogged" class="nav__links" v-else>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/">Home</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">Sign Up</router-link>
-            <router-link class="nav__links__link" @click.native="toggleNav" to="/login">Log In</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/">{{ str.home }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/signup">{{ str.sign }}</router-link>
+            <router-link class="nav__links__link" @click.native="toggleNav" to="/login">{{ str.log }}</router-link>
             .bg.bg--menu
+            <div class="nav__links__language">
+              <a  href="#" class="nav__links__link" @click="switchToPT">Portugues</a> /
+              <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
+            </div>
           </div>
     <router-view/>
     .bg
@@ -44,10 +52,14 @@ export default {
   mounted() {
     this.serverURL = window.serverURL
     this.$store.dispatch("checkLogin")
+    this.$store.dispatch("checkBrowserLanguage")
   },
   computed: {
     isLogged() {
       return this.$store.state.isLoggedIn
+    },
+    str() {
+      return this.$store.state.localeStrings.menu
     }
   },
   methods: {
@@ -57,6 +69,14 @@ export default {
     logout(e) {
       e.preventDefault()
       this.$store.dispatch('logOut')
+      this.toggleNav()
+    },
+    switchToPT() {
+      this.$store.dispatch('setLanguage', { iso: 'pt', title: 'Português' })
+      this.toggleNav()
+    },
+    switchToEN() {
+      this.$store.dispatch('setLanguage', { iso: 'en', title: 'English' })
       this.toggleNav()
     }
   }
@@ -123,6 +143,14 @@ export default {
     z-index: 999;
     padding-bottom: 3rem;
     box-sizing: border-box;
+
+    &__language {
+      font-size: 14px;
+      margin-top: 2rem;
+      a {
+        font-size: 14px;
+      }
+    }
 
     &__link {
       font-size: 2rem;

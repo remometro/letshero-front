@@ -2,22 +2,22 @@
   <main class="find-a-hero" v-if="isLoggedIn">
     <ValidationObserver v-slot="{ invalid }" ref="observer">
     <form action="" class="find-a-hero__form" @submit="addHelp($event, invalid)" v-if="!foundAHero">
-      <LH-Dropdown rules="required" fieldName="necessity" ref="typeOpen" label="What do you need?" :options="getTypesOfHelp" @selected="setType" />
-      <LH-Dropdown rules="required" fieldName="reward" ref="typeOpen" label="Do you offer/need some money?" :options="getOptionsHasReward" @selected="setReward" />
+      <LH-Dropdown rules="required" fieldName="necessity" ref="typeOpen" :label="str.need_label" :options="str.need_options" @selected="setType" />
+      <LH-Dropdown rules="required" fieldName="reward" ref="typeOpen" :label="str.offer_label" :options="str.offer_options" @selected="setReward" />
       <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required|min_value:1' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
-        <label for="find-a-hero__form__reward__label">If so, how much? (in USD)</label>
+        <label for="find-a-hero__form__reward__label">{{ str.offer_amount_label }}</label>
         <input type="number" v-model="formAmount" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
       <validation-provider name="reward description" :rules="formReward && formReward === 2 ? 'required|max:32' : ''" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2" v-slot="{ errors }">
-        <label for="find-a-hero__form__reward__label">What do you offer?</label>
+        <label for="find-a-hero__form__reward__label">{{ str.offer_other_label }}</label>
         <input type="text" v-model="formRewardOther" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
       <validation-provider class="lh--input--text find-a-hero__form__where" rules="required" name="location" v-slot="{ errors }" ref="location">
-        <label for="find-a-hero__form__where__label">Where are you at the moment?</label>
+        <label for="find-a-hero__form__where__label">{{ str.where_label }}</label>
         <input type="hidden" v-model="formPlace" />
-        <GmapAutocomplete @blur="validateLocation" @place_changed="setPlace" />
+        <GmapAutocomplete @blur="validateLocation" @place_changed="setPlace" :placeholder="str.where_placeholder" />
         <gmap-map
         v-if="formPlace"
         :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="17" :options="{disableDefaultUI:true}"
@@ -38,23 +38,23 @@
       </validation-provider>
 
       <validation-provider name="description" rules="required" v-slot="{ errors }" class="lh--input--text find-a-hero__form__why">
-        <label for="find-a-hero__form__where__label">Please describe in a few words why you need help.</label>
+        <label for="find-a-hero__form__where__label">{{ str.description_label }}</label>
         <textarea class="lh--input--textarea" type="text" maxlength="256" rows="5" v-model="formWhy" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
       <validation-provider name="video link" rules="isvideo" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward">
-        <label for="find-a-hero__form__reward__label">Is there a video link explaining your need? (Youtube and Vimeo links only)</label>
+        <label for="find-a-hero__form__reward__label">{{ str.video_label }}</label>
         <input type="text" maxlength="128" v-model="formLink" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
       <button class="lh--button find-a-hero__form__submit">
-        {{ !isFinding ? "Find a Hero" : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isFinding" />
+        {{ !isFinding ? str.cta : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isFinding" />
       </button>
       <div class="lh--alert lh--alert--warning" v-if="findError">{{findErrorMessage}}</div>
       <div class="lh--alert lh--alert--warning" v-if="findError || hasErrors"><span class="error-message" v-if="findError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !findError">{{generalError}}</span></div>
     </form>
-    <div class="lh--alert lh--alert--success" v-else>Your hero is on the way, now you just have to wait!</div>
-    <router-link class="lh--link lh--link--small lh--link--black" to="/list">Or be someone's hero.</router-link>
+    <div class="lh--alert lh--alert--success" v-else>{{ str.success_message }}</div>
+    <router-link class="lh--link lh--link--small lh--link--black" to="/list">{{ str.or_be }}</router-link>
     </ValidationObserver>
   </main>
    <main class="not-logged" v-else>
@@ -166,6 +166,9 @@ export default {
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
+    },
+    str() {
+      return this.$store.state.localeStrings.find_a_hero
     }
   },
   methods: {
