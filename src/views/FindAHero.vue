@@ -4,20 +4,20 @@
     <form action="" class="find-a-hero__form" @submit="addHelp($event, invalid)" v-if="!foundAHero">
       <LH-Dropdown rules="required" fieldName="necessity" ref="typeOpen" :label="str.need_label" :options="str.need_options" @selected="setType" />
       <LH-Dropdown rules="required" fieldName="reward" ref="typeOpen" :label="str.offer_label" :options="str.offer_options" @selected="setReward" />
-      <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required|min_value:1' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2">
-        <label for="find-a-hero__form__reward__label">{{ str.offer_amount_label }}</label>
-        <input type="number" v-model="formAmount" />
+      <validation-provider :rules="formReward && formReward !== 5 && formReward !== 2 ? 'required|min_value:1' : ''" name="reward amount" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward !== 5 && formReward !== 2" @click="focusInput('reward')">
+        <label for="find-a-hero__form__reward__label" @click="focusInput('reward')">{{ str.offer_amount_label }}</label>
+        <input type="number" v-model="formAmount" ref="reward" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
-      <validation-provider name="reward description" :rules="formReward && formReward === 2 ? 'required|max:32' : ''" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2" v-slot="{ errors }">
-        <label for="find-a-hero__form__reward__label">{{ str.offer_other_label }}</label>
-        <input type="text" v-model="formRewardOther" />
+      <validation-provider name="reward description" :rules="formReward && formReward === 2 ? 'required|max:32' : ''" class="lh--input--text find-a-hero__form__reward" v-if="formReward && formReward === 2" v-slot="{ errors }" @click="focusInput('other_reward')">
+        <label for="find-a-hero__form__reward__label" @click="focusInput('other_reward')">{{ str.offer_other_label }}</label>
+        <input type="text" v-model="formRewardOther" ref="other_reward" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
-      <validation-provider class="lh--input--text find-a-hero__form__where" rules="required" name="location" v-slot="{ errors }" ref="location">
-        <label for="find-a-hero__form__where__label">{{ str.where_label }}</label>
+      <validation-provider class="lh--input--text find-a-hero__form__where" rules="required" name="location" v-slot="{ errors }" ref="location" @click="focusInputWhere('where')">
+        <label for="find-a-hero__form__where__label" @click="focusInputWhere('where')">{{ str.where_label }}</label>
         <input type="hidden" v-model="formPlace" />
-        <GmapAutocomplete @blur="validateLocation" @place_changed="setPlace" :placeholder="str.where_placeholder" />
+        <GmapAutocomplete @blur="validateLocation" @place_changed="setPlace" :placeholder="str.where_placeholder" ref="where" />
         <gmap-map
         v-if="formPlace"
         :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="17" :options="{disableDefaultUI:true}"
@@ -37,14 +37,14 @@
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
 
-      <validation-provider name="description" rules="required" v-slot="{ errors }" class="lh--input--text find-a-hero__form__why">
-        <label for="find-a-hero__form__where__label">{{ str.description_label }}</label>
-        <textarea class="lh--input--textarea" type="text" maxlength="256" rows="5" v-model="formWhy" />
+      <validation-provider name="description" rules="required" v-slot="{ errors }" class="lh--input--text find-a-hero__form__why" @click="focusInput('why')">
+        <label for="find-a-hero__form__where__label" @click="focusInput('why')">{{ str.description_label }}</label>
+        <textarea class="lh--input--textarea" type="text" maxlength="256" rows="5" v-model="formWhy" ref="why" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
-      <validation-provider name="video link" rules="isvideo" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward">
-        <label for="find-a-hero__form__reward__label">{{ str.video_label }}</label>
-        <input type="text" maxlength="128" v-model="formLink" />
+      <validation-provider name="video link" rules="isvideo" v-slot="{ errors }" class="lh--input--text find-a-hero__form__reward" @click="focusInput('video')">
+        <label for="find-a-hero__form__reward__label" @click="focusInput('video')">{{ str.video_label }}</label>
+        <input type="text" maxlength="128" v-model="formLink" ref="video" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
       <button class="lh--button find-a-hero__form__submit">
@@ -172,6 +172,12 @@ export default {
     }
   },
   methods: {
+    focusInput(ref) {
+      this.$refs[ref].focus()
+    },
+    focusInputWhere(ref) {
+      this.$refs[ref].$el.focus()
+    },
     setType(value) {
       this.formType = value.value
       this.formTypeString = value.name

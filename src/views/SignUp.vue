@@ -3,35 +3,35 @@
     <ValidationObserver v-slot="{ invalid }" v-if="!isLoggedIn">
       <form action="" class="signup__form" @submit="signUp($event, invalid)">
         <validation-provider name="heroname" class="lh--input--text signup__form__user" rules="required|alpha_dash|min:3|max:12|checkusername" v-slot="{ errors }">
-          <label for="signup__form__user__input">{{ str.name }}</label>
-          <input type="text" v-model="formUser" :name="str.name" @change="checkUsername" />
+          <label for="signup__form__user__input" @click="focusInput('user')">{{ str.name }}</label>
+          <input type="text" v-model="formUser" :name="str.name" @change="checkUsername" ref="user" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <validation-observer class="lh--input--observer">
           <validation-provider name="password" class="lh--input--text signup__form__pass" rules="required|min:6" v-slot="{ errors }">
-            <label for="signup__form__user__input">{{ str.pass }}</label>
-            <input type="password" v-model="formPass" />
+            <label for="signup__form__user__input" @click="focusInput('pass')">{{ str.pass }}</label>
+            <input type="password" v-model="formPass" ref="pass" />
             <span class="lh--error--message">{{ errors[0] }}</span>
           </validation-provider>
           <validation-provider name="confirmation pass" class="lh--input--text signup__form__pass" rules="required|min:6|password:@password" v-slot="{ errors }">
-            <label for="signup__form__user__input">{{ str.pass_ver }}</label>
-            <input type="password" v-model="formPassVer" />
+            <label for="signup__form__user__input" @click="focusInput('pass_ver')">{{ str.pass_ver }}</label>
+            <input type="password" v-model="formPassVer" ref="pass_ver" />
             <span class="lh--error--message">{{ errors[0] }}</span>
           </validation-provider>
         </validation-observer>
         <validation-provider name="email" class="lh--input--text signup__form__email" rules="required|email" v-slot="{ errors }">
-          <label for="signup__form__user__email">{{ str.email }}</label>
-          <input type="email" v-model="formEmail" />
+          <label for="signup__form__user__email" @click="focusInput('email')">{{ str.email }}</label>
+          <input type="email" v-model="formEmail" ref="email" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <validation-provider name="paypal email" class="lh--input--text signup__form__paypal" rules="email" v-slot="{ errors }">
-          <label for="signup__form__user__paypal">{{ str.paypal }}</label>
-          <input type="email" v-model="formPaypal" />
+          <label for="signup__form__user__paypal" @click="focusInput('paypal')">{{ str.paypal }}</label>
+          <input type="email" v-model="formPaypal" ref="paypal" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
         <LH-Dropdown rules="required" fieldName="Gender" ref="typeOpen" :label="str.gender" :options="str.gender_options" @selected="setGender" />
         <validation-provider name="whatsapp number" class="lh--input--text signup__form__whatsapp" rules="required" v-slot="{ errors }">
-          <label for="signup__form__user__whatsapp">{{ str.whatsapp }}</label>
+          <label for="signup__form__user__whatsapp" @click="focusInput('tel')">{{ str.whatsapp }}</label>
           <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'national'}" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
@@ -116,6 +116,9 @@ export default {
     }
   },
   methods: {
+    focusInput(ref) {
+      this.$refs[ref].focus()
+    },
     setGender(value) {
       this.formGender = value.value
     },
