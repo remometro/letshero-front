@@ -1,6 +1,6 @@
 <template>
   <div class="lh-dropdown" v-on-clickaway="closeSelect" @keydown.esc="closeSelect">
-    <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}">
+    <div class="lh--input--select find-a-hero__form__what" :class="{isOpen: isOpen}" @click.stop="!disabled && toggleSelect($event)">
       <validation-provider :name="fieldName" class="lh--input--select--field" :rules="rules" v-slot="{ errors }">
         <label for="find-a-hero__form__what__label">{{label}}</label>
         <button class="lh-dropdown__select-button" :disabled="disabled" @click.stop="!disabled && toggleSelect($event)">
