@@ -3,7 +3,7 @@
     <HelpPopup v-if="helpPopupShown" :popupId="selectedId" :popupShown="helpPopupShown" @closepopup="closeHelp" />
     <ListPopup v-if="listPopupShown" :position="listLocation" @openhelp="openHelp" @closelist="closeList" />
     <gmap-map
-        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy' }"
+        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy', minZoom: 3 }"
         map-type-id="terrain"
         :style="'width: 100%; height:' + mapHeight + 'px;' "
         ref="mapRef"
