@@ -20,7 +20,7 @@
                 <div class="helped-me__table__item__is-helping__buttons">
                   <button v-if="helper.hasHelped === 0" class="helped-me__table__item__is-helping__cancel" @click.stop="evaluateHelp(-1, item._id, helper._id )"><img src="../assets/imgs/exit-red.svg" /></button>
                   <button v-if="helper.hasHelped === 0" class="helped-me__table__item__is-helping__confirm" @click.stop="evaluateHelp(1, item._id, helper._id )"><img src="../assets/imgs/check-green.svg" /></button>
-                  <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">{{str.undo}}}</button>
+                  <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">{{str.undo}}</button>
                 </div>
               </div>
               <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">{{str.know_more}}</router-link>
