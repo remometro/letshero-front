@@ -215,7 +215,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('signed up!', res)
             this.dispatch('hasSignedUp')
             this.dispatch('logIn', { username: res.data.username, password: payload.password })
@@ -238,7 +238,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('logged', res)
             this.commit('performLogin', res.data)
           } else {
@@ -256,7 +256,7 @@ export default new Vuex.Store({
       // this.commit('performLogOut')
       axios.get(url, { withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('logged out')
             this.commit('performLogOut')
           }
@@ -273,7 +273,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('help added')
             this.commit('foundAHero')
             this.dispatch('fetchUserData')
@@ -296,7 +296,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('user data fetched', res)
             this.commit('consolidateHelpData', res.data)
             this.commit('fetchedHelp')
@@ -315,7 +315,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('help assumed')
             this.commit('assumingHelp', false)
             this.dispatch('fetchUserData')
@@ -339,7 +339,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('help completed')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
@@ -364,7 +364,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('profile updated')
             this.commit("hasEdited")
             if (payload.token) {
@@ -393,7 +393,7 @@ export default new Vuex.Store({
         },
         withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('booking deleted')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllBookingsData')
@@ -409,7 +409,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('user data fetched', res)
             this.commit('consolidateUserData', res.data)
             this.dispatch('fetchAllHelpData')
@@ -440,7 +440,7 @@ export default new Vuex.Store({
       self.commit('loadingList', true)
       axios.post(url, { location: self.state.coords }, { withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('fetched  ALL helps data.')
             self.commit('loadingList', false)
             if (!payload || (payload && payload.page === 1)) {
@@ -466,7 +466,7 @@ export default new Vuex.Store({
       },
       withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('help evaluated!')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
@@ -485,7 +485,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common['Authorization'] = `Bearer ${payload}`
       axios.get(url, { withCredentials: true })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('verified')
             this.commit('verifySuccess')
             this.commit('performLogin', { _id: res.data._id, token: payload })
@@ -510,7 +510,7 @@ export default new Vuex.Store({
         'Content-Type': 'application/json'
       } })
         .then(res => {
-          if (res.statusText === 'OK') {
+          if (res.status === 200) {
             console.log('password reset sent!')
             this.commit("askedReset")
           } else {
