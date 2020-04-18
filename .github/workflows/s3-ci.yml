@@ -20,8 +20,8 @@ jobs:
       run: npm install
     - name: Run build task
       env: 
-            VUE_APP_URL: https://api.letshero.com
-            VUE_APP_SERVER: https://api.letshero.com
+            VUE_APP_URL: https://letshero.com
+            VUE_APP_SERVER: https://letshero.com
       run: npm run build --fix
     - name: Deploy to S3
       if: github.ref == 'refs/heads/s3'
