@@ -18,7 +18,8 @@
             <a  href="#" class="nav__links__link" @click="logout">{{ str.logout }}</a>
             <div class="nav__links__language">
               <a  href="#" class="nav__links__link" @click="switchToPT">Português</a> /
-              <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
+              <a  href="#" class="nav__links__link" @click="switchToEN">English</a> /
+              <a  href="#" class="nav__links__link" @click="switchToES">Español</a>
             </div>
             .bg.bg--menu
           </div>
@@ -29,7 +30,8 @@
             .bg.bg--menu
             <div class="nav__links__language">
               <a  href="#" class="nav__links__link" @click="switchToPT">Português</a> /
-              <a  href="#" class="nav__links__link" @click="switchToEN">English</a>
+              <a  href="#" class="nav__links__link" @click="switchToEN">English</a> /
+              <a  href="#" class="nav__links__link" @click="switchToES">Español</a>
             </div>
           </div>
     <router-view/>
@@ -77,6 +79,10 @@ export default {
     },
     switchToEN() {
       this.$store.dispatch('setLanguage', { iso: 'en', title: 'English' })
+      this.toggleNav()
+    },
+    switchToES() {
+      this.$store.dispatch('setLanguage', { iso: 'es', title: 'Español' })
       this.toggleNav()
     }
   }

@@ -47,7 +47,8 @@ export default new Vuex.Store({
     language: { iso: 'en', title: 'English' },
     availableLangs: [
       { iso: 'en', title: 'English' },
-      { iso: 'pt', title: 'Português' }],
+      { iso: 'pt', title: 'Português' },
+      { iso: 'es', title: 'Español' }],
     localeStrings: require('../../data/strings-en.json')
   },
   mutations: {
@@ -525,7 +526,77 @@ export default new Vuex.Store({
         })
     },
     checkBrowserLanguage(context) {
-      navigator.language === 'pt' || navigator.language === 'pt-BR' ? this.commit('setLanguage', { iso: 'pt', title: 'Português' }) : this.commit('setLanguage', { iso: 'en', title: 'English' })
+      switch (navigator.language) {
+      case 'pt':
+        this.commit('setLanguage', { iso: 'pt', title: 'Português' })
+        break
+      case 'pt-BR':
+        this.commit('setLanguage', { iso: 'pt', title: 'Português' })
+        break
+      case 'es':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-AR':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-BO':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-CL':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-CO':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-CR':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-DO':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-EC':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-SV':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-GT':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-HN':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-MX':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-NI':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-PA':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-PY':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-PE':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-PR':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-ES':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-UY':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      case 'es-VE':
+        this.commit('setLanguage', { iso: 'es', title: 'Español' })
+        break
+      default:
+        this.commit('setLanguage', { iso: 'en', title: 'English' })
+        break
+      }
     },
     setLanguage(context, payload) {
       this.commit('setLanguage', payload)

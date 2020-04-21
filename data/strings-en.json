@@ -77,7 +77,7 @@
     "where_label": "Where are you at the moment?",
     "where_placeholder": "Enter a location",
     "description_label": "Please describe in a few words why you need help.",
-    "video_label": "Is there a video link explaining yout need? (YouTube only)",
+    "video_label": "Is there a video link explaining your need? (YouTube only)",
     "cta": "Find a hero",
     "success_message": "Your hero is on the way, now you just have to wait!",
     "or_be": "Or be someone's hero."
@@ -179,7 +179,8 @@
     "has_helped": "has helped me",
     "not_helped": "hasn't helped me",
     "completed": "mark as completed",
-    "undo": "undo"
+    "undo": "undo",
+    "close_list": "close list"
   },
   "profile": {
     "youre": "you are",

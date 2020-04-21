@@ -8,16 +8,16 @@
             <div class="list__table__item__top">
               <div class="list__table__item__top__left">
                 <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> needs {{item.category.main_category}}</span>
+                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.needs}} {{category(item)}}</span>
               </div>
               <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
             </div>
             <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
-              <div class="list__table__item__location">In {{item.location.place_name}}</div>
-              <div class="list__table__item__distance">({{currentLocation ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + "KM Away": "Distance Unknown"}})</div>
+              <div class="list__table__item__location">{{str.in}} {{item.location.place_name}}</div>
+              <div class="list__table__item__distance">({{currentLocation && !(currentLocation.lat === 0 && currentLocation.lng === 0) ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + str.km_away : str.ukn_dist}})</div>
               <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
               </div>
-              <button class="list__table__item__cta lh--button lh--button--white" @click.stop="openHelp({ position: position, id: item._id })">Know more</button>
+              <button class="list__table__item__cta lh--button lh--button--white" @click.stop="openHelp({ position: position, id: item._id })">{{ str.know_more }}</button>
             </div>
           </div>
         </div>
@@ -55,6 +55,12 @@ export default {
     },
     loading() {
       return this.$store.state.loadingList
+    },
+    str() {
+      return this.$store.state.localeStrings.list
+    },
+    out_str() {
+      return this.$store.state.localeStrings
     }
   },
   props: {
@@ -67,31 +73,31 @@ export default {
   },
   methods: {
     treatment(gender) {
-      let treatment = "It"
+      let treatment = this.out_str.help.id
       switch (gender) {
       case 1:
-        treatment = "He"
+        treatment = this.out_str.help.he
         break
       case 2:
-        treatment = "She"
+        treatment = this.out_str.help.she
         break
       case 3:
-        treatment = "It"
+        treatment = this.out_str.help.it
         break
       }
       return treatment
     },
     treatmentOf(gender) {
-      let treatment = "Its"
+      let treatment = this.out_str.help.its
       switch (gender) {
       case 1:
-        treatment = "His"
+        treatment = this.out_str.help.his
         break
       case 2:
-        treatment = "Her"
+        treatment = this.out_str.help.hers
         break
       case 3:
-        treatment = "Its"
+        treatment = this.out_str.help.its
         break
       }
       return treatment
@@ -107,19 +113,19 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender)} offers up to ${reward.value} USD in reward.`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
         break
       case 2:
-        text = `${this.treatment(gender)} offers ${reward.other_reward} in reward.`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.other_reward} ${this.out_str.help.in_reward}.`
         break
       case 3:
-        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance or some other help.`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_assistance} ${this.out_str.help.or_some_other}.`
         break
       case 4:
-        text = `${this.treatment(gender)} needs up to ${reward.value} USD in assistance.`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_assistance}.`
         break
       case 5:
-        text = `${this.treatment(gender)} only needs help, no cash involved.`
+        text = `${this.treatment(gender) + " " + this.out_str.help.only} ${this.out_str.help.needs} ${this.out_str.help.help_no_cash}.`
         break
       }
       return text
@@ -175,6 +181,11 @@ export default {
     },
     closeList() {
       this.$emit("closelist")
+    },
+    category(help) {
+      return this.out_str.find_a_hero.need_options.filter(el => {
+        return el.value.value === help.category.main_category_id
+      })[0].label
     }
   }
 }

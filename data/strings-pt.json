@@ -179,7 +179,8 @@
     "has_helped": "me ajudou",
     "not_helped": "não me ajudou",
     "completed": "marque como completo",
-    "undo": "desfazer"
+    "undo": "desfazer",
+    "close_list": "fechar lista"
   },
   "profile": {
     "youre": "você é",

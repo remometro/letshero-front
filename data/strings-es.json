@@ -1,0 +1,190 @@
+{
+  "menu": {
+    "sign": "Regístrate",
+    "log": "Identifícate",
+    "home": "Início",
+    "find": "Busca un héroe",
+    "list": "Lista",
+    "map": "Mapa",
+    "im_helping": "Quien estoy ayudando",
+    "is_helping": "Quien me está ayudando",
+    "profile": "Perfíl",
+    "settings": "Ajustes",
+    "logout": "Salir"
+  },
+  "home": {
+    "title": "Hoy yo...",
+    "need": "Necesito un héroe",
+    "want": "Quiero ser un héroe"
+  },
+  "find_a_hero": {
+    "need_label": "Qué necesitas?",
+    "need_options": [
+      {
+        "label": "Comida",
+        "value": { "name": "Food", "value": 1, "urgency": 1 }
+      },
+      {
+        "label": "Abrigo",
+        "value": { "name": "Shelter", "value": 2, "urgency": 1 }
+      },
+      {
+        "label": "Cuidados médicos",
+        "value": { "name": "Medical Care", "value": 3, "urgency": 1 }
+      },
+      {
+        "label": "Cuidados psicológicos",
+        "value": { "name": "Psychological Care", "value": 4, "urgency": 1 }
+      },
+      {
+        "label": "Aconsejamiento jurídico",
+        "value": { "name": "Legal Advice", "value": 7, "urgency": 2 }
+      },
+      {
+        "label": "Compañia",
+        "value": { "name": "Companion", "value": 5, "urgency": 3 }
+      },
+      {
+        "label": "Otro",
+        "value": { "name": "Other", "value": 6, "urgency": 2 }
+      }
+    ],
+    "offer_label": "Ofreces o necesitas dinero?",
+    "offer_options": [
+      {
+        "label": "Ofrezco dinero",
+        "value": { "value": 1 }
+      },
+      {
+        "label": "Ofrezco alguna otra ayuda",
+        "value": { "value": 2 }
+      },
+      {
+        "label": "Necesito dinero o ayuda",
+        "value": { "value": 3 }
+      },
+      {
+        "label": "Apenas necesito dinero",
+        "value": { "value": 4 }
+      },
+      {
+        "label": "Apenas necesito ayuda",
+        "value": { "value": 5 }
+      }
+    ],
+    "offer_amount_label": "Caso si, cuanto? (en dólares)",
+    "offer_other_label": "Qué ofrece?",
+    "where_label": "Dónde necesita ayuda?",
+    "where_placeholder": "Añade un local",
+    "description_label": "Favor describir en pocas palabras sus motivos para pedir ayuda.",
+    "video_label": "Usted tendría un enlace para un video (solo YouTube) explicando su pedido?",
+    "cta": "Encuentra un héroe",
+    "success_message": "Su héroe esta a camino, solo tiene que aguardar!",
+    "or_be": "O ser el héroe de alguién!"
+  },
+  "sign": {
+    "name": "Nombre de héroe",
+    "pass": "Contraseña",
+    "pass_ver": "Confirma su contraseña",
+    "email": "Email",
+    "paypal": "Email de paypal (para poder recibir donativos en dinero, usted necesita una cuenta de tipo mercador activa)",
+    "gender": "Con cual usted más se identifica?",
+    "gender_options": [
+      {
+        "label": "Hombre",
+        "value": { "value": 1 }
+      },
+      {
+        "label": "Mujer",
+        "value": { "value": 2 }
+      },
+      {
+        "label": "Otro",
+        "value": { "value": 3 }
+      }
+    ],
+    "whatsapp": "Cuál és su número de WhatsApp?",
+    "cta": "Regístrate",
+    "existing": "Ya soy un héroe",
+    "welcome": "Bienvenido héroe!",
+    "now_be": "Ahora, sé el héroe de alguién",
+    "or_logout": "O desconectate"
+  },
+  "login": {
+    "name": "Nombre de héroe",
+    "pass": "Contraseña",
+    "cta": "Identifícate",
+    "new": "Nuevo héroe?",
+    "forgot": "Olvidaste su contraseña?",
+    "welcome": "Bien venido héroe!",
+    "now_be": "Ahora, sé él héroe de alguién",
+    "or_logout": "O desconectate",
+    "find": "O busca un héroe"
+  },
+  "subtitle": {
+    "non": "Poco urgente",
+    "medium": "Medio urgente",
+    "very": "Muy urgente"
+  },
+  "help": {
+    "you": "Usted",
+    "he": "Él",
+    "she": "Ella",
+    "it": "Eso",
+    "its": "Su",
+    "his": "Su",
+    "hers": "Suya",
+    "him": "Él",
+    "her": "Ella",
+    "need_help": "necesita ayuda con",
+    "needs_help": "necesita ayuda con",
+    "you_offer_up_to": "ofrece hasta",
+    "that_offers": "ofrece",
+    "you_offer": "ofrece",
+    "that_offers_up_to": "ofrece hasta",
+    "you_need": "necesita hasta",
+    "that_needs": "necesita hasta",
+    "in_reward": "en recompensa",
+    "in_assistance": "en auxílio",
+    "or_some_other": "o alguna otra ayuda",
+    "only": "solo",
+    "need": "necesita",
+    "needs": "necesita",
+    "help_no_cash": "ayuda, sin dinero involucrado",
+    "help": "ayude",
+    "view": "vea",
+    "video": "video",
+    "im_already": "Ya estoy ayudando",
+    "see_who": "ver quien más estoy ayudando",
+    "contact": "contacte",
+    "donate": "donar a",
+    "needs_your_help": "necesita su ayuda",
+    "back_map": "volver al mapa",
+    "back_list": "volver a lista",
+    "usd": "dólares"
+  },
+  "list": {
+    "needs": "necesita",
+    "in": "en las cercanías de",
+    "km_away": "KM de distáncia",
+    "ukn_dist": "distáncia desconocida",
+    "know_more": "sepa más",
+    "im_helping": "quien estoy ayudando?",
+    "is_helping": "quien me está ayudando?",
+    "i": "yo",
+    "need": "necesito",
+    "i_need": "necesito",
+    "has": "",
+    "helped_you": "te ha ayudado?",
+    "has_helped": "me ha ayudado",
+    "not_helped": "no me ha ayudado",
+    "completed": "marcar como completado",
+    "undo": "deshacer",
+    "close_list": "cerrar lista"
+  },
+  "profile": {
+    "youre": "usted és",
+    "app": "aprendiz",
+    "fellow": "compañero"
+  }
+}
