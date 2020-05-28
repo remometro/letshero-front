@@ -8,6 +8,9 @@
             span="{{ strings.need }}"
           router-link.hp__today__cta__want(to="/list")
             span="{{ strings.want }}"
+          .hp__sponsors
+            span="{{ strings.trusted }}"
+            img.mongo(src="../assets/imgs/logo_for-startups_fc.png")
 
 </template>
 
@@ -34,6 +37,9 @@ export default {
 </script>
 
 <style lang="scss">
+.mongo {
+  max-width: 250px;
+}
 .hp {
   display: flex;
   justify-content: flex-start;
@@ -41,6 +47,12 @@ export default {
   margin: 0 auto;
   font-family: $font-main;
   padding: 2rem;
+
+  &__sponsors {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6rem;
+  }
 
   &__today {
     &__title {

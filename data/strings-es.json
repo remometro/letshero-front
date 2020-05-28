@@ -15,7 +15,8 @@
   "home": {
     "title": "Hoy yo...",
     "need": "Necesito un héroe",
-    "want": "Quiero ser un héroe"
+    "want": "Quiero ser un héroe",
+    "trusted": "Confiado por"
   },
   "find_a_hero": {
     "need_label": "Qué necesitas?",
