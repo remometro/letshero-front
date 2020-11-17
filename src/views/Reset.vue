@@ -77,7 +77,7 @@ export default {
       })[0].label
       return gender
     },
-    toggleEditMode() {s
+    toggleEditMode() {
       this.notEditMode = !this.notEditMode
     },
     setPhone(e) {
