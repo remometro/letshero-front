@@ -51,7 +51,7 @@ export default {
       return this.$store.state.userData
     },
     entries() {
-      return this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData)
+      return _.filter(this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData), (help) => !help.stats.completed)
     },
     isLoggedIn() {
       return !!this.$store.state.isLoggedIn
