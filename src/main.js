@@ -74,7 +74,8 @@ let gMapsAPIKEY = process.env.NODE_ENV === "development" ? 'AIzaSyClxqoc_vuBbW4B
 Vue.use(VueGoogleMaps, {
   load: {
     key: gMapsAPIKEY,
-    libraries: 'places' // This is required if you use the Autocomplete plugin
+    libraries: 'places',
+    map_ids: '38a001d1a7f247cd'
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)

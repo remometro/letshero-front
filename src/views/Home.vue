@@ -52,6 +52,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-top: 6rem;
+    color: $color-black;
   }
 
   &__today {

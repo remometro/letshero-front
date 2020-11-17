@@ -3,8 +3,7 @@
     <HelpPopup v-if="helpPopupShown" :popupId="selectedId" :popupShown="helpPopupShown" @closepopup="closeHelp" />
     <ListPopup v-if="listPopupShown" :position="listLocation" @openhelp="openHelp" @closelist="closeList" />
     <gmap-map
-        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy', minZoom: 3 }"
-        map-type-id="terrain"
+        :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="12" :options="{ disableDefaultUI: true, gestureHandling: 'greedy', minZoom: 3, mapId: '38a001d1a7f247cd' }"
         :style="'width: 100%; height:' + mapHeight + 'px;' "
         ref="mapRef"
         @zoom_changed="loadMore"
@@ -140,7 +139,10 @@ export default {
         marker = require('../assets/imgs/heart-green-companion.svg')
         break
       case 6:
-        marker = require('../assets/imgs/heart-yellow-other.svg')
+        marker = require('../assets/imgs/heart-yellow.svg')
+        break
+      case 7:
+        marker = require('../assets/imgs/heart-yellow.svg')
         break
       }
       return marker
