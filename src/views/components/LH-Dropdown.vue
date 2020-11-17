@@ -67,9 +67,9 @@ export default {
 
   input {
     border: none;
-    border-bottom: 2px solid $color-black;
+    border-bottom: 2px solid $color-white;
     font-family: $font-main;
-    color: $color-black;
+    color: $color-white;
     width: 100%;
     cursor: pointer;
     background: none;

@@ -1,33 +1,38 @@
 <template>
-  <main class="list" v-if="isLoggedIn">
-    <div class="lh-container">
-      <div class="list__table" ref="list__table">
-        <div class="list__table__item" :key="item._id" v-for="(item, i) in entries" @click="openTab(i)">
-          <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
-            <div class="list__table__item__top">
-              <div class="list__table__item__top__left">
-                <span class="list__table__item__img"></span>
-                <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.needs}} {{category(item)}}</span>
+  <div class="wrapper">
+    <main class="list" v-if="isLoggedIn">
+      <div class="lh-container">
+        <div class="list__table" ref="list__table" v-if="entries.length">
+          <div class="list__table__item" :key="item._id" v-for="(item, i) in entries" @click="openTab(i)">
+            <div class="list__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
+              <div class="list__table__item__top">
+                <div class="list__table__item__top__left">
+                  <span class="list__table__item__img"></span>
+                  <span class="list__table__item__title">{{item.user.username}}<img class="lh--badge" v-if ="item.user.data.account_type > 0" :src="require('../assets/imgs/badge-small.svg')" /> {{str.needs}} {{category(item)}}</span>
+                </div>
+                <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
               </div>
-              <button class="list__table__item__expand" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}"></button>
-            </div>
-            <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
-              <div class="list__table__item__location">{{str.in}} {{item.location.place_name}}</div>
-              <div class="list__table__item__distance">({{currentLocation && !(currentLocation.lat === 0 && currentLocation.lng === 0) ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + str.km_away : str.ukn_dist}})</div>
-              <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
+              <div class="list__table__item__bottom" :class="{itemOpened: (i === 0 && !tabOpened) || i === tabOpened}">
+                <div class="list__table__item__location">{{str.in}} {{item.location.place_name}}</div>
+                <div class="list__table__item__distance">({{currentLocation && !(currentLocation.lat === 0 && currentLocation.lng === 0) ? distance(currentLocation.lat, currentLocation.lng, item.location.lat, item.location.lng, "K").toLocaleString("en-US", { maximumFractionDigits: 0 }) + str.km_away : str.ukn_dist}})</div>
+                <div class="list__table__item__reward">{{getRewardText(item.user.data.gender, item.reward)}}
+                </div>
+                <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--black" @click.stop="">{{str.know_more}}</router-link>
               </div>
-              <router-link :to="'/help/' + item._id" class="list__table__item__cta lh--button lh--button--white" @click.stop="">{{str.know_more}}</router-link>
             </div>
           </div>
         </div>
+        <div class="list__nothing" v-else>
+          {{str.nothing}}
+        </div>
+        <button class="list__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="list__find-help--img"></router-link></button>
+        <Subtitles isFixed="true" />
       </div>
-      <button class="list__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="list__find-help--img"></router-link></button>
-      <Subtitles isFixed="true" />
-    </div>
-  </main>
-  <main class="not-logged" v-else>
-    <Login />
-  </main>
+    </main>
+    <main class="not-logged" v-else>
+      <Login />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -118,7 +123,7 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
         break
       case 2:
         text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.other_reward} ${this.out_str.help.in_reward}.`
@@ -191,6 +196,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  max-width: 100vw;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: rgba($color-black, 1);
+}
 .list__find-help {
   display: block;
   width: 75px;
@@ -209,13 +221,19 @@ export default {
   }
 }
 .list {
+  &__nothing {
+    padding: 2rem 0;
+    max-width: 80%;
+    margin: 0 auto;
+    color: $color-white;
+  }
   &__table {
     padding: 2rem 0;
     max-width: 80%;
     margin: 0 auto;
     &__item {
-      background-color: $color-black;
-      color: $color-white;
+      background-color: $color-white;
+      color: $color-black;
       margin: 1rem 0;
       padding: .5rem;
       border-radius: 8px;
@@ -258,11 +276,11 @@ export default {
         width: 35px;
         height: 35px;
         border: none;
-        background: url(../assets/imgs/plus-white.svg) center center no-repeat;
+        background: url(../assets/imgs/plus.svg) center center no-repeat;
         margin-left: 1rem;
 
         &.itemOpened {
-          background: url(../assets/imgs/minus-white.svg) center center no-repeat;
+          background: url(../assets/imgs/minus.svg) center center no-repeat;
         }
       }
 

@@ -42,10 +42,10 @@
         </div>
       </div>
       <div class="lh--alert lh--alert--warning" v-if="editError || hasErrors"><span class="error-message" v-if="editError && !hasErrors">{{editErrorMessage}}</span><span class="error-message" v-if="hasErrors && !editError">{{generalError}}</span></div>
-      <button class="lh--button settings__form__submit">
+      <button class="lh--button lh--button--white settings__form__submit" @click.prevent="clickEdit">
         {{ !isEditing && (!notEditMode ? "Save" : "Edit") }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isEditing" />
       </button>
-      <router-link to="/login" class="lh--link--black settings__form__existing">Delete hero?</router-link>
+      <!-- <router-link to="/login" class="lh--link--black settings__form__existing">Delete hero?</router-link> -->
     </form>
     </ValidationObserver>
   </main>
@@ -141,7 +141,6 @@ export default {
     },
     async editProfile(e, invalid) {
       console.log("editiing")
-      e.preventDefault()
       const isValid = await this.$refs.observer.validate()
       if (isValid) {
         this.hasErrors = false

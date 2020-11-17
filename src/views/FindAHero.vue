@@ -47,14 +47,14 @@
         <input type="text" maxlength="128" v-model="formLink" ref="video" />
         <span class="lh--error--message">{{ errors[0] }}</span>
       </validation-provider>
-      <button class="lh--button find-a-hero__form__submit">
+      <button class="lh--button lh--button--white find-a-hero__form__submit">
         {{ !isFinding ? str.cta : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isFinding" />
       </button>
       <div class="lh--alert lh--alert--warning" v-if="findError">{{findErrorMessage}}</div>
       <div class="lh--alert lh--alert--warning" v-if="findError || hasErrors"><span class="error-message" v-if="findError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !findError">{{generalError}}</span></div>
     </form>
     <div class="lh--alert lh--alert--success" v-else>{{ str.success_message }}</div>
-    <router-link class="lh--link lh--link--small lh--link--black" to="/list">{{ str.or_be }}</router-link>
+    <router-link class="lh--link lh--link--small lh--link--white" to="/list">{{ str.or_be }}</router-link>
     </ValidationObserver>
   </main>
    <main class="not-logged" v-else>

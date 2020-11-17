@@ -7,7 +7,7 @@
     "list": "Lista",
     "map": "Mapa",
     "im_helping": "Quem estou ajudando",
-    "is_helping": "Quem está me ajudando",
+    "is_helping": "Minhas ajudas",
     "profile": "Perfil",
     "settings": "Configurações",
     "logout": "Deslogar"
@@ -181,7 +181,8 @@
     "not_helped": "não me ajudou",
     "completed": "marque como completo",
     "undo": "desfazer",
-    "close_list": "fechar lista"
+    "close_list": "fechar lista",
+    "nothing": "Nenhum pedido disponível"
   },
   "profile": {
     "youre": "você é",

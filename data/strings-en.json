@@ -7,7 +7,7 @@
     "list": "List",
     "map": "Map",
     "im_helping": "Who I'm Helping",
-    "is_helping": "Who is Helping Me",
+    "is_helping": "My helps",
     "profile": "Profile",
     "settings": "Settings",
     "logout": "Logout"
@@ -181,7 +181,8 @@
     "not_helped": "hasn't helped me",
     "completed": "mark as completed",
     "undo": "undo",
-    "close_list": "close list"
+    "close_list": "close list",
+    "nothing": "No requests available"
   },
   "profile": {
     "youre": "you are",

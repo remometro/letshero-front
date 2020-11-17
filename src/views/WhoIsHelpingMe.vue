@@ -2,7 +2,7 @@
   <main class="helped-me" v-if="isLoggedIn">
     <div class="lh-container">
       <h2 class="helped-me__title">{{str.is_helping}}</h2>
-      <div class="helped-me__table">
+      <div class="helped-me__table" v-if="entries.length">
         <div class="helped-me__table__item" :key="item.id" v-for="(item, i) in entries" @click="openTab(i)">
           <div class="helped-me__table__item" :class="{itemUrgent: item.category.urgency == 1, itemMediumUrgent: item.category.urgency == 2, itemNonUrgent: item.category.urgency == 3 }">
             <div class="helped-me__table__item__top">
@@ -23,11 +23,14 @@
                   <button v-if="helper.hasHelped !== 0" class="helped-me__table__item__is-helping__undo" @click.stop="evaluateHelp(0, item._id, helper._id)">{{str.undo}}</button>
                 </div>
               </div>
-              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="">{{str.know_more}}</router-link>
-              <button class="helped-me__table__item__cta lh--button lh--button--white" @click.stop="completeHelp(item._id)">{{str.completed}}</button>
+              <router-link :to="'/help/' + item._id" class="helped-me__table__item__cta lh--button lh--button--black" @click.stop="">{{str.know_more}}</router-link>
+              <button class="helped-me__table__item__cta lh--button lh--button--black" @click.stop="completeHelp(item._id)">{{str.completed}}</button>
             </div>
           </div>
         </div>
+      </div>
+      <div class="helped-me__nothing" v-else>
+          {{str.nothing}}
       </div>
       <button class="helped-me__find-help" ><router-link to="/find-a-hero"><img src="@/assets/imgs/find-a-help.svg" alt="" class="helped-me__find-help--img"></router-link></button>
       <Subtitles isFixed="true" />
@@ -109,7 +112,7 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
         break
       case 2:
         text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.other_reward} ${this.out_str.help.in_reward}.`
@@ -182,17 +185,23 @@ export default {
   }
 }
 .helped-me {
+  &__nothing {
+    padding: 2rem 0;
+    max-width: 80%;
+    margin: 0 auto;
+    color: $color-white;
+  }
   &__title {
     padding-top: 2rem;
-    color: $color-black;
+    color: $color-white;
   }
   &__table {
     padding: 2rem 0;
     max-width: 80%;
     margin: 0 auto;
     &__item {
-      background-color: $color-black;
-      color: $color-white;
+      background-color: $color-white;
+      color: $color-black;
       margin: 1rem 0;
       padding: .5rem;
       border-radius: 8px;
@@ -234,6 +243,8 @@ export default {
         padding: .5rem 1rem;
         box-sizing: border-box;
         margin: 0.5rem 0;
+        background-color: $color-black;
+        color: $color-white;
 
         &__name {
           font-size: 10px;
@@ -247,13 +258,15 @@ export default {
           border: none;
           background: none;
           display: flex;
+          align-items: center;
           font-family: $font-main;
           color: $color-black;
+          min-height: 32px;
         }
 
         &.offeredHelp {
-          background-color: $color-white;
-          color: $color-black;
+          background-color: $color-black;
+          color: $color-white;
         }
 
         &.hasHelped {
@@ -272,11 +285,11 @@ export default {
         width: 35px;
         height: 35px;
         border: none;
-        background: url(../assets/imgs/plus-white.svg) center center no-repeat;
+        background: url(../assets/imgs/plus.svg) center center no-repeat;
         margin-left: 1rem;
 
         &.itemOpened {
-          background: url(../assets/imgs/minus-white.svg) center center no-repeat;
+          background: url(../assets/imgs/minus.svg) center center no-repeat;
         }
       }
 

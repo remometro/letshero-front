@@ -7,7 +7,7 @@
     "list": "Lista",
     "map": "Mapa",
     "im_helping": "Quien estoy ayudando",
-    "is_helping": "Quien me está ayudando",
+    "is_helping": "Mis ayudas",
     "profile": "Perfíl",
     "settings": "Ajustes",
     "logout": "Salir"
@@ -23,54 +23,92 @@
     "need_options": [
       {
         "label": "Comida",
-        "value": { "name": "Food", "value": 1, "urgency": 1 }
+        "value": {
+          "name": "Food",
+          "value": 1,
+          "urgency": 1
+        }
       },
       {
         "label": "Abrigo",
-        "value": { "name": "Shelter", "value": 2, "urgency": 1 }
+        "value": {
+          "name": "Shelter",
+          "value": 2,
+          "urgency": 1
+        }
       },
       {
         "label": "Cuidados médicos",
-        "value": { "name": "Medical Care", "value": 3, "urgency": 1 }
+        "value": {
+          "name": "Medical Care",
+          "value": 3,
+          "urgency": 1
+        }
       },
       {
         "label": "Cuidados psicológicos",
-        "value": { "name": "Psychological Care", "value": 4, "urgency": 1 }
+        "value": {
+          "name": "Psychological Care",
+          "value": 4,
+          "urgency": 1
+        }
       },
       {
         "label": "Aconsejamiento jurídico",
-        "value": { "name": "Legal Advice", "value": 7, "urgency": 2 }
+        "value": {
+          "name": "Legal Advice",
+          "value": 7,
+          "urgency": 2
+        }
       },
       {
         "label": "Compañia",
-        "value": { "name": "Companion", "value": 5, "urgency": 3 }
+        "value": {
+          "name": "Companion",
+          "value": 5,
+          "urgency": 3
+        }
       },
       {
         "label": "Otro",
-        "value": { "name": "Other", "value": 6, "urgency": 2 }
+        "value": {
+          "name": "Other",
+          "value": 6,
+          "urgency": 2
+        }
       }
     ],
     "offer_label": "Ofreces o necesitas dinero?",
     "offer_options": [
       {
         "label": "Ofrezco dinero",
-        "value": { "value": 1 }
+        "value": {
+          "value": 1
+        }
       },
       {
         "label": "Ofrezco alguna otra ayuda",
-        "value": { "value": 2 }
+        "value": {
+          "value": 2
+        }
       },
       {
         "label": "Necesito dinero o ayuda",
-        "value": { "value": 3 }
+        "value": {
+          "value": 3
+        }
       },
       {
         "label": "Apenas necesito dinero",
-        "value": { "value": 4 }
+        "value": {
+          "value": 4
+        }
       },
       {
         "label": "Apenas necesito ayuda",
-        "value": { "value": 5 }
+        "value": {
+          "value": 5
+        }
       }
     ],
     "offer_amount_label": "Caso si, cuanto? (en dólares)",
@@ -93,15 +131,21 @@
     "gender_options": [
       {
         "label": "Hombre",
-        "value": { "value": 1 }
+        "value": {
+          "value": 1
+        }
       },
       {
         "label": "Mujer",
-        "value": { "value": 2 }
+        "value": {
+          "value": 2
+        }
       },
       {
         "label": "Otro",
-        "value": { "value": 3 }
+        "value": {
+          "value": 3
+        }
       }
     ],
     "whatsapp": "Cuál és su número de WhatsApp?",
@@ -181,7 +225,8 @@
     "not_helped": "no me ha ayudado",
     "completed": "marcar como completado",
     "undo": "deshacer",
-    "close_list": "cerrar lista"
+    "close_list": "cerrar lista",
+    "nothing": "Ninguna solicitación disponible"
   },
   "profile": {
     "youre": "usted és",

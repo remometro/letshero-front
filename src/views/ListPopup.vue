@@ -113,7 +113,7 @@ export default {
       let text = ''
       switch (reward.type) {
       case 1:
-        text = `${this.treatment(gender) + " " + this.out_str.help.that_needs} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
+        text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.value} ${this.out_str.help.usd} ${this.out_str.help.in_reward}`
         break
       case 2:
         text = `${this.treatment(gender) + " " + this.out_str.help.that_offers} ${reward.other_reward} ${this.out_str.help.in_reward}.`

@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss">
 .profile {
-  color: $color-black;
+  color: $color-white;
   &__data {
     padding: 2rem 0;
     &__welcome {

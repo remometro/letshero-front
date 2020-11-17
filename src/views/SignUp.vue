@@ -35,19 +35,19 @@
           <vue-tel-input type="tel" placeholder="+55123456789" ref="tel" @input="setPhone($event)" :disabledFormatting="true" v-model="formWhatsapp" :validCharactersOnly="true" v-bind="{ mode: 'national'}" />
           <span class="lh--error--message">{{ errors[0] }}</span>
         </validation-provider>
-        <button class="lh--button signup__form__submit" @click="signUp($event, invalid)">
+        <button class="lh--button lh--button--white signup__form__submit" @click="signUp($event, invalid)">
           {{ !isSigningUp ? str.cta : "" }} <img class="lh--spinner-btn" src="../assets/imgs/spinner.svg" v-if="isSigningUp" />
         </button>
         <div class="lh--alert lh--alert--warning" v-if="signupError || hasErrors"><span class="error-message" v-if="signupError && !hasErrors">{{signupErrorMessage}}</span><span class="error-message" v-if="hasErrors && !signupError">{{generalError}}</span></div>
-        <router-link to="/login" class="lh--link--black signup__form__existing">{{ str.existing }}</router-link>
+        <router-link to="/login" class="lh--link--white signup__form__existing">{{ str.existing }}</router-link>
       </form>
     </ValidationObserver>
     <div class="signup__islogged" v-else>
       <h1 class="signup__islogged__welcome">
         {{ str.welcome }}
       </h1>
-      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--black" @click.stop="">{{ str.now_be }}</router-link>
-      <router-link class="lh--link--black login__islogged__logout" to="/logout" @click.native="logout">{{ str.or_logout }}</router-link>
+      <router-link :to="'/list/'" class="help__table__item__cta--back lh--link lh--link--white" @click.stop="">{{ str.now_be }}</router-link>
+      <router-link class="lh--link--white login__islogged__logout" to="/logout" @click.native="logout">{{ str.or_logout }}</router-link>
     </div>
   </main>
 </template>
@@ -160,7 +160,7 @@ export default {
   padding: 2rem;
   overflow-y: auto;
   &__islogged {
-    color: $color-black;
+    color: $color-white;
   }
 
   &__form {
@@ -172,7 +172,7 @@ export default {
     &__existing {
       margin: 1rem;
       &:link {
-        color: $color-black;
+        color: $color-white;
         font-size: 12px;
       }
     }
