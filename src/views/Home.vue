@@ -52,6 +52,7 @@ export default {
 <style lang="scss">
 .mongo {
   max-width: 250px;
+  margin-top: 1rem;
 }
 .hp {
   display: flex;
