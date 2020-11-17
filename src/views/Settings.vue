@@ -127,20 +127,17 @@ export default {
     },
     getGender() {
       let gender = this.getOptionsGender.filter(el => {
-        console.log(el.value.value)
         return el.value.value === Number(this.me.data.gender)
       })[0].label
       return gender
     },
     toggleEditMode() {
-      console.log("toggle edit mode")
       this.notEditMode = !this.notEditMode
     },
     setPhone(e) {
       this.formWhatsappRaw = this.$refs.tel.phoneObject.number.e164
     },
     async editProfile(e, invalid) {
-      console.log("editiing")
       const isValid = await this.$refs.observer.validate()
       if (isValid) {
         this.hasErrors = false

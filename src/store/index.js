@@ -58,7 +58,6 @@ export default new Vuex.Store({
       // Vue.$cookies.set('Bearer', payload.token)
       localStorage.setItem('letshero-tkn', payload.token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
-      // console.log('before dispatch fetch', localStorage.getItem('tkn'), axios.defaults.headers.common['Authorization'], payload.token)
       this.dispatch('fetchUserData')
       state.isLogging = false
       state.isLoggedIn = true
@@ -209,7 +208,6 @@ export default new Vuex.Store({
     signUp(context, payload) {
       this.commit("isSigningUp")
       let url = `${process.env.VUE_APP_SERVER}/api-v1/register`
-      console.log('signing up..')
 
       axios.post(url, payload, { headers: {
         'Content-Type': 'application/json'
@@ -217,7 +215,6 @@ export default new Vuex.Store({
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('signed up!', res)
             this.dispatch('hasSignedUp')
             this.dispatch('logIn', { username: res.data.username, password: payload.password })
           } else {
@@ -226,21 +223,19 @@ export default new Vuex.Store({
           }
         })
         .catch(err => {
-          console.log("signup error!")
+          console.log('signup error!')
           this.commit('signupError', err)
         })
     },
     logIn(context, payload) {
       this.commit("isLogging")
       let url = `${process.env.VUE_APP_SERVER}/api-v1/login`
-      console.log('logging in..')
       axios.post(url, payload, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('logged', res)
             this.commit('performLogin', res.data)
           } else {
             console.log('login error!')
@@ -248,8 +243,8 @@ export default new Vuex.Store({
           }
         })
         .catch(err => {
+          console.log('login error!')
           this.commit('loginError', err.response)
-          console.log("login error!", err.response)
         })
     },
     logOut() {
@@ -258,7 +253,6 @@ export default new Vuex.Store({
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('logged out')
             this.commit('performLogOut')
           }
         })
@@ -266,7 +260,6 @@ export default new Vuex.Store({
     addHelp(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/help`
       this.commit('isFindingAHero')
-      console.log('adding help...', payload)
       let data = { payload: { ...payload }, id: this.state.userId }
       if (!this.state.userId) { return }
       axios.post(url, data, { headers: {
@@ -275,7 +268,6 @@ export default new Vuex.Store({
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('help added')
             this.commit('foundAHero')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
@@ -291,14 +283,12 @@ export default new Vuex.Store({
     fetchHelp(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/help/${payload}`
       this.commit('fetchingHelp')
-      console.log('fetching help data...')
       axios.get(url, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('user data fetched', res)
             this.commit('consolidateHelpData', res.data)
             this.commit('fetchedHelp')
             this.dispatch('fetchAllHelpData')
@@ -308,7 +298,6 @@ export default new Vuex.Store({
     helpSomeone(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/assume-help`
       this.commit('assumingHelp', true)
-      console.log('assuming help...', payload)
       let data = { payload: { ...payload }, uid: this.state.userId }
       if (!this.state.userId) { return }
       axios.post(url, data, { headers: {
@@ -317,14 +306,13 @@ export default new Vuex.Store({
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('help assumed')
             this.commit('assumingHelp', false)
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
             this.dispatch("fetchHelp", payload.help_id)
           } else {
+            console.log('assuming a help request error!')
             this.commit('assumingHelp', false)
-            console.log('adding a help request error!')
           }
         })
         .catch(err => {
@@ -334,14 +322,12 @@ export default new Vuex.Store({
     },
     completeHelp(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/complete-help`
-      console.log('completing help...', payload)
       axios.post(url, payload, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('help completed')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
           } else {
@@ -354,7 +340,6 @@ export default new Vuex.Store({
     },
     editProfile(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/profile`
-      console.log('editing profile...')
       this.commit('isEditing')
       if (payload.token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`
@@ -366,7 +351,6 @@ export default new Vuex.Store({
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('profile updated')
             this.commit("hasEdited")
             if (payload.token) {
               this.commit('performLogin', { _id: res.data._id, token: payload.token })
@@ -383,35 +367,15 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteBooking(context, payload) {
-      let url = `${process.env.VUE_APP_SERVER}/api-v1/bookings`
-      console.log('removing booking...', payload)
-      let data = { id: payload }
-      axios.delete(url, {
-        data: data,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true })
-        .then(res => {
-          if (res.status === 200) {
-            console.log('booking deleted')
-            this.dispatch('fetchUserData')
-            this.dispatch('fetchAllBookingsData')
-          }
-        })
-    },
     fetchUserData() {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/userdata`
       let data = { id: this.state.userId }
-      console.log('fetching user data...')
       axios.post(url, data, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('user data fetched', res)
             this.commit('consolidateUserData', res.data)
             this.dispatch('fetchAllHelpData')
           }
@@ -434,15 +398,12 @@ export default new Vuex.Store({
         console.log(err)
         self.state.coords = { lat: 0, lng: 0 }
       }
-      console.log(position)
 
       if (position) { self.state.coords = { lat: position.coords.latitude, lng: position.coords.longitude } }
-      console.log('fetching ALL helps data... page', (payload && payload.page) || 1, self.state.coords)
       self.commit('loadingList', true)
       axios.post(url, { location: self.state.coords }, { withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('fetched  ALL helps data.')
             self.commit('loadingList', false)
             if (!payload || (payload && payload.page === 1)) {
               self.commit('consolidateAllHelpsData', res.data.docs)
@@ -461,14 +422,12 @@ export default new Vuex.Store({
     },
     evaluateHelp(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/evaluate-help`
-      console.log('evaluating help...', payload)
       axios.post(url, payload, { headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('help evaluated!')
             this.dispatch('fetchUserData')
             this.dispatch('fetchAllHelpData')
           } else {
@@ -482,17 +441,14 @@ export default new Vuex.Store({
     },
     verifyEmail(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/verify`
-      console.log('verifying email...')
       axios.defaults.headers.common['Authorization'] = `Bearer ${payload}`
       axios.get(url, { withCredentials: true })
         .then(res => {
           if (res.status === 200) {
-            console.log('verified')
             this.commit('verifySuccess')
             this.commit('performLogin', { _id: res.data._id, token: payload })
             this.dispatch('fetchUserData')
           } else {
-            console.log('verification error')
             this.commit('verifyError')
           }
         })
@@ -504,7 +460,6 @@ export default new Vuex.Store({
     },
     askReset(context, payload) {
       let url = `${process.env.VUE_APP_SERVER}/api-v1/reset`
-      console.log('asking password reset...', payload)
       this.commit('isAskingReset')
       let data = { email: payload.email }
       axios.post(url, data, { headers: {
@@ -512,7 +467,6 @@ export default new Vuex.Store({
       } })
         .then(res => {
           if (res.status === 200) {
-            console.log('password reset sent!')
             this.commit("askedReset")
           } else {
             this.commit('askingResetError')

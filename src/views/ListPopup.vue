@@ -47,7 +47,6 @@ export default {
       let filtered = this.$store.state.allHelpsData.concat(this.$store.state.paginatedAllHelpsData).filter(el => {
         return el.location.lat === this.position.lat
       })
-      console.log(filtered)
       return filtered
     },
     isLoggedIn() {

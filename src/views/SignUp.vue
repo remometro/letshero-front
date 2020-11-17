@@ -131,7 +131,6 @@ export default {
       } else {
         this.hasErrors = true
         this.generalError = "Form has errors! Please fix them and try again."
-        console.log("form with errors!")
       }
     },
     checkUsername() {

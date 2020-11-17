@@ -119,7 +119,6 @@ export default {
       return text
     },
     getIsHelpingText(helper) {
-      console.log(helper)
       let text = ''
       switch (helper.hasHelped) {
       case 0:

@@ -48,7 +48,6 @@ export default {
     },
     toggleSelect(e) {
       e.preventDefault()
-      console.log("here")
       this.isOpen = !this.isOpen
     },
     closeSelect() {
