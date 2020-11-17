@@ -1,17 +1,19 @@
 <template lang="pug">
-  main
-    .hp
-      .hp__today
-        h1.hp__today__title="{{ strings.title }}"
-        .hp__today__cta
-          router-link.hp__today__cta__need(to="/find-a-hero")
-            span="{{ strings.need }}"
-          router-link.hp__today__cta__want(to="/list")
-            span="{{ strings.want }}"
-          .hp__sponsors
-            span="{{ strings.trusted }}"
-            img.mongo(src="../assets/imgs/logo_for-startups_fc.png")
-
+  .wrapper
+    main
+      .hp
+        .hp__today
+          h1.hp__today__title="{{ strings.title }}"
+          .hp__today__cta
+            router-link.hp__today__cta__need(to="/find-a-hero")
+              span="{{ strings.need }}"
+            router-link.hp__today__cta__want(to="/list")
+              span="{{ strings.want }}"
+            .hp__sponsors
+              span="{{ strings.trusted }}"
+              img.mongo(src="../assets/imgs/logo_for_startups_white.png")
+    img.hp__bg(src="../assets/imgs/map.png")
+    .bg
 </template>
 
 <script>
@@ -35,7 +37,18 @@ export default {
   }
 }
 </script>
-
+<style lang="scss" scoped>
+.wrapper {
+  max-width: 100vw;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: rgba($color-black, .8);
+}
+.bg {
+  z-index: 0;
+}
+</style>
 <style lang="scss">
 .mongo {
   max-width: 250px;
@@ -47,18 +60,31 @@ export default {
   margin: 0 auto;
   font-family: $font-main;
   padding: 2rem;
+  z-index: 1;
+
+  &__bg {
+    position: absolute;
+    z-index: -1;
+    height: 100vh;
+    width: auto;
+    left: 0;
+    top: 0;
+    image-rendering: crisp-edges;
+    opacity: .5;
+    background-color: $color-black;
+  }
 
   &__sponsors {
     display: flex;
     flex-direction: column;
     margin-top: 6rem;
-    color: $color-black;
+    color: $color-white;
   }
 
   &__today {
     &__title {
       font-family: $font-main;
-      color: $color-black;
+      color: $color-white;
     }
 
     &__cta {
@@ -70,7 +96,7 @@ export default {
         align-items: center;
 
         &:link, &:visited {
-          color: $color-black;
+          color: $color-white;
         }
 
         span {
