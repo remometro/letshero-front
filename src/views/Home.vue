@@ -64,12 +64,12 @@ export default {
   z-index: 1;
 
   &__bg {
-    position: absolute;
+    position: fixed;
     z-index: -1;
     height: 100vh;
     width: auto;
     left: 0;
-    top: 0;
+    top: 100px;
     image-rendering: crisp-edges;
     opacity: .5;
     background-color: $color-black;
@@ -80,9 +80,11 @@ export default {
     flex-direction: column;
     margin-top: 6rem;
     color: $color-white;
+    z-index: 1;
   }
 
   &__today {
+    z-index: 1;
     &__title {
       font-family: $font-main;
       color: $color-white;
