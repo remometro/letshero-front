@@ -11,7 +11,9 @@
               span="{{ strings.want }}"
             .hp__sponsors
               span="{{ strings.trusted }}"
-              img.mongo(src="../assets/imgs/logo_for_startups_white.png")
+              .partners
+                img.mongo(src="../assets/imgs/logo_for_startups_white.png")
+                img.aws(src="../assets/imgs/aws_activate-white.png")
     img.hp__bg(src="../assets/imgs/map.png")
     .bg
 </template>
@@ -51,8 +53,24 @@ export default {
 </style>
 <style lang="scss">
 .mongo {
-  max-width: 250px;
+  max-width: 200px;
   margin-top: 1rem;
+}
+.aws {
+  max-width: 200px;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  height: 100%;
+
+  @include sm {
+    margin-left: 0 !important;
+  }
+}
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .hp {
   display: flex;
