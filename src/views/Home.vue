@@ -51,7 +51,7 @@ export default {
   z-index: 0;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .mongo {
   max-width: 200px;
   margin-top: 1rem;

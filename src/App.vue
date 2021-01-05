@@ -37,9 +37,12 @@
     <router-view/>
     .bg
     .hp__footer(ref="hp__footer")
-      router-link.hp__footer__manifesto(to="/manifesto")="Read our manifesto."
-      small.hp__footer__copy="© Copyright 2012-{{new Date().getUTCFullYear()}}"
-      small="Irmãos Reale Desenvolvimento de Softwares Ltda."
+      //- router-link.hp__footer__manifesto(to="/manifesto")="Read our manifesto."
+      small.hp__footer__copy="Let's Hero © 2012-{{new Date().getUTCFullYear()}}"
+      //- small="Irmãos Reale Desenvolvimento de Softwares Ltda."
+      .partners-footer(:class="{hidden: $route.matched.some(({ name }) => name === 'home')}")
+        img.mongo(src="./assets/imgs/logo_for_startups_white.png")
+        img.aws(src="./assets/imgs/aws_activate-white.png")
   </div>
 </template>
 
@@ -88,6 +91,31 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.partners-footer {
+  position: absolute;
+  right: 1rem;
+
+  .mongo, .aws {
+    max-width: 80px;
+    margin: 0 .5rem;
+  }
+
+  @include md {
+    position: relative;
+    right: 0;
+
+    .mongo, .aws {
+      margin: .5rem .5rem;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+</style>
 
 <style lang="scss">
 #app {
