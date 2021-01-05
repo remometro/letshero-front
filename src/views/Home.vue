@@ -12,8 +12,10 @@
             .hp__sponsors
               span="{{ strings.trusted }}"
               .partners
-                img.mongo(src="../assets/imgs/logo_for_startups_white.png")
-                img.aws(src="../assets/imgs/aws_activate-white.png")
+                a(href="https://www.mongodb.com/startups" target="_blank")
+                  img.mongo(src="../assets/imgs/logo_for_startups_white.png")
+                a(href="https://www.aws.com/activate" target="_blank")
+                  img.aws(src="../assets/imgs/aws_activate-white.png")
     img.hp__bg(src="../assets/imgs/map.png")
     .bg
 </template>

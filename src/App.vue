@@ -41,8 +41,10 @@
       small.hp__footer__copy="Let's Hero © 2012-{{new Date().getUTCFullYear()}}"
       //- small="Irmãos Reale Desenvolvimento de Softwares Ltda."
       .partners-footer(:class="{hidden: $route.matched.some(({ name }) => name === 'home')}")
-        img.mongo(src="./assets/imgs/logo_for_startups_white.png")
-        img.aws(src="./assets/imgs/aws_activate-white.png")
+        a(href="https://www.mongodb.com/startups" target="_blank")
+          img.mongo(src="./assets/imgs/logo_for_startups_white.png")
+        a(href="https://www.aws.com/activate" target="_blank")
+          img.aws(src="./assets/imgs/aws_activate-white.png")
   </div>
 </template>
 
